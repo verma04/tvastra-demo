@@ -4,11 +4,12 @@ dotenv.config({path: './config.env'});
 const mongoose = require('mongoose');
 
 
-const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DB_PASSWORD);
+const uri = "mongodb+srv://tvastra:tvastra@cluster0.kzdx3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 // const DB = 'mongodb://localhost:27017/myapp';
 
 mongoose
-.connect(DB, {
+.connect(uri, {
 	useNewUrlParser: true,
 	useCreateIndex: true,
 	useFindAndModify: false,
