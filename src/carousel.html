@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Carousel</title>
+	<style>
+		.carousel_container{
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			grid-gap: 1rem;
+			justify-content: space-between;
+		}
+		.slides{
+			width: 100%;
+			background-color: red;
+			display: flex;
+			flex-direction: row;
+			grid-gap: 1rem;
+			overflow: hidden;
+		}
+		.slide{
+			flex-basis: 33%;
+			min-width: 33%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="carousel_container">
+		<div class="left">
+			left
+		</div>
+		<div class="slides">
+			<div class="slide slide-1 current">
+				Slide 1
+			</div>
+			<div class="slide slide-2">
+				Slide 2
+			</div>
+			<div class="slide slide-3">
+				Slide 3
+			</div>
+			<div class="slide slide-4">
+				Slide 4
+			</div>
+			<div class="slide slide-4">
+				Slide 5
+			</div>
+			<div class="slide slide-4">
+				Slide 6
+			</div>
+			<div class="slide slide-4">
+				Slide 7
+			</div>
+		</div>
+		<div class="right">
+			right
+		</div>
+	</div>
+	<script>
+		const carousel = document.querySelector(".carousel_container");
+		const slides = Array.from(carousel.querySelectorAll(".slide"));
+		const leftButton = document.querySelector(".left");
+		const rightButton = document.querySelector(".right");
+
+		const getOrder = elem => {
+		  const styles = getComputedStyle(elem);
+		  const orderValue = styles.order;
+		  const order = parseInt(orderValue);
+		  return order;
+		}
+
+		for(i = 0; i < slides.length; i++){
+			slides[i].style.order = i;
+		}
+
+		const moveRight = _ => {
+		  slides.forEach(function(slide) {
+		    order = getOrder(slide);
+		    if (order < slides.length) {
+		      slide.style.order = order += 1;
+		    } else {
+		      slide.style.order = 1;
+		    }
+		  });
+		}
+
+		const moveLeft = _ => {
+		  slides.forEach(function(slide) {
+		    order = getOrder(slide)
+		    
+		    if (order > 1) {
+		      slide.style.order = order -= 1;
+		    } else {
+		      slide.style.order = 5;
+		    }
+		    
+		  });
+		}
+
+
+		rightButton.addEventListener('click', _ => {
+		  moveRight();
+		});
+
+		leftButton.addEventListener('click', _ => {
+		  moveLeft();
+		});
+	</script>
+</body>
+</html>

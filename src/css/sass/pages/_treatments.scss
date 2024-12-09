@@ -1,0 +1,412 @@
+.page_description{
+	height: 25rem;
+	background-size: cover;
+	background-repeat: no-repeat;
+	&--treatments{
+			background-image: linear-gradient(to right, rgba($bright-blue,1) 0%, rgba($bright-blue, 0) 100%), url('https://content.presspage.com/uploads/1979/1920_190514-opioid-guideline-banner-247308.jpg?10000');
+	}
+	&--contactus{
+		background-image: url('./../../../assets/contactUs.png');
+		background-position: -50rem 0rem;
+		@media(min-width: $bp-desktop){
+			background-position: 0;
+		}
+	}
+	&__container{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		&__heading{
+			font-family: $nexa-bold;
+			color: $background-color;
+		}
+		&__breadcrumb{
+			font-size: 1.5rem;
+			font-family: $nexa-light;
+			color: $background-color;
+			margin-top: 2rem;
+		}
+	}
+}
+
+.vaccination{
+	padding: 3rem 2rem;
+	height: auto;
+	&__container{
+		display: grid;
+		grid-template-columns: 100%;
+		&__col--1{
+			display: grid;
+			width: 100%;
+			grid-gap: 2rem;
+			&__heading{
+				font-family: $nexa-bold;
+				text-align: center; 
+			}
+			&__about_department{
+				display: grid;
+				grid-template-columns: 100%;
+				grid-gap: 2rem;
+				&__img_wrapper{
+					width: 100%;
+					&__image{
+						width: 100%;
+					}
+				}
+				&__department_details{
+					display: grid;
+					grid-template-columns: 100%;
+					grid-gap: 2rem;
+					align-items: center;
+					&__title{
+						font-family: $nexa-bold;
+					}
+					&__schedules{
+						list-style: inside;
+						display: grid;
+						grid-template-columns: 100%;
+						grid-gap: 1rem;
+						&__schedule{
+							&::marker{
+								color: $bright-blue;
+
+							}
+
+							font-family: $nexa-light;
+						}
+					}
+				}
+				&__features{
+					display: grid;
+					justify-content: center;
+					grid-gap: 3rem;
+					&__feature{
+						display: grid;
+						justify-items: center;
+						grid-gap: 1rem;
+						&_icon{
+							width: 6rem;
+							height: 6rem;
+							background-color: rgba($bright-blue, .2);
+							border-radius: 50%;
+							position: relative;
+							i{
+								position: absolute;
+								left: 50%;
+								top: 50%;
+								transform: translate(-50%, -50%);
+								font-size: 2.5rem;
+								color: $dark-blue;
+							}
+						}
+						&_title{
+							font-family: $nexa-bold;
+							text-align: center;
+						}
+						&_desc{
+							font-family: $nexa-light;
+							text-align: center;
+						}
+					}
+				}	
+			}
+		}
+		&__col--2{
+			margin-top: 2rem;
+			display: grid;
+			grid-template-columns: 100%; 
+			grid-gap: 1.5rem;
+			.sidebar_container{
+				width: 100%;
+				border: 2px solid #eee;
+				border-radius: 1rem;
+				padding: 2.5rem;
+				display: grid;
+				grid-gap: 2rem;
+				position: relative;
+				&:before{
+					content: '';
+					width: 2rem;
+					height: 2px;
+					background-color: $bright-blue;
+					top: 3rem;
+					left: 0%;
+					position: absolute;
+				}
+				&__heading{
+					font-family: $nexa-bold;
+				}
+				&__list{
+					display: grid;
+					grid-template-columns: 100%;
+					grid-gap: 1.5rem;
+					&__item{
+						border-bottom: 1px solid #eee;
+						font-family: $nexa-bold;
+						color: #777;
+						display: flex;
+						flex-direction: row;
+						justify-content: space-between;
+						span:first-of-type{
+							color: $dark-blue;	
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.more_services{
+	padding: 3rem 2rem;
+	background-color: $light-blue;
+	&__container{
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 2rem;
+		&__row--1{
+			display: grid;
+			grid-template-columns: 100%;
+			grid-gap: 2rem;
+			&__heading{
+				color: white;
+				font-family: $nexa-bold;
+				text-align: center;
+			}
+			&__carousel__buttons{
+				justify-self: center;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-gap: 1rem;
+				&__button{
+					width: 3rem;
+					height: 3rem;
+					border-radius: 50%;
+					background-color: white;
+					position: relative;
+					i{
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+					}
+				}
+			}
+		}
+		&__row--2{
+			&__carousel{
+				display: grid;
+				grid-template-columns: 100%;
+				grid-gap: 1rem;
+				&__item__container{
+					height: 27rem;
+					background-size: 100%;
+					position: relative;
+					border-radius: 1rem;
+					box-shadow: 0px 2px 1rem rgba(0,0,0,.2);
+					&--1{
+						background-image: url('https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--008.jpg');
+						background-size: cover;
+						order: 1;
+					}
+					&--2{
+						background-image: url('https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--010.jpg');
+						background-size: cover;
+						order: 2;
+					}
+					&--3{
+						background-image: url('https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--011.jpg');
+						background-size: cover;
+						order: 3;
+					}
+					&--4{
+						background-image: url('https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--011.jpg');
+						background-size: cover;
+						order: 4;
+					}
+					&__item{
+						background-color: white;
+						position: relative;
+						top: 71.5%;
+						border-bottom-left-radius: 1rem;
+						border-bottom-right-radius: 1rem;
+						&::before{
+							position: absolute;
+							top: 47%;
+							left: 0%;
+							display: inline-block;
+							content: '';
+							width: 2rem;
+							height: 2px;
+							background-color: $bright-blue;
+						}
+						&__title{
+							padding: 3rem 0rem 3rem 3rem; 
+							font-family: $nexa-bold;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+@media(min-width: $bp-tablet){
+	.vaccination{
+		.schedule_container{
+			max-height: 15rem;
+		}
+		padding: 2rem 3rem;
+		&__container{
+			grid-template-columns: 100%;
+			grid-gap: 2rem;
+			&__col--1{
+				&__heading{
+					text-align: left;
+				}
+				&__description{
+					text-align: left;
+				}
+				&__about_department{
+					grid-template-columns: 3fr 5fr;
+					grid-row-gap: 3rem;
+					&__img_wrapper{
+						height: 100%;
+						&__image{
+							height: 100%;
+						}
+					}
+					&__features{
+						grid-template-columns: 1fr 1fr 1fr;
+						grid-column: 1/-1;
+						&__feature{
+							&_icon{
+								width: 7rem;
+								height: 7rem;
+								i{
+									font-size: 3rem;
+								}
+							}
+						}
+					}
+				}
+			}
+			&__col--2{	
+				margin-top: 0;
+				max-height: 40rem;
+				grid-template-columns: 1fr 1fr;
+				.sidebar_container{
+					&::before{
+						left: 0%;
+					}
+					&__list{
+						&__item{
+						}
+					}
+				}
+			}
+		}
+	}
+	.more_services{
+		padding: 2rem 3rem;
+		&__container{
+
+			&__row--1{
+				grid-template-columns: 9fr 1fr;
+				&__heading{
+					text-align: left;
+				}
+				&__carousel__buttons{
+					justify-self: end;
+				}
+			}
+			&__row--2{
+				&__carousel{
+					overflow: hidden;
+					grid-template-columns: repeat(2, minmax(calc(33.33% - 1rem), auto)) 33.33%;
+					grid-auto-flow: column;
+					&__item__container{
+						&__item{
+							top:70.5%;
+							&__title{
+							}
+							&::before{
+								left: 0%;	
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media(min-width: $bp-desktop) {
+	.page_description{
+		&__container{
+			padding: 3rem 10rem;
+			align-items: flex-start;
+			&__heading{
+			}
+			&__breadcrumb{
+				font-size: 2rem;
+			}
+		}
+	}
+	
+	.vaccination{
+		padding: 3rem 10rem;
+		&__container{
+			grid-template-columns: 5fr 2fr;
+			&__col--1{
+				&__heading{
+				}
+				&__about_department{
+					grid-template-columns: 1fr 1fr;
+					grid-row-gap: 3rem;
+					&__department_details{
+						max-height: 26rem;
+					}
+					&__features{
+						grid-column: 1/-1;
+						&__feature{
+						}
+					}
+				}
+			}
+			&__col--2{
+				height: 48rem;
+				grid-template-columns: 100%;
+				.sidebar_container{
+					max-height: 30rem;
+					&::before{
+						left: 0%;
+					}
+					&__list{
+						&__item{
+						}
+					}
+				}
+			}
+		}
+	}
+	.more_services{
+		padding: 3rem 10rem;
+		width: 100%;
+		&__container{
+			&__row--2{
+				&__carousel{
+					&__item__container{
+						&__item{
+							&::before{
+								left: 0%;	
+							}
+						}
+					}
+				}
+			}	
+		}
+	}
+}

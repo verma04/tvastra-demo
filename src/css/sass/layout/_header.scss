@@ -1,0 +1,336 @@
+.navbar{
+	position: relative;
+	width: 100%;
+	background-color: $background-color;
+	@include flex(row);
+	@include container-styling-mobile;
+	align-items: center;
+	height: 6rem;
+	&__logo{
+		flex-grow: 1;
+		&__img{
+			@include maintain-aspect-ratio(10rem);
+		}
+	}
+	&__profile{
+		display: flex;
+		flex-direction: row;
+		grid-gap: .5rem;
+		font-family: $nexa-bold;
+	}
+	
+	&__menu{
+		display: none;
+	}
+	&__buttons{
+		display: none;
+		max-width: 28rem;
+		#get-a-quote{
+			grid-column: 2/3;
+		}
+	}
+	&__burger{
+		color: $grey-1;
+		display: inline;
+		font-size: 1.5rem;
+		align-self: center;
+		margin-right: 1rem;
+	}
+	.profile_section{
+		display: none;
+	}
+	&__side_menu{
+		display: none;
+		position: fixed;
+		background-color: $background-color;
+		height: 100%;
+		width: 100vw;
+		z-index: 1000;
+		left: 0;
+		top: 0;
+		padding: 2rem;
+		&__ul{
+			@include flex(column);
+			align-items: flex-start;
+			list-style-type: none;
+			&__item{
+				font-family: $nexa-light;
+				font-size: 1.5rem;
+				color: $dark-blue;
+				margin-bottom: 2rem;
+				font-weight: 600;
+				letter-spacing: 0.1rem;
+				a, a:visited, a:active{
+					text-decoration: none;
+					color: $dark-blue;
+				}
+				.treatments_side_menu{
+					li{
+						text-align: left;
+					}
+				}
+			}
+		}
+	}
+	.cross{
+		font-size: 1.5rem;
+	}
+}
+
+.profile_menu_container, .treatment_menu_container{
+	background-color: $background-color;
+	border: 1px solid #ddd;
+	// position: absolute;
+	position: fixed;
+	// top: 7rem;
+	z-index: 10;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	// right: 10rem;
+	&--admin{
+		right: 3rem;
+		top: 5rem;
+	}
+	.profile_small_details{
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		padding: 1rem;
+		border-bottom: 1px solid #ddd;
+		.profile_picture__container{
+			width: 5rem;
+			height: 5rem;
+			align-self: center;
+			justify-self: start;
+			border-radius: .5rem;
+			overflow: hidden;
+			img{
+				width: 100%;
+				height: 100%;
+			}
+		}
+		.name_and_phone{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+			a{
+				text-decoration: none;
+				font-family: $nexa-bold;
+				color: $bright-blue;	
+			}
+			.name{	
+				margin-bottom: 1rem;
+				font-size: 1.5rem;
+			}
+			.phoneNumber{
+				font-family: $nexa-light;
+				font-size: 1.2rem;
+			}
+		}
+	}
+	.profile_menu{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		&__item{
+			&:hover{
+				// border-left: 3px solid $bright-blue;
+				background-color: rgba(grey,.1);
+			}
+			padding: 2rem 1rem;
+			text-align: left;
+			font-family: $nexa-bold;
+			font-size: 1.5rem;
+		}
+		a{
+			text-decoration: none;
+			color: $grey-1;
+		}
+	}
+}
+
+.display_none{
+	display: none;
+}
+
+
+.treatment_menu_container{
+	right: 50%;
+	transform: translateX(50%);
+	.profile_menu{
+		&__item{
+			text-align: center;
+		}
+	}
+	&:hover{
+		display: block;
+	}
+}
+
+
+@media (min-width: $bp-tablet){
+	.navbar{
+		height: 8rem;
+		&__logo{
+			&__img{
+				@include maintain-aspect-ratio(15rem);
+			}
+		}
+		&__burger{
+		color: $grey-1;
+		display: inline;
+		font-size: 2rem;
+		align-self: center;
+		}
+		@include container-styling-tablet;
+		&__side_menu{
+			&__ul{
+				padding-right: 2rem;
+				&__item{
+					font-size: 2rem;
+				}
+			}
+		}
+
+	}
+	.profile_menu_container{
+		width: 25rem;
+		right: 18rem;
+	}
+}
+
+
+@media (min-width: $bp-desktop){
+	.navbar{
+		@include container-styling-desktop;
+		height: 10rem;
+		// z-index: 1000;
+		// position: fixed;
+		&__profile{
+			// box-shadow: 0px 0px 1rem rgba(black,.4);
+			// border: 1px solid $bright-blue;
+			padding: 1rem;
+			cursor: pointer;
+			margin-left: 1rem;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			grid-gap: 1rem;
+			font-family: $nexa-light;
+			font-size: 1.2rem;
+		}
+		&__menu{
+			display: block;
+			flex-grow: 2;
+			// padding-left: 7rem;
+			align-self: center;
+			&__ul{
+				@include flex(row);
+				list-style-type: none;
+				justify-content: center;
+				#treatments{
+					position: relative;
+					&:hover{
+						color: $bright-blue;
+						#treatment_menu_container{
+							display: block;
+						}
+					}
+					i{
+						font-size: 1.2rem;
+					}
+				}
+				&__item{
+
+					font-family: $nexa-light;
+					font-size: 1.5rem;
+					color: $dark-blue;
+					margin-left: 3rem;
+					font-weight: 600;
+					letter-spacing: 0.1rem;
+					padding: 4rem 0rem;
+					
+					a, a:visited, a:active{
+						text-decoration: none;
+						color: $dark-blue;
+					}
+					a:hover{
+						color: $bright-blue;
+					}
+					a.navbar__menu__ul__item--active{
+						color: $bright-blue;
+					}
+				}
+			}
+		}
+		&__side_menu{
+			display: none;
+		}
+		.profile_section{
+			display: flex;
+			justify-content: center;
+			flex-direction: row;
+			grid-gap: 1rem;
+		}
+		&__buttons{
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			flex-grow: 1;
+			grid-gap: 1rem;
+			&__button-link{
+				justify-self: end;
+
+			}
+			&-tvastra-plus{
+				cursor: pointer;
+				@include button-styling-desktop;
+				background-color: $bright-blue;
+				color: $background-color;
+				font-size: 1.2rem;
+				padding: 1rem 2.6rem;
+				border-color: $bright-blue;
+				transition: .3s color, .3s background-color;
+				&:hover{
+					background-color: $background-color;
+					color: $bright-blue;
+				}
+			}
+			&-quote{
+				cursor: pointer;
+				@include button-styling-desktop;
+				background-color: $dark-blue;
+				color: $background-color;
+				padding: 1rem 2.6rem;
+				font-size: 1.2rem;
+				transition: .3s color, .3s background-color;
+				&:hover{
+					background-color: $background-color;
+					color: $dark-blue;
+				}
+			}
+		}
+		.fa-bars{
+			display: none;
+		}
+	}
+	.profile_menu_container, .treatment_menu_container{
+		position: absolute;
+		top: 7rem;
+		right: 10rem;
+		width: 25rem;
+		height: auto;
+	}
+	.treatment_menu_container{
+		right: 50%;
+		transform: translateX(50%);
+		.profile_menu{
+			&__item{
+				text-align: center;
+			}
+		}
+		&:hover{
+			display: block;
+		}
+	}
+}

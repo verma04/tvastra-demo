@@ -1,0 +1,124 @@
+<nav class="navbar">
+	<i class="fa fa-bars navbar__burger"></i>
+	<div class="navbar__logo">
+		<a href="/">
+			<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Logo.jpg" class="navbar__logo__img">
+		</a>
+	</div>
+	<% if(session.user) { 
+		if(!(session.user.role === 'admin')) { %>
+		<div class="navbar__menu">
+			<ul class="navbar__menu__ul">
+				<li class="navbar__menu__ul__item"><a href="/doctors">Doctors</a></li>
+				<li class="navbar__menu__ul__item"><a href="/hospitals">Hospitals</a></li>
+				<li class="navbar__menu__ul__item" id="treatments">
+					Treatment <i class="fas fa-chevron-down"></i>
+					<div class="treatment_menu_container display_none" id="treatment_menu_container">
+						<ul class="profile_menu">
+							<a href="/treatments"><li class="profile_menu__item">Dentistry</li></a>
+							<a href="/treatments"><li class="profile_menu__item">Cancer</li></a>
+							<a href="/treatments"><li class="profile_menu__item">Cardiology</li></a>
+							<a href="/treatments"><li class="profile_menu__item">Multi Organ Transplant</li></a>
+							<a href="/treatments"><li class="profile_menu__item">Orthopedics Surgery</li></a>
+							<a href="/treatments"><li class="profile_menu__item">Multi Organ Transplant</li></a>
+							<a href="/treatments"><li class="profile_menu__item">Infertility Treatment</li></a>
+						</ul>
+					</div>
+				</li>	
+				<li class="navbar__menu__ul__item"><a href="/about">About</a></li>
+			</ul>
+		</div>
+		<div class="navbar__side_menu">
+			<ul class="navbar__side_menu__ul">
+				<li class="navbar__side_menu__ul__item cross"><span><i class="fas fa-window-close"></i></span></li>
+				<li class="navbar__side_menu__ul__item"><a href="/doctors" >Doctors</a></li>
+				<li class="navbar__side_menu__ul__item"><a href="/hospitals">Hospitals</a></li>
+				<li class="navbar__side_menu__ul__item" id="treatments_sideMenu">Treatment <i class="fas fa-chevron-down"></i></li>
+				<li class="navbar__side_menu__ul__item display_none" id="side_menu_treatments">
+					<ul class="treatments_side_menu">
+						<li class="navbar__side_menu__ul__item"><a href="/treatments">Dentistry</a></li>
+						<li class="navbar__side_menu__ul__item"><a href="/treatments">Cancer</a></li>
+						<li class="navbar__side_menu__ul__item"><a href="/treatments">Cardiology</a></li>
+						<li class="navbar__side_menu__ul__item"><a href="/treatments">Multi Organ Transplant</a></li>
+						<li class="navbar__side_menu__ul__item"><a href="/treatments">Orthopedic Surgery</a></li>
+						<li class="navbar__side_menu__ul__item"><a href="/treatments">Infertility Treatment</a></li>
+					</ul>
+				</li>
+				<li class="navbar__side_menu__ul__item"><a href="#">Other Services</a></li>
+				<li class="navbar__side_menu__ul__item"><a href="/about">About</a></li>
+			</ul>
+		</div>
+		<% }
+	} %>
+	<div class="profile_section">
+		<% if(session.userId) { %>
+			<a href="/tvastra-plus" id="tvastra-plus">
+				<button class="navbar__buttons-tvastra-plus">
+					Tvastra Plus 
+				</button>	
+			</a>
+		<% } %>
+		<a href="/get-a-quote" id="get-a-quote">
+			<button class="navbar__buttons-quote">
+				Get A Quote 
+			</button>	
+		</a>
+	</div>	
+		<% if(session.userId) { %>
+		<div class="navbar__profile">
+			<h4 class="user-name"><%= session.user.name %></h4>
+			<i id="moreOptions" class="fas fa-chevron-down"></i>
+		</div>
+		<% } %> 
+	
+</nav>
+<% if(session.user) { %>
+<div class="profile_menu_container display_none">
+	<div class="profile_small_details">
+		<div class="profile_picture__container">
+			<img src="<%= session.user.display_picture ? session.user.display_picture : 'public/uploads/users/default-user.png'  %>" class="profile_picture">
+		</div>
+		<div class="name_and_phone">
+			<a href="<%= session.user.role === 'user' ? '/edit-profile' : '/edit-profile-doctor' %>">
+			<h4 class="name"><%= session.user.name %></h4></a>
+			<span class="phoneNumber"><%= session.user.phoneNumber %></span> 
+		</div>
+	</div>
+	<% if(session.user.role == 'user') { %>
+	<ul class="profile_menu">
+		<a href="/user-dashboard-appointments"><li class="profile_menu__item">My Appointments</li></a>
+		<a href="/user-dashboard-medical-records"><li class="profile_menu__item">My Medical Records</li></a>
+		<a href="/settings"><li class="profile_menu__item">My Settings</li></a>
+		<a href="/logout"><li class="profile_menu__item">Logout</li></a>
+	</ul>
+	<% } else if(session.user.role == 'doctor') { %>
+	<ul class="profile_menu">
+		<a href="/doctor-dashboard"><li class="profile_menu__item">Appointments</li></a>
+		<a href="/doctor-dashboard-payments"><li class="profile_menu__item">Payments</li></a>
+		<a href="/schedule-appointment"><li class="profile_menu__item">Schedule Appointments</li></a>
+		<a href="/settings"><li class="profile_menu__item">My Settings</li></a>
+		<a href="/logout"><li class="profile_menu__item">Logout</li></a>
+	</ul>
+	<% } else if(session.user.role == 'admin') { %>
+	<ul class="profile_menu">
+		<a href="/admin"><li class="profile_menu__item">Appointments</li></a>
+		<a href="/admin-doctors"><li class="profile_menu__item">Doctors</li></a>
+		<a href="/admin-hospitals"><li class="profile_menu__item">Hospitals</li></a>
+		<a href="/admin-patients"><li class="profile_menu__item">Patients</li></a>
+		<a href="/settings"><li class="profile_menu__item">Settings</li></a>
+		<a href="/logout"><li class="profile_menu__item">Logout</li></a>
+	</ul>
+	<% } %>
+</div>
+<% } %>
+<div class="treatment_menu_container display_none" id="treatment_menu_container">
+	<ul class="profile_menu">
+		<a href="/treatments"><li class="profile_menu__item">Dentistry</li></a>
+		<a href="/treatments"><li class="profile_menu__item">Cancer</li></a>
+		<a href="/treatments"><li class="profile_menu__item">Cardiology</li></a>
+		<a href="/treatments"><li class="profile_menu__item">Multi Organ Transplant</li></a>
+		<a href="/treatments"><li class="profile_menu__item">Orthopedics Surgery</li></a>
+		<a href="/treatments"><li class="profile_menu__item">Multi Organ Transplant</li></a>
+		<a href="/treatments"><li class="profile_menu__item">Infertility Treatment</li></a>
+	</ul>
+</div>

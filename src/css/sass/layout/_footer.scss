@@ -1,0 +1,129 @@
+.footer{
+	width: 100%;
+	height: $mobile-footer-height;
+	background-color: $dark-blue;
+	color: white;
+	border-bottom: 1rem solid $bright-blue;
+	&__container{
+		@include container-styling-mobile;
+		height: 100%;
+		grid-template-columns: 1fr;
+		grid-gap: 2rem;
+		font-family: $nexa-light;
+		&__menu{
+			align-self: center;
+			justify-self: center;
+			grid-row: 2/3;
+			@include flex(column);
+			text-align: center;
+			li{
+				&:last-child{
+					margin-bottom: 0;
+				}
+				margin-bottom: 2rem;
+				font-size: 1.3rem;
+				a, a:visited, a:hover, a:active{
+					text-decoration: none;
+					color: $background-color;
+				}
+			}
+		}
+		a{
+			grid-row: 1/2;
+			align-self: center;
+			justify-self: center;		
+		}
+		&__logo{
+				grid-row: 1/2;
+				justify-self: center;
+				align-self: center;
+				width: 16rem;
+				height: 4rem;
+		}
+		&__copyright{
+			grid-row: 4/5;
+			text-align: center;
+			margin : 0;
+			justify-self: center;
+			align-self: center;
+			font-size: 1.6rem;
+		}
+		&__social{
+			justify-self: center;
+			align-self: center;
+			i{
+				font-size: 2rem;
+				margin-right: 1.5rem;
+				&:last-child{
+					margin-right: 0;	
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: $bp-tablet){
+	.footer{
+		height: $tablet-footer-height;
+		&__container{
+			@include container-styling-tablet;
+			height: 100%;
+			grid-template-rows: 1fr 1fr;
+			grid-template-columns: 1fr 1fr;
+			font-family: $nexa-light;
+			background-color: $background-color;
+			color: $dark-blue;
+			grid-gap: 0rem;
+			&__menu{
+				grid-row: 1/2;
+				grid-column: 1/2;
+				@include flex(row);
+				justify-self: start;
+				align-self: center;
+				li{
+					&:first-child{
+						margin-left: 0;
+					}
+					margin-left:1rem;
+					margin-bottom: 0;
+					a, a:visited, a:active{
+						color: $dark-blue;
+					}
+				}
+			}
+			a{
+				align-self: center;
+				justify-self: end; 
+			}
+			&__copyright{
+				font-size: 1.4rem;
+				line-height: 2rem;
+				grid-row: 2/3;
+				grid-column: 1/2;
+				align-self: center;
+				justify-self: start;
+			}
+			&__social{
+				align-self: center;
+				justify-self: end;
+			}
+		}
+	}
+}
+
+@media (min-width: $bp-desktop) {
+	.footer{
+		&__container{
+			@include container-styling-desktop;
+			&__menu{
+				li{
+					font-size: 1.5rem;
+					a, a:visited, a:active{
+						color: $dark-blue;
+					}
+				}
+			}
+		}
+
+	}
+}

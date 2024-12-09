@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= session.user.name %></title>
+	<%- include('partials/head.ejs') %>
+</head>
+<body class="user-dashboard">
+	<!-- <sidebar class="admin_sidebar">
+		<div class="cross-sidebar">
+			<i class="fas fa-times"></i>
+		</div>
+		<div class="logo_container">
+			<a href="/admin"><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Logo.jpg" alt="" class="logo"></a>
+		</div>
+		<div class="menu_container">
+			<ul class="menu">
+				<li class="menu-title para">
+					Medicine
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-thermometer"></i>
+					<p class="para"><a href="/admin-dashboard">Dashboard</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-stethoscope"></i>
+					<p class="para"><a href="/admin-dashboard">Appointments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-md"></i>
+					<p class="para"><a href="/admin/doctors">Doctors</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-nurse"></i>
+					<p class="para"><a href="/admin-dashboard">Departments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-injured"></i>
+					<p class="para"><a href="/admin-dashboard">Patients</a></p>
+				</li>	
+				<li class="menu-item">
+					<i class="item-icon fas fa-money-check-alt"></i>
+					<p class="para"><a href="/admin-dashboard">Payments</a></p>
+				</li>	
+
+			</ul>
+		</div>
+	</sidebar>
+	<header class="admin_header">
+		<div class="menu-burger">
+			<i class="fas fa-bars navbar__burger"></i>
+		</div>
+		<div class="bell-icon">
+			<i class="fas fa-bell"></i>
+		</div>
+		<div class="display-picture">
+			<img src="./../assets/femaleDoc.png" alt="">
+			<i class="fas fa-chevron-down"></i>
+		</div>
+	</header> -->
+	<%- include('partials/header.ejs') %>
+	
+	<!-- <div class="page-flex">
+		<sidebar class="profile_dashboard__sidebar_menu_container">
+			<ul class="profile_dashboard__sidebar_menu">
+				<a href="/user-dashboard-appointments"><li class="profile_dashboard__sidebar_menu__item active">Appointments</li></a>
+				<a href="/user-dashboard-lab-tests"><li class="profile_dashboard__sidebar_menu__item">Lab Tests</li></a>
+				<a href=""><li class="profile_dashboard__sidebar_menu__item">Medicine Orders</li></a>
+			</ul>
+		</sidebar>
+		<div class="page-title">
+			<span>Appointments</span>
+		</div>	
+		<section class="page-content">
+			<div class="page-content-container">
+				<div class="appointment_heading">
+					<h4 class="heading-4">Upcoming</h4>
+				</div>
+				<div class="appointment_container">
+					<div class="appointment">
+						<div class="appointment_date">
+							<div class="appointment_date_date">
+								15
+							</div>
+							<div class="appointment_date_month">
+								Apr
+							</div>
+						</div>
+						<div class="appointment_details">
+							<div class="appointment_details_doctor_name">
+								Dr. Dilip Dalgade, Dentist
+							</div>
+							<div class="appointment_details_time">
+								Wednesday, 04:00PM
+							</div>
+							<div class="appointment_details_clinic">
+								Toothaid Dental Clinic
+							</div>
+
+							<div class="appointment_details_status">
+								<span class="approved">
+									Approved
+								</span>
+								<span class="cancelled">
+									Cancelled
+								</span>
+							</div>
+						</div>
+						<div class="appointment_view_details">
+							<button class="appointment_view_details_btn appointment_view_details_book_again">
+								Book Again
+							</button>
+							<button class="appointment_view_details_btn appointment_view_details_view_details">
+								View Details
+							</button>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</section>	
+	</div> -->
+	<div class="background-dashboard">
+	<%- include('partials/admin_sidebar.ejs') %>
+	<div class="dashboard_content">
+		<section class="page-content">
+			<div class="page-content-container">
+				<div class="appointment_container">
+					<h3 class="recent_appointments__heading heading-3">Upcoming Appointments</h3>
+					<% if(!appointments.length) { %>
+						<div class="no_appointments_container">
+							<div class="no_appointments">
+								<i class="fas fa-folder-open"></i>
+								<h4 class="heading-4">No Appointments</h4>
+							</div>
+						</div>
+					<% } else { %>
+						<% for(let i = 0; i < appointments.length; i++) { %>
+							<% if(appointments[i].appointmentDate > Date.now()) { %>
+							<div class="appointment">
+								<div class="appointment_date">
+									<div class="appointment_date_date">
+										<%= appointments[i].appointmentDate.getDate() %>
+									</div>
+									<div class="appointment_date_month">
+										<%= appointments[i].appointmentDate.toDateString().split(' ')[1] %>
+									</div>
+								</div>
+								<div class="appointment_details">
+									<div class="appointment_details_doctor_name">
+										Dr. <%= doctors[i].name %>, Dentist
+									</div>
+									<div class="appointment_details_time">
+										<%= appointments[i].appointmentDate.toDateString().split(' ')[0] %>, <%= slots[i].subSlots.startTime %>
+									</div>
+									<div class="appointment_details_clinic">
+										<%= slots[i].hospital %>
+									</div>
+
+									<div class="appointment_details_status">
+										<% if((slots[i].holiday) || (slots[i].subSlots.isDisabled) || (appointments[i].status === 'Cancelled')) { %>
+											<span class="cancelled">
+												Cancelled
+											</span>
+										<% } else if(appointments[i].appointmentDate < Date.now()) { %>
+											<span class="approved">
+												Completed
+											</span>
+										<% } else if(appointments[i].status === 'Approved') { %>
+											<span class="approved">
+												Approved
+											</span>
+										<% } %>
+									</div>
+								</div>
+								<% if(appointments[i].status == 'Cancelled' || appointments[i].appointmentDate < Date.now()) { %>
+								<% } else { %>
+								<div class="appointment_view_details">
+									<button class="appointment_view_details_btn appointment_view_details_book_again" onclick="popupCancelAppointment(this)" data-appointment="<%= appointments[i]._id %>">
+										Cancel Appointment
+									</button>
+									<a href="/reschedule-appointment/<%= appointments[i]._id %>"><button class="appointment_view_details_btn appointment_view_details_view_details" onclick="rescheduleAppointment(this)">
+										Reschedule Appointment
+									</button></a>
+								</div>
+								<% } %>
+							</div>
+							<% } %>
+						<% } %>	
+					<% } %>
+					<h3 class="recent_appointments__heading heading-3">Last Appointments</h3>
+					<% if(!appointments.length) { %>
+						<div class="no_appointments_container">
+							<div class="no_appointments">
+								<i class="fas fa-folder-open"></i>
+								<h4 class="heading-4">No Appointments</h4>
+							</div>
+						</div>
+					<% } else { %>
+						<% for(let i = 0; i < appointments.length; i++) { %>
+							<% if(appointments[i].appointmentDate < Date.now()) { %>
+							<div class="appointment">
+								<div class="appointment_date">
+									<div class="appointment_date_date">
+										<%= appointments[i].appointmentDate.getDate() %>
+									</div>
+									<div class="appointment_date_month">
+										<%= appointments[i].appointmentDate.toDateString().split(' ')[1] %>
+									</div>
+								</div>
+								<div class="appointment_details">
+									<div class="appointment_details_doctor_name">
+										Dr. <%= doctors[i].name %>, Dentist
+									</div>
+									<div class="appointment_details_time">
+										<%= appointments[i].appointmentDate.toDateString().split(' ')[0] %>, <%= slots[i].subSlots.startTime %>
+									</div>
+									<div class="appointment_details_clinic">
+										<%= slots[i].hospital %>
+									</div>
+
+									<div class="appointment_details_status">
+										<% if((slots[i].holiday) || (slots[i].subSlots.isDisabled) || (appointments[i].status === 'Cancelled')) { %>
+											<span class="cancelled">
+												Cancelled
+											</span>
+										<% } else if(appointments[i].appointmentDate < Date.now()) { %>
+											<span class="approved">
+												Completed
+											</span>
+										<% } else if(appointments[i].status === 'Approved') { %>
+											<span class="approved">
+												Approved
+											</span>
+										<% } %>
+									</div>
+								</div>
+								<% if(appointments[i].status == 'Cancelled' || appointments[i].appointmentDate < Date.now()) { %>
+								<% } else { %>
+								<div class="appointment_view_details">
+									<button class="appointment_view_details_btn appointment_view_details_book_again" onclick="popupCancelAppointment(this)" data-appointment="<%= appointments[i]._id %>">
+										Cancel Appointment
+									</button>
+									<a href="/reschedule-appointment/<%= appointments[i]._id %>"><button class="appointment_view_details_btn appointment_view_details_view_details" onclick="rescheduleAppointment(this)">
+										Reschedule Appointment
+									</button></a>
+								</div>
+								<% } %>
+							</div>
+							<% } %>
+						<% } %>	
+					<% } %>
+				</div>
+			</div>
+		</section>
+	</div>
+	</div>
+	<div class="change_phone_number_form_container cancel_appointment_form_container display_none">
+		<div class="form_container__form change_phone_number cancel_appointment">
+			<h1 class="form_container__heading">Are you sure?</h1>
+			<div class="cancel_appointment_options_container">
+				<div class="cancel_appointment_options cancel_appointment_options--cancel">
+					<button onclick="cancelAppointment(this)">Yes</button>
+				</div>
+				<div class="cancel_appointment_options ">
+					<button onclick="popupCancelAppointment(this)">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const menuItemActive = document.querySelectorAll(`a[href='/${window.location.href.split('/')[3]}']`);
+		menuItemActive[1].parentElement.parentElement.classList.add('menu-item--active');
+	</script>
+	<script>
+		async function cancelAppointment(button){
+			const res = await fetch(`/appointment-cancel/${button.dataset.appointment}`, {
+				method: 'POST'
+			});
+			window.location.href = res.url;
+		}
+
+		function popupCancelAppointment(button){
+			const popCancel = document.querySelector('.cancel_appointment_form_container');
+			popCancel.classList.toggle('display_none');
+			console.log(Array.from(popCancel.classList).indexOf('display_none'));
+			if(Array.from(popCancel.classList).indexOf('display_none') === -1) {
+				popCancel.querySelector('.cancel_appointment_options--cancel').children[0].dataset.appointment = button.dataset.appointment;
+			}
+		}
+	</script>
+	<script src="./../dashboard.js"></script>
+	<script src="./../error.js"></script>
+	<script src="./../index.js"></script>
+</body>
+</html>

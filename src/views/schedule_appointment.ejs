@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Schedule Appointments</title>
+	<%- include('partials/head.ejs') %>
+	<link rel="stylesheet" href="./../css/tagify.css">
+	<link rel="stylesheet" href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.css" />
+	
+</head>
+<body>
+	<% if(error) {%>
+		<% if(errorType === 'Success') { %>
+			<div class="error_container error_container--success">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-check-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Success
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Failure') { %>
+			<div class="error_container">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-times-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Failure
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Info') { %>
+			<div class="error_container error_container--info">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-info-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Info
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+	<% } %>
+	<!-- <sidebar class="admin_sidebar">
+		<div class="cross-sidebar">
+			<i class="fas fa-times"></i>
+		</div>
+		<div class="logo_container">
+			<a href="/admin"><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Logo.jpg" alt="" class="logo"></a>
+		</div>
+		<div class="menu_container">
+			<ul class="menu">
+				<li class="menu-title para">
+					Medicine
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-thermometer"></i>
+					<p class="para"><a href="/admin-dashboard">Dashboard</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-stethoscope"></i>
+					<p class="para"><a href="/admin-dashboard">Appointments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-md"></i>
+					<p class="para"><a href="/admin/doctors">Doctors</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-nurse"></i>
+					<p class="para"><a href="/admin-dashboard">Departments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-injured"></i>
+					<p class="para"><a href="/admin-dashboard">Patients</a></p>
+				</li>	
+				<li class="menu-item">
+					<i class="item-icon fas fa-money-check-alt"></i>
+					<p class="para"><a href="/admin-dashboard">Payments</a></p>
+				</li>	
+
+			</ul>
+		</div>
+	</sidebar> -->
+	<!-- <header class="admin_header">
+		<div class="menu-burger">
+			<i class="fas fa-bars navbar__burger"></i>
+		</div>
+		<div class="bell-icon">
+			<i class="fas fa-bell"></i>
+		</div>
+		<div class="display-picture">
+			<img src="./../assets/femaleDoc.png" alt="">
+			<i class="fas fa-chevron-down"></i>
+		</div>
+	</header> -->
+	<%- include('partials/header.ejs') %>
+	
+	
+	<!-- <section class="statistics_site">
+		<div class="statistics_site__grid">
+			<div class="statistics_site__grid__item">
+				<div class="statistics_site__grid__item__col--1">
+					<div class="statistics_site__grid__item__icon">
+						<i class="fas fa-medkit"></i>
+					</div>	
+				</div>
+				<div class="statistics_site__grid__item__col--2">
+					<div class="statistics_site__grid__item__title">
+						<h4 class="heading-4">Appointments</h4>
+					</div>
+					<div class="statistics_site__grid__item__figure">
+						<h4 class="heading-4">213</h4>
+					</div>	
+				</div>
+				
+			</div>
+			<div class="statistics_site__grid__item">
+				<div class="statistics_site__grid__item__col--1">
+					<div class="statistics_site__grid__item__icon">
+						<i class="fas fa-syringe"></i>
+					</div>	
+				</div>
+				<div class="statistics_site__grid__item__col--2">
+					<div class="statistics_site__grid__item__title">
+						<h4 class="heading-4">Operations</h4>
+					</div>
+					<div class="statistics_site__grid__item__figure">
+						<h4 class="heading-4">12</h4>
+					</div>	
+				</div>
+			</div>
+			<div class="statistics_site__grid__item">
+				<div class="statistics_site__grid__item__col--1">
+					<div class="statistics_site__grid__item__icon">
+						<i class="fas fa-user-injured"></i>
+					</div>	
+				</div>
+				<div class="statistics_site__grid__item__col--2">
+					<div class="statistics_site__grid__item__title">
+						<h4 class="heading-4">Patients</h4>
+					</div>
+					<div class="statistics_site__grid__item__figure">
+						<h4 class="heading-4">13</h4>
+					</div>	
+				</div>
+			</div>
+			<div class="statistics_site__grid__item">
+				<div class="statistics_site__grid__item__col--1">
+					<div class="statistics_site__grid__item__icon">
+						<i class="fas fa-rupee-sign"></i>
+					</div>	
+				</div>
+				<div class="statistics_site__grid__item__col--2">
+					<div class="statistics_site__grid__item__title">
+						<h4 class="heading-4">Hospital Earnings</h4>
+					</div>
+					<div class="statistics_site__grid__item__figure">
+						<h4 class="heading-4">₹ 21313</h4>
+					</div>	
+				</div>
+				
+			</div>
+		</div>
+	</section> -->
+	<div class="background-dashboard">
+	<%- include('partials/admin_sidebar.ejs') %>
+	<div class="dashboard_content">
+		<section class="edit_profile edit_profile--doctor">
+			<div class="schedule_appointment_container edit_profile_container">
+				<form action="/schedule-appointment" id="edit-profile" method="POST">
+					<div class="add_appointment_slot">
+						<div class="edit_field">
+							<label for="days[]">Day</label>
+							<select name="days[]" multiple required>
+								<option value="monday">Monday</option>
+								<option value="tuesday">Tuesday</option>
+								<option value="wednesday">Wednesday</option>
+								<option value="thursday">Thursday</option>
+								<option value="friday">Friday</option>
+								<option value="saturday">Saturday</option>
+								<option value="sunday">Sunday</option>
+							</select>	
+						</div>
+						<div class="edit_field">
+							<label for="startTime">Start Time</label>
+							<!-- <input type="time" name="startTime"> -->
+							<div class="input-group clockpicker">
+							    <input name="startTime" type="time" class="form-control" value="00:00">
+							</div>
+						</div>
+						<div class="edit_field">
+							<label for="endTime">End Time</label>
+							<div class="input-group clockpicker">
+							    <input name="endTime" type="time" class="form-control" value="09:00">
+							</div>
+						</div>
+						<div class="edit_field">
+							<label for="interval">Interval</label>
+							<input type="number" name="interval">
+						</div>
+						<div class="edit_field">
+							<label for="hospital">Hospital</label>
+							<input type="text" name="hospital" class="hospital_list_input">
+						</div>
+						<div class="edit_field add_slot_and_holiday">
+							<div class="edit_field">
+								<button class="add_slot_button">Add Slot</button>	
+							</div>
+							<!-- <div class="edit_field holiday">
+								<input type="checkbox" name="holiday">
+								<label for="holiday">Holiday</label>	
+							</div>	 -->
+						</div>
+					</div>
+				</form>	
+			</div>	
+			
+		</section>
+		<section class="scheduled_slots">
+			<div class="scheduled_slots__container">
+				<h3 class="heading-3">Scheduled Slots</h3>
+				<% if(slots.length) { %>
+					<% for(let i = 0; i < slots.length; i++) { %>
+						<% 
+							function tConvert (time) {
+							  time = time.toString().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+							  if (time.length > 1) { 
+							    time = time.slice (1);  
+							    time[5] = +time[0] < 12 ? 'AM' : 'PM'; 
+							    time[0] = +time[0] % 12 || 12;
+							  }
+							  return time.join ('');
+							}
+							let startTime = tConvert(slots[i].startTime);
+							let endTime = tConvert(slots[i].endTime);
+	 					%>
+	 					<% for(let j = 0; j < slots[i].days.length; j++) { %>
+	 					<div>
+	 						<div class="scheduled_slots__slot <%= slots[i].holiday ? 'scheduled_slots__slot--holiday' : '' %>">
+								<span class="scheduled_slots__day">
+									<%= `${slots[i].days[j][0].toUpperCase()}${slots[i].days[j].slice(1,slots[i].days[j].length)}` %>
+								</span>
+								<div class="scheduled_slots__hospital_and_time">
+									<span class="scheduled_slots__hospital">
+										<%= slots[i].hospital %>
+									</span>
+									<span class="scheduled_slots__time">
+										<span class="start_time"><%= startTime %></span>
+										<span class="end_time">- <%= endTime %></span>
+									</span>
+								</div>
+								<a href="/delete-schedule/<%= slots[i]._id %>?day=<%= slots[i].days[j] %>&startTime=<%= slots[i].startTime %>&endTime=<%= slots[i].endTime %>"><button class="scheduled_slots__edit">
+									Delete Slot
+								</button></a>
+								<button onclick="showEditOptions(this)" class="scheduled_slots__edit">
+									Edit Slot
+								</button>
+								<button onclick="showSlotDetails(this)" class="scheduled_slots__detail">
+									View Detail
+								</button>
+							</div>
+							<div class="scheduled_slots__edit_options display_none">
+								<form action="/edit-slot" method="POST" class="edit_field holiday">
+									<input type="checkbox" onchange="this.form.submit()" value="<%= slots[i]._id %>" name="holiday[]">
+									<label for="holiday">Holiday</label> 	
+								</form>
+							</div>
+							<form action="/edit-subslots" method="post" class="scheduled_slots__sub_slots display_none">
+								<div class="time-slots">
+								<% for(let k = 0; k < slots[i].subSlots.length; k++) { %>
+									<% if(slots[i].subSlots[k].isDisabled) { %>
+									<div class="slot_container slot_container--disabled">
+											<div class="slot"><%= slots[i].subSlots[k].startTime %></div>
+											<input type="checkbox" onchange="this.form.submit()" value="<%= slots[i].subSlots[k]._id %>" name="enabled[]">
+										</div>
+									<% } else if(slots[i].subSlots[k].isBooked) { %>
+										<div class="slot_container slot_container--booked">
+											<div class="slot"><%= slots[i].subSlots[k].startTime %></div>
+											<input type="checkbox" onchange="this.form.submit()" value="<%= slots[i].subSlots[k]._id %>" name="disabled[]">
+										</div>
+									<% } else { %>
+										<div class="slot_container">
+											<div class="slot"><%= slots[i].subSlots[k].startTime %></div>
+											<input type="checkbox" onchange="this.form.submit()" value="<%= slots[i].subSlots[k]._id %>" name="disabled[]">
+										</div>
+									<% } %>
+								<% } %>
+								</div>
+							</form>
+	 					</div>
+							
+						<% } %>
+					<% } %>
+				<% } else { %>
+				<h4 class="heading-4">
+					No Scheduled Appointments
+				</h4>
+				<% } %>
+			</div>	
+		</section>
+	</div>
+	</div>
+
+	<script>
+		const menuItemActive = document.querySelectorAll(`a[href='/${window.location.href.split('/')[3]}']`);
+		menuItemActive[1].parentElement.parentElement.classList.add('menu-item--active');
+	</script>
+	<script>
+		const showEditOptions = (el) => {
+			el.parentElement.parentElement.children[1].classList.toggle('display_none');
+		}
+		const showSlotDetails = (el) => {
+			el.parentElement.parentElement.children[2].classList.toggle('display_none');
+		}
+	</script>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.js" /></script>
+	<script src="./../tagify.js"></script>
+	<script>
+		$('.clockpicker').clockpicker({
+			donetext: 'Done'
+		});
+		// const gender = document.querySelector('select[name="gender"]');
+		// const country = document.querySelector('select[name="country"]');
+		// const bloodGroup = document.querySelector('select[name="bloodGroup"]');
+		// const timeZone = document.querySelector('select[name="timeZone"]');
+
+		// function selectOptionFromBackend (optionsList, value){
+		// 	for(var i=0; i < optionsList.options.length; i++){
+		// 		option = optionsList.options[i];
+		// 		if(option.value == value){
+		// 			console.log(value);
+		// 			option.selected = 'selected';
+		// 		}
+		// 	}	
+		// }
+
+		// selectOptionFromBackend(gender, '<%= session.user.gender %>');
+		// selectOptionFromBackend(country, '<%= session.user.country %>');
+		// selectOptionFromBackend(bloodGroup, '<%= session.user.bloodGroup %>');
+		// selectOptionFromBackend(timeZone, '<%= session.user.timeZone %>');
+	</script>
+	<script>
+
+		const hospitalWhitelist = [];
+		const fetchHospitals = async () => {
+			const hospitals = await fetch('/autoCompleteHospital', {
+				method: 'GET'
+			});
+			const hospitalData = await hospitals.json();
+			console.log(hospitalData);
+			hospitalData.data.forEach(el => {
+				hospitalWhitelist.push(el.name);
+			})
+		}
+		fetchHospitals();
+		console.log(hospitalWhitelist);
+		// const specializationsInput = document.querySelector('.specializations_input');
+		// const specializationsTagify = new Tagify(specializationsInput, {
+		// 	enforceWhitelist: true,
+		// 	whitelist: ['Family Physician', 'Internal Medicine Physician', 'Pediatrician', 'Obstetrician', 'Gynecologist', 'Surgeon', 'Psychiatrist', 'Cardiologist', 'Dermatologist', 'Endocrinologist', 'Gastroenterologist', 'Infectious Disease Physician', 'Nephrologist', 'Ophthalmologist', 'Otolaryngologist', 'Pulmonologist', 'Neurologist', 'Physician Executive', 'Radiologist', 'Anesthesiologist', 'Oncologist']
+		// });
+		// const achievements = document.querySelector('.achievements_input');
+		// const achievmentsTagify = new Tagify(achievements);
+		// const qualifications = document.querySelector('.qualifications_input');
+		// const qualificationsTagify = new Tagify(qualifications);
+		// const awards = document.querySelector('.awards_input');
+		// const awardsTagify = new Tagify(awards);
+		const hospitalInput = document.querySelector('.hospital_list_input');
+		const hospitalInputTagify = new Tagify(hospitalInput, {
+			whitelist: hospitalWhitelist,
+			enforceWhitelist: true,
+			
+		});
+		
+		// const slot_duration = document.querySelector('input[name="interval"]');
+		// const slotTagify = new Tagify(slot_duration, {
+		// 	whitelist: ['60 Mins', '45 Mins', '30 Mins', '15 Mins'],
+		// 	mode: 'select',
+		// 	dropdown: {
+		// 		className: 'color-blue',
+		// 		enabled: 1,
+		// 		maxItems: 4,
+		// 		position: 'text',
+		// 		closeOnSelect: true,
+		// 		highlightFirst: true 
+		// 	}
+		// });
+		
+		// if(<%- session.user.doctor.specializations %>){
+		// 	specializationsTagify.addTags(session.user.doctor.specializations);	
+		// }
+	</script>
+	<script src="./../index.js">
+	</script>
+	<script src="./../dashboard.js"></script>
+	<script src="./../error.js"></script>
+</body>
+</html>

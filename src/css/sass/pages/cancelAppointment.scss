@@ -1,0 +1,29 @@
+.cancel_appointment_form_container{
+	.cancel_appointment{
+		height: 15rem;
+		.cancel_appointment_options_container{
+			display: flex;
+			width: 100%;
+			grid-gap: 1rem;
+			.cancel_appointment_options{
+				width: 100%;
+
+				button{
+					width: 100%;
+					padding: .5rem;
+					border: none;
+					height: 100%;
+					background-color: $bright-blue;
+					color: $background-color;
+					font-family: $nexa-bold;
+				}
+				&--cancel{
+					button{
+						background-color: red;
+					}
+				}
+
+			}
+		}
+	} 
+}

@@ -1,0 +1,81 @@
+.recent_appointments{
+	&__container{
+		padding: 3rem;
+		display: flex;
+		flex-direction: column;
+		grid-gap: 2rem;
+	}
+	&__heading{
+		font-family: $nexa-bold;
+	}
+	&__table_container{
+		
+	}
+	&__table{
+		width: 100%;
+		border-collapse: collapse;
+		line-height: 6rem;
+		tbody{
+			width: 100%;
+			background-color: #eee;
+			tr{
+				line-height: 4rem;
+				td{
+					text-align: center;
+					padding: 1rem;
+					font-family: $nexa-bold;
+					vertical-align: middle;
+					font-size: 1.2rem;
+					.actions{
+						display: flex;
+						flex-direction: row;
+						grid-gap: .5rem;
+					}
+					.appointment_edit_button{
+						text-align: center;
+						background-color: $bright-blue;
+						color: white;
+						width: 3rem;
+						height: 3rem;
+						position: relative;
+						margin: auto;
+						border-radius: 50%;
+						i{
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							transform: translate(-50%, -50%);
+						}
+					}
+				}
+				.display_picture_container{
+					position: relative;
+					width: 4rem;
+					height: 4rem;
+					img{
+						position: relative;
+						top: 50%;
+						left: 50%;
+						transform: translateX(-75%);
+						width: 4rem;
+						height: 4rem;
+						border-radius: 50%;
+					}
+				}
+			}
+			
+		}
+		thead{
+			background-color: #ccc;
+			width: 100%;
+			tr{
+				font-family: $nexa-bold;
+				font-size: 1.5rem;
+				th{
+					padding: 1rem 2rem;
+				}
+			}
+			
+		}
+	}
+}

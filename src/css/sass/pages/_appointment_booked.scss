@@ -1,0 +1,40 @@
+.appointment_booked_details{
+	display: flex;
+	flex-direction: column;
+	grid-gap: 1rem;
+	h4{
+		font-family: $nexa-bold;
+	}
+	.appointment_booked_detail_container{
+		display: flex;
+		flex-direction: column;
+		grid-gap: .5rem;
+		&--buttons{
+			flex-direction: row;
+			grid-gap: 1rem;
+		}
+	}
+	.appointment_booked_detail_heading{
+		font-family: $nexa-light;
+		font-size: 1.2rem;
+	}
+	.appointment_booked_detail{
+		font-family: $nexa-bold;
+		font-size: 1.4rem;
+	}
+	.appointment_booked{
+		&--options{
+			border: none;
+			padding: 1rem 1.5rem;
+			font-family: $nexa-bold;
+		}
+		&--cancel{
+			background-color: red;
+			color: $background-color;
+		}
+		&--reschedule{
+			background-color: $bright-blue;
+			color: $background-color;	
+		}
+	}
+}

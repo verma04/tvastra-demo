@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<%- include('partials/head.ejs') %>
+	<title>Get A Quote</title>
+</head>
+<body class="login-body">
+	<header>
+		<%- include('partials/header.ejs') %>
+	</header>
+	<section class="form_container form_container--get_a_quote">
+		<h1 class="form_container__heading">Get A Quote</h1>
+		<form action="" class="form_container__form">
+			<div class="form_container__form__input_field">
+				<input type="text" name="name" placeholder="Enter Name" class="form_container__form__name" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<input type="email" name="email" placeholder="Enter your email" class="form_container__form__phone" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<select name="country" id="country" type="text" class="form_container__form__gender">
+					<option value="not-selected" selected>Select your Country</option>
+					<option value="male">India</option>
+					<option value="female">USA</option>
+					<option value="other">Sri Lanka</option>
+				</select>
+			</div>
+			<div class="form_container__form__input_field">
+				<input type="text" name="state" placeholder="Enter your State" class="form_container__form__state" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<input type="text" name="phoneNumber" placeholder="Enter your Phone Number" class="form_container__form__phone_number" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<textarea name="query" id="" cols="30" rows="10" placeholder="Describe your problem">
+				</textarea>
+			</div>
+			<div class="form_container__form__input_field">
+				<input type="date" placeholder="Appointment Date" class="form_container__form__appointment_date" required>
+			</div>
+			<button type="submit" class="form_container__form__submit">
+				<span class="form_container__form__submit__text">Submit</span>
+				<span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+			</button>
+		</form>
+	</section>
+	<section class="copyright">
+		<span>All Rights Reserved &copy; Tvastra 2020</span>
+	</section>
+	<script type="text/javascript" src="index.js"></script>
+</body>
+</html>

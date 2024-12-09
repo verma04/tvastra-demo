@@ -1,0 +1,867 @@
+.hero{
+	&--plus{
+		height: 40rem;
+		background-image: linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,0) 10%), url('./../../../assets/tvastraPlus_heroSection.png');
+		.plus{
+			padding: 1rem;
+			background-color: $bright-blue;
+			color: $background-color;
+			font-family: $nexa-bold;
+			font-size: 1.2rem;
+			align-self: center;
+			letter-spacing: .1rem;
+			border-radius: 0.5rem;
+			display: block;
+			margin-bottom: 2rem;
+		}
+		.page_heading{
+			color: $dark-blue;
+			margin-bottom: 2rem;
+			text-align: center;	
+		}
+		.page_description--plus{
+			color: $dark-blue;
+			text-align: center;
+		}
+		.container{
+			&--flex{
+				height: 100%;
+				display: flex;
+				padding-top: 4rem;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: center;
+			}
+		}
+	}
+}
+
+.pricing{
+	&__container{
+		height: 130rem;
+		position: relative;
+		background-image: linear-gradient(to bottom, rgba($bright-blue,.4) ,rgba($bright-blue,0) 70%);
+	}
+	.pricing__card{
+		top: -13%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 90%;
+		position: absolute;
+		padding: 2rem 1rem;
+		border-radius: .5rem;
+		background-color: $background-color;
+		box-shadow: 0rem 0rem 2rem rgba(0,0,0,.2);
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 2rem;
+	}
+	&__heading__div{
+		padding: 1rem 0rem;
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 1rem;
+		&__heading{
+			font-family: $nexa-bold;
+			color: $dark-blue;
+			text-align: center;
+		}
+		&__para{
+			text-align: center;
+		}
+	}
+	&__table{
+		border-top: 1px solid rgba(0,0,0,.1);
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 4rem;
+		.plan-advanced{
+			position: relative;
+			padding: 0rem 5rem;
+			background-image: linear-gradient(to bottom, rgba($bright-blue, .3) , rgba($bright-blue, 0)); 
+			&::before{
+				content: 'Popular';
+				position: absolute;
+				top: -10px;
+				left: 50%;
+				font-size: 1.2rem;
+				text-align: center;
+				transform: translateX(-50%);
+				padding: .5rem 1rem;
+				font-family: $nexa-bold;
+				color: $background-color;
+				background-color: green;
+				border-radius: 1rem;
+			}
+		}
+		&__basic_plan{
+			padding: 0rem 5rem;
+			display: grid;
+			grid-template-columns: 100%;
+			grid-gap: 2rem;
+			
+			&:nth-of-type(1){
+				.pricing__table__basic_plan__benefits{
+					&__list{
+						&__item{
+							&--4{
+								visibility: hidden;	
+							}
+							&--5{
+								visibility: hidden;	
+							}
+						}
+					}
+				}
+			}
+			&:nth-of-type(2){
+				.pricing__table__basic_plan__benefits{
+					&__list{
+						&__item{
+							&--5{
+								visibility: hidden;	
+							}
+						}
+					}
+				}
+			}
+			&__heading{
+				border-bottom: 1px solid rgba(0,0,0,.1);
+				padding: 2rem 0rem;
+				h3{
+					font-family: $nexa-bold;
+					text-align: center;
+				}
+			}
+			&__benefits{
+				display: grid;
+				grid-template-columns: 100%;
+				&__list{
+					display: grid;
+					grid-template-columns: 100%;
+					grid-gap: 1rem;
+					&__item{
+						text-align: center;
+					}
+				}
+			}
+			&__price{
+				display: grid;
+				grid-template-columns: 100%;
+				justify-content: center;
+				grid-gap: .5rem;
+				&__amount{
+					h2{
+						font-family: $nexa-bold;
+						color: $dark-blue;
+						text-align: center;
+						span{
+							font-size: 1.5rem;
+						}
+					}	
+				}
+				&__details{
+					text-align: center;
+					a{
+						text-decoration: none;
+						span{
+							font-family: $nexa-bold;
+							color: $bright-blue;
+							text-align: center;
+						}
+					}
+				}
+			}
+			&__buy{
+				text-align: center;
+				&__btn{
+					padding: 1rem 1.5rem;
+					border: none;
+					border-radius: .5rem;
+					color: $background-color;
+					font-size: 1.5rem;
+					font-family: $nexa-bold;
+					background-color: $bright-blue;
+				}
+			}
+		}
+	}
+}
+
+.trust{
+	&__container{
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 3rem;
+	}
+	&__heading{
+		font-family: $nexa-bold;
+		color: $dark-blue;
+		text-align: center;
+	}
+	&__para{
+		text-align: center;
+	}
+	&__rating{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		grid-gap: 2rem;
+		&__count{
+			display: grid;
+			grid-template-columns: 100%;
+			grid-gap: 1rem;
+			&__figure{
+				font-family: $nexa-bold;
+				color: $bright-blue;
+				text-align: center;
+				font-size: 4rem;
+			}
+			&__desc{
+				text-align: center;
+				display: grid;
+				grid-template-columns: 100%;
+				grid-gap: 1rem;
+				color: $bright-blue;
+			}
+		}
+		&__bars{
+			display: grid;
+			grid-template-columns: 100%;
+			&__list{
+				margin: auto;
+				width: 70%;
+				display: grid;
+				grid-template-columns: 100%;
+				grid-gap: 1rem;
+				&__bar{
+					display: grid;
+					grid-template-columns: 1fr 7fr;
+					justify-content: center;
+					&__number{
+						font-family: $nexa-bold;
+						justify-self: center;
+						align-self: center;
+						color: $bright-blue;
+					}
+					&__container{
+						width: 100%;
+						background-color: #ccc;
+						height: 70%;
+						border-radius: 1rem;
+						justify-self: center;
+						align-self: center;
+						&__bar{
+							height: 100%;
+							background-color: $bright-blue;
+							border-radius: 1rem;
+							&--1{
+								width: 10%;
+							}
+							&--2{
+								width: 20%;
+							}
+							&--3{
+								width: 30%;
+							}
+							&--4{
+								width: 30%;
+							}
+							&--5{
+								width: 70%;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	&__statistics{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 2rem;
+		justify-content: center;
+		&__stat{
+			display: grid;
+			grid-template-columns: 100%;
+			justify-content: center;
+			grid-gap: 1rem;
+			&__icon{
+				font-size: 3rem;
+				color: $bright-blue;
+				text-align: center;
+			}
+			&__heading{
+				font-family: $nexa-bold;
+				text-align: center;
+				color: $bright-blue;
+			}
+			&__desc{
+				font-family: $nexa-light;
+				text-align: center;
+				color: $bright-blue;
+			}
+		}
+	}
+}
+
+.benefits{
+	&__container{
+		grid-template-columns: 100%;
+		grid-gap: 2rem;
+	}
+	&__heading{
+		text-align: center;
+		font-family: $nexa-light;
+		position: relative;
+		padding: 1.5rem 0rem;
+		&::after{
+			content: '';
+			position: absolute;
+			width: 80%;
+			height: .5rem;
+			background-color: rgba($bright-blue,.2);
+			top: 100%;
+			left: 50%;
+			border-radius: 1rem;
+			transform: translateX(-50%);
+		}
+	}
+	&__grid{
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 4rem;
+		.row{
+			display: grid;
+			grid-template-columns: 100%;
+			grid-gap: 2rem;
+		}
+		.col{
+
+			.col-heading{
+				font-family: $nexa-bold;
+				color: $dark-blue;
+				text-align: center;
+			}
+			.col-points{
+				margin-top: 3rem;
+				display: grid;
+				grid-template-columns: 100%;
+				grid-gap: 1.5rem;
+			}
+			.point{
+				display: grid;
+				grid-template-columns: 1fr 6fr;
+				justify-items: start;
+				align-items: start;
+			}
+			i{
+				font-size: 2rem;
+				color: rgba($bright-blue,.5);
+				justify-self: center;
+			}
+			& .benefits__image_container{
+				width: 100%;
+				height: 100%;
+				border-radius: 1rem;
+				overflow: hidden;
+				box-shadow: 0 0 1rem rgba(0,0,0,.2);
+				img{
+					width: 100%;
+					height: 100%;
+				}
+			}			
+		}
+		&__col--2{
+			.hospitals_grid{
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				
+				.benefit_image_container{
+					&:nth-of-type(odd){
+						border-right: 1px solid rgba($bright-blue,.3);
+					}
+					&:nth-of-type(odd){
+						border-bottom: 1px solid rgba($bright-blue,.3);	
+					}
+					&:nth-of-type(even){
+						border-bottom: 1px solid rgba($bright-blue,.3);	
+					}
+					
+				}
+
+				.image_container{
+					width: 100%;
+					height: 10rem;
+					padding: 1rem;
+					
+					.image{
+						width: 100%;
+						height: 100%;
+					}
+					&:nth-last-of-type(2){
+						border-bottom: none;
+					}
+					&:nth-last-of-type(1){
+						border-bottom: none;
+					}
+					
+				}
+				.more_hospital_hidden{
+					display: none;	
+					&:nth-of-type(odd){
+						border-right: 1px solid rgba($bright-blue,.3);
+					}
+					&:nth-of-type(odd){
+						border-bottom: 1px solid rgba($bright-blue,.3);
+					}
+					&:nth-of-type(even){
+						border-bottom: 1px solid rgba($bright-blue,.3);
+					}
+					&:nth-last-of-type(1){
+						border-bottom: none;
+					}
+					&:nth-last-of-type(2){
+						border-bottom: none;
+					}
+				}
+				.more_hospital_display{
+					display: block;
+					&:nth-of-type(odd){
+						border-right: 1px solid rgba($bright-blue,.3);
+					}
+					&:nth-of-type(odd){
+						border-bottom: 1px solid rgba($bright-blue,.3);
+					}
+					&:nth-of-type(even){
+						border-bottom: 1px solid rgba($bright-blue,.3);
+					}
+					&:nth-last-of-type(1){
+						border-bottom: none;
+					}
+					&:nth-last-of-type(2){
+						border-bottom: none;
+					}
+				}
+			}
+			.more_hospitals{
+				text-align: center;
+				button{
+					border: none;
+					background-color: $background-color;
+				}
+				span{
+					font-family: $nexa-light;
+				}
+			}
+		}	
+	}
+}
+
+.tests{
+	&__container{
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 2rem;
+	}
+	&__heading{
+		font-family: $nexa-bold;
+		text-align: center;
+		color: $dark-blue;
+	}
+	&__grid{
+		display: grid;
+		grid-template-columns: repeat(2, calc(50% - .5rem));
+		grid-gap: 1rem;	
+		grid-template-rows: 1fr 1fr;
+		grid-auto-flow: column;
+		width: 100%;
+		overflow: hidden;
+		padding: 1rem;
+		&__card{
+			width: 100%;
+			background-color: $background-color;
+			box-shadow: 0 0 1rem rgba(0,0,0,.1);
+			padding: 2rem;
+			display: grid;
+			// grid-template-columns: 100%;
+			grid-gap: 1rem;
+			align-items: center;
+			justify-items: center;
+			&__icon{
+				height: 5rem;
+				width: 5rem;
+			}
+			&__title{
+				font-family: $nexa-bold;
+				text-align: center;
+			}
+		}
+	}
+	&__dots{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		&__dot{
+			height: 1rem;
+			width: 1rem;
+			border-radius: 50%;
+			background-color: #ccc;
+			margin-left: 1rem;
+			&:first-of-type{
+				margin-left: 0rem;
+			}
+			
+		}
+		.dot_active{
+			background-color: $bright-blue;
+		}
+	}
+}
+
+
+.testimonials{
+	&__container{
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 2rem;
+	}
+	&_heading_container{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		span{
+			margin-left: 1rem;
+			justify-self: center;
+			align-self: center;
+			background-color: $bright-blue;
+			color: $background-color;
+			font-family: $nexa-bold;
+			font-size: 1.2rem;
+			letter-spacing: .1rem;
+			border-radius: 0.5rem;
+			display: block;
+			padding: 1rem;
+		}
+	}
+	&__heading{
+		font-family: $nexa-bold;
+		text-align: center;
+		color: $dark-blue;
+		
+	}
+	&__grid{
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 1rem;
+		&__card{
+			background-color: $background-color;
+			box-shadow: 0 0 1rem rgba(0,0,0,.1);
+			padding: 2rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			&__testimonial{
+				font-family: $nexa-bold;
+			}
+			&__user_info{
+				display: grid;
+				grid-gap: 1rem;
+				grid-template-columns: 2fr 6fr;
+				&__dp{
+					grid-row: 1/3;
+					width: 6rem;
+					height: 6rem;
+					border-radius: 50%;
+					overflow: hidden;
+					img{
+						height: 100%;
+						width: 100%;
+					}
+				}
+				&__name{
+					font-family: $nexa-bold;
+				}
+				&__plan{
+					justify-self: start;
+					font-family: $nexa-bold;
+					background-color: rgba($bright-blue, .2);
+					color: $bright-blue;
+					padding: .5rem 1rem;
+					border-radius: .5rem;
+
+				}
+			}
+		}
+	}
+}
+
+.faq_accordian{
+	&__container{
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 2rem;
+		.about_doctor{
+			&__container{
+				&__col--1__more_details__accordian__item__btn{
+					.down_arrow{
+						margin-left: 1rem;
+					}
+				}
+			}
+		}
+	}
+	&__heading{
+		font-family: $nexa-bold;
+		text-align: center;
+		color: $dark-blue;
+	}
+}
+
+@media(min-width: $bp-tablet){
+	.hero{
+		&--plus{
+			.container--flex{
+				align-items: flex-start;
+				.page_heading{
+					text-align: left;
+				}		
+				.plus{
+					align-self: flex-start;
+				}
+			}
+			
+		}
+	}
+	.pricing{
+		&__container{
+			height: 66rem;
+			.pricing__card{
+				width: 91.5%;
+				grid-template-columns: 1fr 1fr 1fr;	
+				top: -25%;
+			}
+			.pricing__table{
+				grid-gap: 0;
+				grid-column: 1/-1;
+				grid-template-columns: 1fr 1fr 1fr;
+				&__basic_plan{
+					border-right: 1px solid rgba($bright-blue,.4);
+					&:last-of-type{
+						border: none;
+					}
+				}
+			}
+		}
+		&__heading__div{
+			grid-column: 1/-1;
+		}
+	}
+	.trust{
+		&__para{
+			max-width: 65rem;
+		}
+		&__container{
+			grid-gap: 4rem;
+			justify-items: center;
+		}
+		&__rating{
+			width: 100%;
+			flex-direction: row;
+			justify-content: center;
+			grid-gap: 0;
+			&__count{
+				max-height: 10rem;
+				align-self: center;
+				&__figure{
+					font-size: 5rem;
+				}
+			}
+			&__bars{
+				width: 35rem;
+			}
+		}
+		&__statistics{
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+		}
+	}
+	.benefits{
+		&__container{
+			grid-gap: 4rem;
+		}
+		&__heading{
+			&::after{
+				width: 40%;
+			}
+		}
+		&__grid{
+			grid-gap: 6rem;
+			&__col--1{
+
+			}
+			&__col--2{
+				max-height: 28rem;
+				#top-hospitals{
+					text-align: center;
+				}
+			}
+			.row{
+				grid-template-columns: 1fr 1fr;
+				grid-gap: 2rem;
+				&--1{
+					height: 40rem;
+					.benefits__grid__col--1{
+						max-height: 30rem;
+					}
+				}
+				&:nth-of-type(even){
+					.benefits__grid__col--1{
+						order: 2;
+					}
+				}
+			}
+			.col{
+				.col-heading{
+					text-align: left;
+				}
+				.col-points{
+					.point{
+						grid-template-columns: 1fr 8fr;
+						.point-icon{
+							justify-self: start;
+						}
+					}
+				}
+			}
+		}
+	}
+	.tests{
+		&__container{
+
+		}
+		&__heading{
+			text-align: left;
+		}
+		&__grid{
+			// grid-template-columns: repeat(2, calc);
+		}
+	}
+	.testimonials{
+		&__container{
+			.testimonials_heading_container{
+				justify-content: flex-start;
+			}
+		}
+		&__heading{
+			text-align: left;
+			span{
+				padding: 0.7rem;
+				display: inline;
+			}
+		}
+		&__grid{
+			grid-template-columns: 1fr 1fr;
+			&__card{
+				&__user_info{
+					max-height: 12rem;
+				}
+			}
+		}
+	}
+	.faq_accordian{
+		&__heading{
+			text-align: left;
+		}
+	}
+}
+
+@media(min-width: $bp-desktop){
+	.hero{
+		.container{
+			&--flex{
+				justify-content: center;
+			}
+		}
+	}
+	.pricing{
+		&__container{
+			height: 60rem;
+			.pricing__card{
+				width: 85%;
+				top: -15%;
+				padding: 4rem 4rem 6rem 4rem;
+			}
+
+		}
+		&__heading__div{
+			&__heading{
+				text-align: center;
+			}
+			span{
+				text-align: center;	
+			}
+		}
+	}
+	.trust{
+		&__rating{
+			&__bars{
+				width: 45rem;
+			}
+		}
+	}
+	.benefits{
+		&__heading{
+			&::after{
+				width: 30%;
+			}
+		}
+		&__grid{
+			grid-template-columns: 100%;
+			grid-gap: 8rem;
+			.row{
+				grid-template-columns: 1fr 1fr 1fr;
+				grid-gap: 10rem;
+				&--1{
+					.benefits__grid__col--1{
+						max-height: 25rem;
+					}
+				}
+			}
+			&__col--2{
+				grid-column: span 1;
+			}
+			&__col--1{
+				grid-column: span 2;
+				grid-template-rows: 1fr 2fr;
+				max-width: 60rem;
+				max-height: 25rem;
+			}
+			.col{
+				.col-points{
+					.point{
+						grid-template-columns: 1fr 20fr;
+					}
+				}
+			}
+		}
+	}
+	.tests{
+		&__grid{
+			grid-template-columns: repeat(4, minmax(calc(25% - .75rem), auto));
+			grid-auto-flow: column;
+			grid-template-rows: 100%;
+			overflow: hidden;
+			&__card{
+				justify-items: start;
+				align-items: start;	
+			}
+			
+		}
+	}
+	.testimonials{
+		&__grid{
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+	}
+}

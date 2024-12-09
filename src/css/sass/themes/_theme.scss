@@ -1,0 +1,24 @@
+// Colors
+
+$background-color: white;
+$dark-blue: #2a2d3e;
+$light-blue: #9cbfda;
+$bright-blue: #0173b2;
+$grey-1: #525659;
+$grey-2: #999;
+
+// Fonts
+@font-face{
+	font-family: 'Nexa Bold';
+	src: url('../assets/fonts/Nexa-Bold.otf');
+}
+
+@font-face{
+	font-family: 'Nexa Light';
+	src: url('../assets/fonts/Nexa-Light.otf');
+}
+
+$nexa-bold: 'Nexa Bold';
+$nexa-light: 'Nexa Light';
+
+$font-size: 10px;

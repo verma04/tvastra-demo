@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<%- include('partials/head.ejs') %>
+	<title>Phone Login</title>
+</head>
+<body class="login-body">
+	<div class="login-body-flex">
+		<header>
+		<%- include('partials/header.ejs') %>
+	</header>
+	<% if(error) {%>
+		<% if(errorType === 'Success') { %>
+			<div class="error_container error_container--success">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-check-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Success
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Failure') { %>
+			<div class="error_container">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-times-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Failure
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Info') { %>
+			<div class="error_container error_container--info">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-info-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Info
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+	<% } %>
+		<section class="form_container form_container--phone">
+			<h1 class="form_container__heading">Phone Login</h1>
+			<form method="POST" action="/phone-login" class="form_container__form">
+				<div class="form_container__form__input_field">
+					<input name="phoneNumber" type="number" placeholder="Enter Mobile Number" class="form_container__form__phone_number" required>
+				</div>
+				<div class="try_another_method"><a href="/email-login"><span class="para-1">Login With Password</span></a></div>
+				<button type="submit" class="form_container__form__submit">
+					<span class="form_container__form__submit__text">Login</span>
+					<span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+				</button>
+			</form>
+			<span class="form_container__signup">Not Registered? <span><a href="/signup">Sign Up</a></span></span>
+		</section>
+		<section class="copyright">
+			<span>All Rights Reserved &copy; Tvastra 2020</span>
+		</section>	
+	</div>
+	<script type="text/javascript" src="index.js"></script>
+	<script src="error.js"></script>
+</body>
+</html>

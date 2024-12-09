@@ -1,0 +1,36 @@
+.reschedule_container{
+	grid-template-columns: 1fr;
+	.reschedule_container_card{
+		grid-template-columns: 1fr;
+	}
+	.reschedule_appointment_wrapper{
+		padding: 2rem 4rem;
+		display: flex;
+		flex-direction: column;
+		grid-gap: 1rem;
+	}
+	.reschedule_appointment_heading{
+		h3{
+			font-family: $nexa-bold;
+		}
+	}
+	.reschedule_appointment_details_container{
+	}
+	.reschedule_appointment_details{
+		display: flex;
+		grid-gap: 2rem;
+	}
+	.reschedule_appointment_detail{
+		display: flex;
+		flex-direction: column;
+		grid-gap: .5rem;
+		&_title{
+			font-size: 1.3rem;
+			font-family: $nexa-light;
+		}
+		&_description{
+			font-size: 1.3rem;
+			font-family: $nexa-bold;	
+		}
+	}
+}

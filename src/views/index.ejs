@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Tvastra 2020</title>
+	<link rel="stylesheet" href="./../css/tagify.css">
+	<%- include ('partials/head.ejs') %> 
+	<!-- <link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+	<meta charset="UTF-8"> -->
+</head>
+<body>
+	<header>
+		<%- include ('partials/header.ejs') %> 
+	</header>
+	<% if(error) {%>
+		<% if(errorType === 'Success') { %>
+			<div class="error_container error_container--success">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-check-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Success
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Failure') { %>
+			<div class="error_container">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-times-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Failure
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Info') { %>
+			<div class="error_container error_container--info">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-info-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Info
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+	<% } %>
+	<!-- <% if(session.user.role === 'doctor' && !session.user.doctor) { %>
+	<div class="doctor_details_modal">
+		<form class="form_container form_container--first-login" action="/" method="POST" enctype="multipart/form-data">
+			<div class="form_container__form__input_field">
+				<label for="description">Describe Yourself</label>
+				<textarea name="description" id="doctor_description" cols="30" rows="7" placeholder="Describe yourself" required></textarea>
+			</div>
+			<div class="upload_display_picture_container">
+				<label for="display_picture">Upload Your Profile Photo</label>
+				<input type="file" name="display_picture" accept="image/*" id="display_picture" class="display_picture_input" required>	
+			</div>
+			<div class="form_container__form__input_field">
+				<label for="achievements">Achievements</label>
+				<input type="text" name="achievements" class="achievements_input" placeholder="Enter your achievements" value="" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<label for="experience">Years Of Experience</label>
+				<input type="number" name="experience" class="form_container__form__phone_number" placeholder="Enter your years of experience" value="" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<label for="qualifications">Qualifications</label>
+				<input type="text" name="qualifications" class="qualifications_input" placeholder="Enter your qualifications" value="" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<label for="awards">Awards (if any)</label>
+				<input type="text" name="awards" class="awards_input" placeholder="Enter Awards (if any)" value="">
+			</div>
+			<div class="form_container__form__input_field">
+				<label for="specializations">Specializations</label>
+				<input type="text" name="specializations" class="specializations_input" placeholder="Enter Specializaion" value="" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<label for="averageFees">Average Fees</label>
+				<input type="number" name="averageFees" class="form_container__form__phone_number" placeholder="Enter your average fees" value="" required>
+			</div>
+			<button type="submit" class="form_container__form__submit">
+				<span class="form_container__form__submit__text">Submit</span>
+				<span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+			</button>
+		</form>
+	</div>
+	<% } %> -->
+	<!-- <nav class="navbar">
+		<div class="navbar__logo">
+			<a href="/">
+				<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Logo.jpg" class="navbar__logo__img">
+			</a>
+		</div>
+		<div class="navbar__menu">
+			<ul class="navbar__menu__ul">
+				<li class="navbar__menu__ul__item"><a href="doctor.html">Doctors</a></li>
+				<li class="navbar__menu__ul__item"><a href="hospital.html">Hospitals</a></li>
+				<li class="navbar__menu__ul__item"><a href="treatments.html">Treatment</a></li>	
+				<li class="navbar__menu__ul__item">Other Services</li>
+				<li class="navbar__menu__ul__item"><a href="about.html">About</a></li>
+			</ul>
+		</div>
+		<div class="navbar__side_menu">
+			<ul class="navbar__side_menu__ul">
+				<li class="navbar__side_menu__ul__item cross"><span><i class="fas fa-window-close"></i></span></li>
+				<li class="navbar__side_menu__ul__item"><a href="doctor.html" >Doctors</a></li>
+				<li class="navbar__side_menu__ul__item"><a href="hospital.html">Hospitals</a></li>
+				<li class="navbar__side_menu__ul__item">Treatment</li>	
+				<li class="navbar__side_menu__ul__item">Other Services</li>
+				<li class="navbar__side_menu__ul__item">About</li>
+			</ul>
+		</div>
+		<div class="navbar__buttons">
+			<a href="login.html" class="navbar__buttons__button-link">
+				<button class="navbar__buttons-login">
+					Login / Sign Up
+				</button>
+			</a>
+			<a href="get-a-quote.html">
+				<button class="navbar__buttons-quote">
+					Get A Quote 
+				</button>	
+			</a>			
+		</div>
+		<i class="fa fa-bars navbar__burger"></i>	
+	</nav> -->
+	<section class="hero">
+		<div class="container hero__container">
+			<h1 class="heading-1 hero__container__heading">
+				Find Affordable Healthcare
+			</h1>
+			<p class="para hero__container__para">
+				Join the thousands of others who have exercised their right to quality healthcare at a price you can afford.
+			</p>
+			<form action="/filter_search" method="POST">
+				<div class="grid hero__container__field">
+					<div class="hero__container__field__search_location">
+						<input id="loc_search" type="text" name="locality" placeholder="Ahmedabad" class="hero__container__field__search_location__district" list="localities" id="auto-complete" autocomplete="off">
+						<!-- <datalist id="localities">
+							<option value="New Delhi">
+	                        <option value="Mumbai">
+	                        <option value="Lucknow">
+	                        <option value="Jammu and Kashmir">
+	                        <option value="Himachal Pradesh">
+	                        <option value="Uttrakhand">
+	                        <option value="Punjab">
+	                        <option value="Haryana">
+	                        <option value="Bihar">
+	                        <option value="Madhya Pradesh">
+	                        <option value="Rajasthan">
+	                        <option value="Gujarat">
+						</datalist> -->
+						<div class="city_autocomplete" id="city-list"></div>
+						<span class="hero__container__field__search_location__map-marker"><i class="fas fa-map-marker-alt"></i></span>
+						<span id="gps-button" class="hero__container__field__search_location__crosshairs" id="location_i" onclick="findCity(this)"><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/gps.png" alt=""></span>
+					</div>
+					<div class="hero__container__field__search__doctor">
+						<input type="text" name="search" placeholder="Search for doctors, hospitals and treatments" id="search" class="hero__container__field__search" autocomplete="off">
+						<div class="match-auto_complete" id="match-list"></div>	
+					</div>
+					
+					<button class="hero__container__field__search__button">Search</button>
+				</div>
+			</form>
+		</div>
+	</section>
+	<section class="how_it_works">
+		<div class="container how_it_works__container">
+			<h2 class="heading-2 how_it_works__container__heading">
+				How it works
+			</h2>
+			<p class="para how_it_works__container__para">
+			Various facilites are provided here. But there is a protocol which needs to be followed so that you may get the service at its best.
+			</p> 
+			<div class="grid how_it_works__grid">
+				<div class="how_it_works__grid__option how_it_works__grid__option-1  how_it_works__grid__option-active">
+					<span class="heading-3 how_it_works__grid__option__number">01</span>
+					<h3 class="heading-3 how_it_works__grid__option__text">Fix Consultation</h3>
+				</div> 
+				<div class="how_it_works__grid__option__desc how_it_works_grid__option__desc-1 how_it_works__grid__option__desc-expand">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/img1.png" alt="Fix Consultation" class="how_it_works__grid__option__desc__image">
+					<h3 class="heading-3 how_it_works__grid__option__desc__heading">Fix Consulation</h3>
+					<p class="para how_it_works__grid__option__desc__para">This depicts that user will have to fix appointment first when it selects a particular doctor.</p>
+				</div>
+				<div class="how_it_works__grid__option how_it_works__grid__option-2">
+					<span class="heading-3 how_it_works__grid__option__number">02</span>
+					<h3 class="heading-3 how_it_works__grid__option__text">Upload Medical Reports</h3>
+				</div>
+				<div class="how_it_works__grid__option__desc how_it_works__grid__option__desc-2">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/img2.png" alt="Upload Medical Reports" class="how_it_works__grid__option__desc__image">
+					<h3 class="heading-3 how_it_works__grid__option__desc__heading">Upload Medical Reports</h3>
+					<p class="para how_it_works__grid__option__desc__para">This depicts that user will have to fix appointment first when it selects a particular doctor.</p>
+				</div>
+				<div class="how_it_works__grid__option how_it_works_grid__option-3">
+					<span class="heading-3 how_it_works__grid__option__number">03</span>
+					<h3 class="heading-3 how_it_works__grid__option__text">Consult with doctor</h3>
+				</div>
+				<div class="how_it_works__grid__option__desc how_it_works__grid__option__desc-3">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/img3.jpeg" alt="Consult with doctor" class="how_it_works__grid__option__desc__image">
+					<h3 class="heading-3 how_it_works__grid__option__desc__heading">Consult with doctor</h3>
+					<p class="para how_it_works__grid__option__desc__para">This depicts that user will have to fix appointment first when it selects a particular doctor.</p>
+				</div>
+				<div class="how_it_works__grid__option how_it_works_grid__option-4">
+					<span class="heading-3 how_it_works__grid__option__number">04</span>
+					<h3 class="heading-3 how_it_works__grid__option__text">Fix Surgery</h3>
+				</div>
+				<div class="how_it_works__grid__option__desc how_it_works__grid__option__desc-4">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/img4.jpeg" alt="Fix Surgery" class="how_it_works__grid__option__desc__image">
+					<h3 class="heading-3 how_it_works__grid__option__desc__heading">Fix Surgery</h3>
+					<p class="para how_it_works__grid__option__desc__para">This depicts that user will have to fix appointment first when it selects a particular doctor.</p>
+				</div>
+				<div class="how_it_works__grid__option how_it_works_grid__option-5">
+					<span class="heading-3 how_it_works__grid__option__number">05</span>
+					<h3 class="heading-3 how_it_works__grid__option__text">Hospital Sent Estimates</h3>
+				</div>
+				<div class="how_it_works__grid__option__desc how_it_works__grid__option__desc-5">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/img5.jpg" alt="Hospital Sent Estimates" class="how_it_works__grid__option__desc__image">
+					<h3 class="heading-3 how_it_works__grid__option__desc__heading">Hospital Sent Estimates</h3>
+					<p class="para how_it_works__grid__option__desc__para">This depicts that user will have to fix appointment first when it selects a particular doctor.</p>
+				</div>
+				<div class="how_it_works__grid__option how_it_works__grid__option-6">
+					<span class="heading-3 how_it_works__grid__option__number">06</span>
+					<h3 class="heading-3 how_it_works__grid__option__text">Payment</h3>
+				</div>
+				<div class="how_it_works__grid__option__desc how_it_works__grid__option__desc-6">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/img6.jpg" alt="Payment" class="how_it_works__grid__option__desc__image">
+					<h3 class="heading-3 how_it_works__grid__option__desc__heading">Payment</h3>
+					<p class="para how_it_works__grid__option__desc__para">This depicts that user will have to fix appointment first when it selects a particular doctor.</p>
+				</div>
+				<div class="how_it_works__grid__option how_it_works__grid__option-6">
+					<span class="heading-3 how_it_works__grid__option__number">07</span>
+					<h3 class="heading-3 how_it_works__grid__option__text">Surgery Completed</h3>
+				</div>
+				<div class="how_it_works__grid__option__desc how_it_works__grid__option__desc-7">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/img7.jpeg" alt="Surgery Completed" class="how_it_works__grid__option__desc__image">
+					<h3 class="heading-3 how_it_works__grid__option__desc__heading">Surgery Completed</h3>
+					<p class="para how_it_works__grid__option__desc__para">This depicts that user will have to fix appointment first when it selects a particular doctor.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="world_class_doctors">
+		<div class="container world_class_doctors__container">
+			<h2 class="heading-2 world_class_doctors__heading">
+				World class expert doctors!
+			</h2>
+			<p class="para world_class_doctors__para">
+				The university of Texas Southwestern Medical Center has long been a world-renowed research hospital. But until the '80s, you couldn't get there. Now, with the addition of the Aston Center and Zale Lipshy Hospital, UT Southwestern is also a mecca for patient care.
+			</p>
+			<div class="grid world_class_doctors__container__cards carousel_container">
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-1 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Duke Sanson</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Neuro Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Chain Department Of Neurological Surgery</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">Australia</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-2 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Rose Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Plastic Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Department Of Plastic and Reconstructive Surgery</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">Dubai</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-3 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Georgia Peter</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Breast Cancer Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Director, UT Southwest</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">London</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-4 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Charlie Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Cardiac Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">MBBS,MD,FRCP,MRCP,Fellowship</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">New Delhi, India</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-5 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Charlie Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Cardiac Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">MBBS,MD,FRCP,MRCP,Fellowship</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">New Delhi, India</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-6 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Charlie Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Cardiac Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">MBBS,MD,FRCP,MRCP,Fellowship</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">New Delhi, India</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-7 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Charlie Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Cardiac Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">MBBS,MD,FRCP,MRCP,Fellowship</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">New Delhi, India</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-8 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Charlie Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Cardiac Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">MBBS,MD,FRCP,MRCP,Fellowship</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">New Delhi, India</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-3 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Georgia Peter</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Breast Cancer Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Director, UT Southwest</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">London</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-3 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Georgia Peter</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Breast Cancer Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Director, UT Southwest</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">London</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-3 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Georgia Peter</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Breast Cancer Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Director, UT Southwest</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">London</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-3 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Georgia Peter</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Breast Cancer Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Director, UT Southwest</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">London</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-2 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Rose Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Plastic Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Department Of Plastic and Reconstructive Surgery</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">Dubai</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-2 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Rose Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Plastic Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Department Of Plastic and Reconstructive Surgery</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">Dubai</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-2 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Rose Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Plastic Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Department Of Plastic and Reconstructive Surgery</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">Dubai</p>
+					</div>	
+				</div>
+				<div class="world_class_doctors__container__cards__card world_class_doctors__container__cards__card-2 carousel_item">
+					<div class="world_class_doctors__container__cards__card__description">
+						<h3 class="heading-3 world_class_doctors__container__cards__card__description__name">Rose Moon</h3>
+						<p class="para world_class_doctors__container__cards__card__description__designation">Plastic Surgeon</p>
+						<p class="para world_class_doctors__container__cards__card__description__qualification">Department Of Plastic and Reconstructive Surgery</p>
+						<p class="para world_class_doctors__container__cards__card__description__location">Dubai</p>
+					</div>	
+				</div>
+			</div>
+			<div class="world_class_doctors__container__dots">
+				<div class="world_class_doctors__container__dots__dot  world_class_doctors__container__dots__dot-1 dot_active carousel_dot" data-number='0'></div>
+				<div class="world_class_doctors__container__dots__dot world_class_doctors__container__dots__dot-2 carousel_dot" data-number='1'></div>
+				<div class="world_class_doctors__container__dots__dot world_class_doctors__container__dots__dot-3 carousel_dot" data-number='2'></div>
+				<div class="world_class_doctors__container__dots__dot world_class_doctors__container__dots__dot-4 carousel_dot" data-number='3'></div>
+			</div>
+		</div>
+	</section>
+	<section class="medical_treatments">
+		<div class="container medical_treatments__container">
+			<h2 class="heading-2 medical_treatments__heading">
+				Featured Medical Treatments
+			</h2>
+			<p class="para medical_treatments__para">
+				The hospital provides various medical treatments done by our expert doctors. Your health is our priority.
+			</p>
+			<div class="grid medical_treatments__grid">
+				<div class="medical_treatments__grid__card medical_treatments__grid__card-1">
+					<h3 class="heading-3 medical_treatments__grid__card__type">
+						Dentistry
+					</h3>
+					<p class="para medical_treatments__grid__card__text">
+						50+ specialists
+					</p>
+				</div>
+				<div class="medical_treatments__grid__card medical_treatments__grid__card-2">
+					<h3 class="heading-3 medical_treatments__grid__card__type">
+						Cancer
+					</h3>
+					<p class="para medical_treatments__grid__card__text">
+						50+ specialists
+					</p>
+				</div>
+				<div class="medical_treatments__grid__card medical_treatments__grid__card-3">
+					<h3 class="heading-3 medical_treatments__grid__card__type">
+						Cardiology
+					</h3>
+					<p class="para medical_treatments__grid__card__text">
+						50+ specialists
+					</p>
+				</div>
+				<div class="medical_treatments__grid__card medical_treatments__grid__card-4">
+					<h3 class="heading-3 medical_treatments__grid__card__type">
+						Multi Organ Transplant
+					</h3>
+					<p class="para medical_treatments__grid__card__text">
+						50+ specialists
+					</p>
+				</div>
+				<div class="medical_treatments__grid__card medical_treatments__grid__card-5">
+					<h3 class="heading-3 medical_treatments__grid__card__type">
+						Orthopedics Surgery
+					</h3>
+					<p class="para medical_treatments__grid__card__text">
+						50+ specialists
+					</p>
+				</div>
+				<div class="medical_treatments__grid__card medical_treatments__grid__card-6">
+					<h3 class="heading-3 medical_treatments__grid__card__type">
+						Infertility Treatment
+					</h3>
+					<p class="para medical_treatments__grid__card__text">
+						50+ specialists
+					</p>
+				</div>
+			</div>
+			<div class="medical_treatments__dots">
+				<div class="medical_treatments__dots__dot medical_treatments__dots__dot-1"></div>
+				<div class="medical_treatments__dots__dot medical_treatments__dots__dot-2"></div>
+				<div class="medical_treatments__dots__dot medical_treatments__dots__dot-3"></div>
+			</div>
+		</div>
+	</section>
+	<section class="services">
+		<div class="container services__container">
+			<h2 class="heading-2 services__heading">
+				Exclusive Services
+			</h2>
+			<p class="para services__para">
+				We want you to be comfortable and thus apart from treating your illness, we provide you with other services that can ease you.
+			</p>
+			<div class="grid services__grid">
+				<div class="services__grid__choice">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Icons-01.png" class="services__grid__choice__image">
+					<h3 class="heading-3 services__grid__choice__text">
+						TRAVEL
+					</h3>
+				</div>
+				<div class="services__grid__choice">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Icons-02.png" class="services__grid__choice__image">
+					<h3 class="heading-3 services__grid__choice__text">
+						FOOD
+					</h3>
+				</div>
+				<div class="services__grid__choice">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Icons-03.png" class="services__grid__choice__image">
+					<h3 class="heading-3 services__grid__choice__text">
+						ACCOMODATION
+					</h3>
+				</div>
+				<div class="services__grid__choice">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Icons-07.png" class="services__grid__choice__image">
+					<h3 class="heading-3 services__grid__choice__text">
+						LABS
+					</h3>
+				</div>
+				<div class="services__grid__choice">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Icons-04.png" class="services__grid__choice__image">
+					<h3 class="heading-3 services__grid__choice__text">
+						REPORTS
+					</h3>
+				</div>
+				<div class="services__grid__choice">
+					<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Icons-12.png" class="services__grid__choice__image">
+					<h3 class="heading-3 services__grid__choice__text">
+						OTHERS
+					</h3>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="help">
+		<%- include ('partials/help.ejs') %>
+		<!-- <div class="container help__container">
+			<div class="help__container__col-1">
+				<h2 class="heading-2 h"elp__container__col-1__heading">
+					Need Help?
+				</h2>
+				<p class="para help__container__col-1__text">
+					Just let us know. We will be happy to assist you
+				</p>	
+			</div>
+			<div class="help__container__col-2">
+				<button class="help__container__col-2__button">Submit your query</button>
+			</div>	
+		</div> -->
+	</section>
+	<footer class="footer">
+		<%- include ('partials/footer.ejs') %>
+		<!-- <div class="container footer__container">
+			<ul class="footer__container__menu">
+				<li><a href="doctor.html">Doctors</a></li>
+				<li><a href="hospital.html">Hospitals</a></li>
+				<li>Treatment</li>
+				<li><a href="contactus.html">Contact Us</a></li>
+				<li>FAQs</li>
+			</ul>
+			<a href="/">
+			<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/footer.png" class="footer__container__logo"></a>
+			<p class="footer__container__copyright">All Rights Reserved. &copy; tvastra 2020</p>
+			<div class="footer__container__social">
+				<i class="fab fa-facebook-f"></i>
+				<i class="fab fa-pinterest-p"></i>
+				<i class="fab fa-twitter"></i>
+				<i class="fab fa-google-plus"></i>
+				<i class="fab fa-instagram"></i>
+			</div>
+		</div> -->
+	</footer>
+	<div class="border">
+	</div>
+	<script src="./../tagify.js"></script>
+	<script>
+		const hospitalWhitelist = [];
+		const fetchHospitals = async () => {
+			const hospitals = await fetch('/autoCompleteHospital', {
+				method: 'GET'
+			});
+			const hospitalData = await hospitals.json();
+			console.log(hospitalData);
+			hospitalData.data.forEach(el => {
+				hospitalWhitelist.push(el.name);
+			})
+		}
+		fetchHospitals();
+		console.log(hospitalWhitelist);
+		const specializationsInput = document.querySelector('.specializations_input');
+		const specializationsTagify = new Tagify(specializationsInput, {
+			enforceWhitelist: true,
+			whitelist: ['Family Physician', 'Internal Medicine Physician', 'Pediatrician', 'Obstetrician', 'Gynecologist', 'Surgeon', 'Psychiatrist', 'Cardiologist', 'Dermatologist', 'Endocrinologist', 'Gastroenterologist', 'Infectious Disease Physician', 'Nephrologist', 'Ophthalmologist', 'Otolaryngologist', 'Pulmonologist', 'Neurologist', 'Physician Executive', 'Radiologist', 'Anesthesiologist', 'Oncologist']
+		});
+		const achievements = document.querySelector('.achievements_input');
+		const achievmentsTagify = new Tagify(achievements);
+		const qualifications = document.querySelector('.qualifications_input');
+		const qualificationsTagify = new Tagify(qualifications);
+		const awards = document.querySelector('.awards_input');
+		const awardsTagify = new Tagify(awards);
+		const hospitalInput = document.querySelector('.hospital_list_input');
+		const hospitalInputTagify = new Tagify(hospitalInput, {
+			whitelist: hospitalWhitelist,
+			enforceWhitelist: true
+		});
+
+		const slot_duration = document.querySelector('input[name="slotDuration"]');
+		const slotTagify = new Tagify(slot_duration, {
+			whitelist: ['60 Mins', '45 Mins', '30 Mins', '15 Mins'],
+			mode: 'select',
+			dropdown: {
+				className: 'color-blue',
+				enabled: 1,
+				maxItems: 4,
+				position: 'text',
+				closeOnSelect: true,
+				highlightFirst: true 
+			}
+		});
+
+	</script>
+	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJBel8D54gkYQEMff_sEQQwiBvrJpK7Yo&libraries=places"></script>-->
+	<script src="error.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</body>
+</html>

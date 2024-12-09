@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Profile Doctor</title>
+	<%- include('partials/head.ejs') %>
+	<link rel="stylesheet" href="./../css/tagify.css">
+</head>
+<body>
+	<% if(error) {%>
+		<% if(errorType === 'Success') { %>
+			<div class="error_container error_container--success">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-check-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Success
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Failure') { %>
+			<div class="error_container">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-times-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Failure
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Info') { %>
+			<div class="error_container error_container--info">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-info-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Info
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+	<% } %>
+	<!-- <sidebar class="admin_sidebar">
+		<div class="cross-sidebar">
+			<i class="fas fa-times"></i>
+		</div>
+		<div class="logo_container">
+			<a href="/admin"><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Logo.jpg" alt="" class="logo"></a>
+		</div>
+		<div class="menu_container">
+			<ul class="menu">
+				<li class="menu-title para">
+					Medicine
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-thermometer"></i>
+					<p class="para"><a href="/admin-dashboard">Dashboard</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-stethoscope"></i>
+					<p class="para"><a href="/admin-dashboard">Appointments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-md"></i>
+					<p class="para"><a href="/admin/doctors">Doctors</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-nurse"></i>
+					<p class="para"><a href="/admin-dashboard">Departments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-injured"></i>
+					<p class="para"><a href="/admin-dashboard">Patients</a></p>
+				</li>	
+				<li class="menu-item">
+					<i class="item-icon fas fa-money-check-alt"></i>
+					<p class="para"><a href="/admin-dashboard">Payments</a></p>
+				</li>	
+
+			</ul>
+		</div>
+	</sidebar> -->
+	<!-- <header class="admin_header">
+		<div class="menu-burger">
+			<i class="fas fa-bars navbar__burger"></i>
+		</div>
+		<div class="bell-icon">
+			<i class="fas fa-bell"></i>
+		</div>
+		<div class="display-picture">
+			<img src="./../assets/femaleDoc.png" alt="">
+			<i class="fas fa-chevron-down"></i>
+		</div>
+	</header> -->
+	<%- include('partials/header.ejs') %>
+	
+	
+	<!-- <section class="statistics_site">
+		<div class="statistics_site__grid">
+			<div class="statistics_site__grid__item">
+				<div class="statistics_site__grid__item__col--1">
+					<div class="statistics_site__grid__item__icon">
+						<i class="fas fa-medkit"></i>
+					</div>	
+				</div>
+				<div class="statistics_site__grid__item__col--2">
+					<div class="statistics_site__grid__item__title">
+						<h4 class="heading-4">Appointments</h4>
+					</div>
+					<div class="statistics_site__grid__item__figure">
+						<h4 class="heading-4">213</h4>
+					</div>	
+				</div>
+				
+			</div>
+			<div class="statistics_site__grid__item">
+				<div class="statistics_site__grid__item__col--1">
+					<div class="statistics_site__grid__item__icon">
+						<i class="fas fa-syringe"></i>
+					</div>	
+				</div>
+				<div class="statistics_site__grid__item__col--2">
+					<div class="statistics_site__grid__item__title">
+						<h4 class="heading-4">Operations</h4>
+					</div>
+					<div class="statistics_site__grid__item__figure">
+						<h4 class="heading-4">12</h4>
+					</div>	
+				</div>
+			</div>
+			<div class="statistics_site__grid__item">
+				<div class="statistics_site__grid__item__col--1">
+					<div class="statistics_site__grid__item__icon">
+						<i class="fas fa-user-injured"></i>
+					</div>	
+				</div>
+				<div class="statistics_site__grid__item__col--2">
+					<div class="statistics_site__grid__item__title">
+						<h4 class="heading-4">Patients</h4>
+					</div>
+					<div class="statistics_site__grid__item__figure">
+						<h4 class="heading-4">13</h4>
+					</div>	
+				</div>
+			</div>
+			<div class="statistics_site__grid__item">
+				<div class="statistics_site__grid__item__col--1">
+					<div class="statistics_site__grid__item__icon">
+						<i class="fas fa-rupee-sign"></i>
+					</div>	
+				</div>
+				<div class="statistics_site__grid__item__col--2">
+					<div class="statistics_site__grid__item__title">
+						<h4 class="heading-4">Hospital Earnings</h4>
+					</div>
+					<div class="statistics_site__grid__item__figure">
+						<h4 class="heading-4">₹ 21313</h4>
+					</div>	
+				</div>
+				
+			</div>
+		</div>
+	</section> -->
+	<div class="background-dashboard">
+	<%- include('partials/admin_sidebar.ejs') %>
+	<section class="edit_profile edit_profile--doctor dashboard_content">
+		<form action="/admin-edit-doctor" id="edit-profile" method="POST" enctype="multipart/form-data">
+		<div class="edit_profile_container edit_profile_container--admin-edit-doctor">
+			<div class="save_button">
+				<button type="submit" form="edit-profile">
+					<span>
+						Save Changes
+					</span>
+				</button>
+			</div>
+			<div class="photo_and_name">
+				<div class="edit_profile_photo">
+					<div class="upload_photo_image_container">
+						<img src="<%= user.display_picture ? user.display_picture : 'public/uploads/users/default-user.png'  %>" alt="">
+					</div>
+					<div class="upload_image_container">
+						<span>Profile Picture</span>
+						<label for="display_picture">Upload Photo</label>
+						<input type="file" name="display_picture" accept="image/*" id="display_picture">	
+					</div>
+				</div>
+				<div class="edit_name">
+					<label for="name">Name</label>
+					<input type="text" name="name" value="<%= user.name %>" placeholder="Enter your name" required>
+				</div>
+			</div>
+			<div class="edit_other_details">
+				<div class="edit_field">
+					<label for="phoneNumber">Phone Number</label>
+					<input type="text" name="phoneNumber" value="<%= user.phoneNumber %>" placeholder="Enter your phone number" required>	
+				</div>
+				<div class="edit_field">
+					<label for="email">Email</label>
+					<input type="email" name="email" value="<%= user.email %>" placeholder="Enter your email" required>			
+				</div>
+				<div class="edit_field">
+					<label for="gender">Gender</label>
+					<select data-selected="" required name="gender" id="gender" type="text" class="form_container__form__gender">
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Other">Other</option>
+					</select>
+				</div>
+				<div class="edit_field">
+					<label for="dob">DOB</label>
+					<input type="date" name="dob" value="<%= user.dob.toISOString().split('T')[0] %>" placeholder="DOB">			
+				</div>
+				<div class="edit_field">
+					<label for="bloodGroup">Blood Group</label>
+					<select name="bloodGroup" id="bloodGroup" type="text" class="form_container__form__gender">
+						<option value=undefined>Select your Blood Group</option>
+						<option value="O+">O+</option>
+						<option value="O-">O-</option>
+						<option value="A+">A+</option>
+						<option value="A-">A-</option>
+						<option value="B+">B+</option>
+						<option value="B-">B-</option>
+						<option value="AB+">AB+</option>
+						<option value="AB-">AB-</option>
+					</select>
+				</div>
+				<div class="edit_field">
+					<label for="timeZone">Time Zone</label>
+					<select name="timeZone" id="timezone" type="text" class="form_container__form__gender">
+						<option value=undefined>Select your Time Zone</option>
+						<option value="Kolkata">Asia/Kolkata</option>
+						<option value="Karachi">Asia/Karachi</option>
+						<option value="Bogota">America/Bogota</option>
+						<option value="Los Angles">America/Los Angles</option>
+					</select>
+				</div>
+				<!-- <label for="dob">DOB</label>
+				<input type="date" name="dob" placeholder="Enter DOB" class="form_container__form__dob"> -->
+			</div>
+			<div class="edit_address">
+				<div class="edit_field">
+					<label for="location">Location</label>
+					<input type="text" name="location" value="<%= user.location %>">	
+				</div>
+				<div class="edit_field">
+					<label for="state">State</label>
+					<input type="text" name="state" value="<%= user.state %>">	
+				</div>
+				<div class="edit_field">
+					<label for="country">Country</label>
+					<select name="country" id="country" type="text" class="form_container__form__gender">
+						<option value="India">India</option>
+						<option value="USA">USA</option>
+						<option value="Other">Sri Lanka</option>
+					</select>	
+				</div>
+			</div>
+			<div class="edit_doctor_details">
+				<div class="edit_field">
+					<label for="achievements">Achievments</label>
+					<input class="achievements_input" type="text" name="achievements" value="<%= user.doctor.achievements %>">	
+				</div>
+				<div class="edit_field">
+					<label for="experience">Experience</label>
+					<input class="experience_input" type="number" name="experience" value="<%= user.doctor.experience %>">	
+				</div>
+				<div class="edit_field">
+					<label for="specializations">Specializations</label>
+					<input class="specializations_input" type="text" name="specializations" value='<%= user.doctor.specializations %>'>	
+				</div>
+				<div class="edit_field">
+					<label for="qualifications">Qualifications</label>
+					<input class="qualifications_input" type="text" name="qualifications" value="<%= user.doctor.qualifications %>">	
+				</div>
+				<div class="edit_field">
+					<label for="awards">Awards</label>
+					<input class="awards_input"  type="text" name="awards" value="<%= user.doctor.awards %>">	
+				</div>
+				<div class="edit_field">
+					<label for="averageFees">Average Fees</label>
+					<input class="averageFees_input" type="number" name="averageFees" value="<%= user.doctor.avg_fees %>">	
+				</div>
+				<div class="edit_field">
+					<label for="description">Description</label>
+					<textarea name="description" id="" cols="30" rows="10"><%= user.doctor.description %></textarea>	
+				</div>
+				
+			</div>
+		</div>
+	</form>
+	</section>
+	</div>
+	<script>
+		const menuItemActive = document.querySelectorAll(`a[href='/${window.location.href.split('/')[3]}']`);
+		menuItemActive[1].parentElement.parentElement.classList.add('menu-item--active');
+	</script>
+	<script src="./../tagify.js"></script>
+	<script>
+		const gender = document.querySelector('select[name="gender"]');
+		const country = document.querySelector('select[name="country"]');
+		const bloodGroup = document.querySelector('select[name="bloodGroup"]');
+		const timeZone = document.querySelector('select[name="timeZone"]');
+
+		function selectOptionFromBackend (optionsList, value){
+			for(var i=0; i < optionsList.options.length; i++){
+				option = optionsList.options[i];
+				if(option.value == value){
+					console.log(value);
+					option.selected = 'selected';
+				}
+			}	
+		}
+
+		selectOptionFromBackend(gender, '<%= user.gender %>');
+		selectOptionFromBackend(country, '<%= user.country %>');
+		selectOptionFromBackend(bloodGroup, '<%= user.bloodGroup %>');
+		selectOptionFromBackend(timeZone, '<%= user.timeZone %>');
+	</script>
+	<script>
+
+		const hospitalWhitelist = [];
+		const fetchHospitals = async () => {
+			const hospitals = await fetch('/autoCompleteHospital', {
+				method: 'GET'
+			});
+			const hospitalData = await hospitals.json();
+			console.log(hospitalData);
+			hospitalData.data.forEach(el => {
+				hospitalWhitelist.push(el.name);
+			})
+		}
+		fetchHospitals();
+		console.log(hospitalWhitelist);
+		const specializationsInput = document.querySelector('.specializations_input');
+		const specializationsTagify = new Tagify(specializationsInput, {
+			enforceWhitelist: true,
+			whitelist: ['Family Physician', 'Internal Medicine Physician', 'Pediatrician', 'Obstetrician', 'Gynecologist', 'Surgeon', 'Psychiatrist', 'Cardiologist', 'Dermatologist', 'Endocrinologist', 'Gastroenterologist', 'Infectious Disease Physician', 'Nephrologist', 'Ophthalmologist', 'Otolaryngologist', 'Pulmonologist', 'Neurologist', 'Physician Executive', 'Radiologist', 'Anesthesiologist', 'Oncologist']
+		});
+		const achievements = document.querySelector('.achievements_input');
+		const achievmentsTagify = new Tagify(achievements);
+		const qualifications = document.querySelector('.qualifications_input');
+		const qualificationsTagify = new Tagify(qualifications);
+		const awards = document.querySelector('.awards_input');
+		const awardsTagify = new Tagify(awards);
+		const hospitalInput = document.querySelector('.hospital_list_input');
+		const hospitalInputTagify = new Tagify(hospitalInput, {
+			whitelist: hospitalWhitelist,
+			enforceWhitelist: true
+		});
+
+		const slot_duration = document.querySelector('input[name="slotDuration"]');
+		const slotTagify = new Tagify(slot_duration, {
+			whitelist: ['60 Mins', '45 Mins', '30 Mins', '15 Mins'],
+			mode: 'select',
+			dropdown: {
+				className: 'color-blue',
+				enabled: 1,
+				maxItems: 4,
+				position: 'text',
+				closeOnSelect: true,
+				highlightFirst: true 
+			}
+		});
+		
+	</script>
+	<script src="./../index.js">
+	</script>
+	<script src="./../dashboard.js"></script>
+	<script src="./../error.js"></script>
+</body>
+</html>

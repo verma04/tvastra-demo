@@ -1,0 +1,178 @@
+.location{
+	height: 28rem;
+	&__container{
+		padding: 2rem 2rem;
+	}
+	#map{
+		height: 24rem;
+	}
+}
+
+.address{
+	&__container{
+		padding: 2rem 2rem;
+		display: grid;
+		grid-template-columns: 100%;
+		&__list{
+			display: grid;
+			grid-gap: 2rem;
+			&__item{
+				display: grid;
+				grid-template-columns: 1fr 7fr;
+				grid-gap: 1rem;
+				&__icon{
+					font-size: 2rem;
+					color: $bright-blue;
+					justify-self: center;
+					align-self: start;
+				}
+				&__address{
+					display: grid;
+					grid-gap: 1rem;
+					&__title{
+						font-size: 1.5rem;
+						font-family: $nexa-bold;
+					}
+					&__address{
+						font-size: 1.2rem;
+						font-family: $nexa-light;
+					}
+				}
+			}
+		}
+	}
+}
+.contact_us_form{
+	&__container{
+		background-color: $light-blue;
+		padding: 2rem 2rem;
+		display:grid;
+		grid-template-columns: 100%;
+		grid-gap: 1rem;
+		&__form{
+			
+			&--1{
+				width: 100%;
+				form{
+					display: grid;
+					grid-template-columns: 100%;
+					grid-gap: 1rem;
+					input{
+						width: 100%;
+						border-style: solid;
+						background-color: white;
+						color: #777;
+						padding: 0rem 1.5rem;
+						font-family: $nexa-light;
+						font-size: 1.2rem;
+						line-height: 3rem;
+					}
+				}
+				&__fields{
+					display: grid;
+					grid-template-columns: 100%;
+					grid-gap: 1rem;
+				}
+				&__textarea{
+					textarea{
+						width: 100%;
+						font-family: $nexa-light;
+						font-size: 1.2rem;
+					}
+				}
+			}
+			&--2{
+				justify-self: end;
+				input{
+					border: none;
+					padding: 1rem 1.5rem;
+					border-radius: 0;
+					background-color: $bright-blue;
+					color: $background-color;
+					font-family: $nexa-bold;
+					font-size: 1.5rem;
+					position: relative;
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: $bp-tablet) {
+	.location{
+		height: 40rem;
+		&__container{
+			padding: 2rem 3rem;
+			#map{
+				height: 36rem;
+			}
+		}
+	}
+	.address{
+		&__container{
+			padding: 2rem 3rem;
+			&__list{
+				&__item{
+					grid-template-columns: 1fr 13fr;
+				}
+			}
+		}
+	}
+	.contact_us_form{
+		&__container{
+			padding: 2rem 3rem;
+			&__form{
+				&--1{
+					form{
+						grid-template-columns: 1fr 1fr;
+
+					}
+					&__textarea{
+						input{
+							height: 100%;
+						}
+					}
+				}
+			}
+
+		}
+	}
+}
+
+@media(min-width: $bp-desktop){
+	.location{
+		&__container{
+			padding: 3rem 10rem;
+		}
+	}
+	.address{
+		&__container{
+			height: 100%;
+			padding: 2rem 0;
+			&__list{
+				height: 16rem;
+				&__item{
+					&__address{
+						grid-gap: 0;
+						&__title{
+							align-self: start;
+						}
+					}
+					&__icon{
+						align-self: start;
+					}
+				}
+			}
+		}
+	}
+	.contact_us_form{
+		&__container{
+			height: 100%;
+		}
+	}
+	.contactus_grid{
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		padding: 3rem 10rem;
+	}
+}

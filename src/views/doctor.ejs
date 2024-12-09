@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Doctor</title>
+	<%- include('partials/head.ejs') %>
+</head>
+<body>
+	<header>
+		<%- include('partials/header.ejs') %>
+	</header>
+	<section class="page_desc page_desc--doctor">
+		<div class="container page_desc__container">
+			<h1 class="page_desc__container__heading">
+
+				<%= console.log(session) %>
+				<%= session.filters && session.filters.treatment_filter ? session.filters.treatment_filter[0] : 'All Doctors' %> <%= session.filters && session.filters.location ? 'in ' : '' %><span><%= session.filters && session.filters.location   ? session.filters.location[session.filters.location.length - 1] : '' %></span>
+			</h1>
+		</div>	
+	</section>
+	<div class="breadcrumb">
+		<div class="breadcrumb__container">
+			<p class="breadcrumb__text">Home / Doctor List</p>
+			<form method="POST" action="/sort-by">
+				<select class="breadcrumb__sort" name="sort" onchange="this.form.submit()">
+					<option value="not-specified" selected disabled>Sort By</option>
+					<option value="name-asc">Name A-Z</option>
+					<option value="name-desc">Name Z-A</option>
+					<option value="doctor.avg_fees-asc">Fees Low-High</option>
+					<option value="doctor.avg_fees-desc">Fees High-Low</option>
+					<option value="doctor.experience-desc">Experience</option>
+				</select>	
+			</form>
+		</div>
+	</div>
+
+	<div class="doctors_list">
+		<div class="grid doctor_list__container">
+			<div class="grid doctor_list__container__col-1">
+				<div class="grid doctor_list__container__col-1__filter doctor_list__container__col-1__filter-by">
+					<div class="doctor_list__container__col-1__filter-by__title">
+						<p>Filter By</p>
+					</div>
+					<div class="doctor_list__container__col-1__filter-by__tags" id="doctor_list__container__col-1__filter-by__tags">
+						<% if(filter) { %>
+						<% let key = Object.keys(filter) %>
+						<% key.forEach(el => { %>
+							<% for(let i = 0; i < filter[el].length; i++) { %> 
+								<div class="filter_button">
+									<p class="text"><%= filter[el][i] %></p>
+									<button onclick="form_submit(this)">
+										<i class="fas fa-times"></i>
+									</button>
+								</div>
+							<% } %>
+						<% }) %>
+						<% } %>
+					</div>
+				</div>
+				<form action="/add-filters" id="filter_form" method="POST">
+				<div class="grid doctor_list__container__col-1__filter doctor_list__container__col-1__filter-1">
+					<p class="doctor_list__container__col-1__filter__title">Location</p>
+					<span class="doctor_list__container__col-1__filter__search"><i class="fa fa-search"></i></span>
+					<span class="doctor_list__container__col-1__filter__collapse"><i class="fa fa-minus"></i></span>
+					<div class="doctor_list__container__col-1__filter__options">
+						<% for(let i = 0; i < filters.location.length; i++) { %>
+							<% if(i <= 6) { %>
+								<label class="checkbox_container" for="New Delhi"><input type="checkbox" class="<%= '_' + filters.location[i].split(' ').join('-') %>" onclick="this.form.submit()" id="New Delhi" name="location[]" value="<%= filters.location[i] %>"><%= filters.location[i] %></label>
+							<% } else { %>
+								<label class="checkbox_container display_none" for="New Delhi"><input type="checkbox" class="<%= '_' + filters.location[i].split(' ').join('-') %>" onclick="this.form.submit()" id="New Delhi" name="location[]" value="<%= filters.location[i] %>"><%= filters.location[i] %></label>
+							<% } %>
+						<% } %>
+						
+					</div>
+					<% if(filters.specializations.length > 6) { %>
+						<div class="doctor_list__container__col-1__filter__show_more" id="show-more" onclick="showMore(this)"><span><i class="fa fa-plus"></i></span> Show More</div>
+					<% } %>
+					<div class="doctor_list__container__col-1__filter__show_more display_none" id="show-less" onclick="showLess(this)"><span><i class="fa fa-minus"></i></span> Show Less</div>
+					<!-- <div class="doctor_list__container__col-1__filter__show_more"><span><i class="fa fa-plus"></i></span>Show More</div> -->
+				</div>
+				<div class="grid doctor_list__container__col-1__filter doctor_list__container__col-1__filter-1">
+					<p class="doctor_list__container__col-1__filter__title">Specialization</p>
+					<span class="doctor_list__container__col-1__filter__search"><i class="fa fa-search"></i></span>
+					<span class="doctor_list__container__col-1__filter__collapse"><i class="fa fa-minus"></i></span>
+					<div class="doctor_list__container__col-1__filter__options">
+						<% for(let i = 0; i < filters.specializations.length; i++) { %>
+							<% if(i <= 6) { %>
+								<label class="checkbox_container" for="New Delhi"><input type="checkbox" class="<%= '_' + filters.specializations[i].split(' ').join('-') %>" onclick="this.form.submit()" id="New Delhi" name="treatments[]" value="<%= filters.specializations[i] %>"><%= filters.specializations[i] %></label>
+							<% } else { %>
+								<label class="checkbox_container display_none" for="New Delhi"><input type="checkbox" class="<%= '_' + filters.specializations[i].split(' ').join('-') %>" onclick="this.form.submit()" id="New Delhi" name="treatments[]" value="<%= filters.specializations[i] %>"><%= filters.specializations[i] %></label>
+							<% } %>
+						<% } %>
+					</div>
+					<% if(filters.specializations.length > 6) { %>
+						<div class="doctor_list__container__col-1__filter__show_more" id="show-more" onclick="showMore(this)"><span><i class="fa fa-plus"></i></span> Show More</div>
+					<% } %>
+					<div class="doctor_list__container__col-1__filter__show_more display_none" id="show-less" onclick="showLess(this)"><span><i class="fa fa-minus"></i></span> Show Less</div>
+				</div>
+				<!-- <div class="grid doctor_list__container__col-1__filter doctor_list__container__col-1__filter-2">
+					<p class="doctor_list__container__col-1__filter__title">Treatment</p>
+					<span class="doctor_list__container__col-1__filter__search"><i class="fa fa-search"></i></span>
+					<span class="doctor_list__container__col-1__filter__collapse"><i class="fa fa-minus"></i></span>
+					<div class="doctor_list__container__col-1__filter__options">
+						<label class="checkbox_container" for="Multi Organ Transplant"><input type="checkbox" value="Multi Organ Transplant" id="Multi Organ Transplant" name="treatment[]" onclick="this.form.submit()">Multi Organ Transplant</label>
+						<label class="checkbox_container" for="Orthopedic Surgery"><input type="checkbox" value="Orthopedic Surgery" id="Orthopedic Surgery" name="treatment[]" onclick="this.form.submit()">Orthopedic Surgery</label>
+						<label class="checkbox_container" for="Infertility Treatment"><input type="checkbox" value="Infertility Treatment" id="Infertility Treatment" name="treatment[]" onclick="this.form.submit()">Infertility Treatment</label>
+						<label class="checkbox_container" for="Dentistry"><input type="checkbox" id="Dentistry" value="Dentistry" name="treatment[]" onclick="this.form.submit()">Dentistry</label>
+						<label class="checkbox_container" for="Cardiology"><input type="checkbox" id="Cardiology" value="Cardiology" name="treatment" onclick="add(this)">Cardiology</label>
+						<label class="checkbox_container" for="Cancer"><input type="checkbox" value="Cancer" id="Cancer" name="treatment" onclick="add(this)">Cancer</label>
+					</div>
+					<div class="doctor_list__container__col-1__filter__show_more"><span><i class="fa fa-plus"></i></span> Show More</div>
+				</div> -->
+				<div class="grid doctor_list__container__col-1__filter doctor_list__container__col-1__filter-3">
+					<p class="doctor_list__container__col-1__filter__title">Hospitals</p>
+					<span class="doctor_list__container__col-1__filter__search"><i class="fa fa-search"></i></span>
+					<span class="doctor_list__container__col-1__filter__collapse"><i class="fa fa-minus"></i></span>
+					<div class="doctor_list__container__col-1__filter__options">
+						<% for(let i = 0; i < filters.hospital.length; i++) { %>
+							<% if(i <= 6) { %>
+								<label class="checkbox_container" for="New Delhi"><input type="checkbox" class="<%= '_' + filters.hospital[i].split(' ').join('-') %>" onclick="this.form.submit()" id="New Delhi" name="hospital[]" value="<%= filters.hospital[i] %>"><%= filters.hospital[i] %></label>
+							<% } else { %>
+								<label class="checkbox_container display_none" for="New Delhi"><input type="checkbox" class="<%= '_' + filters.hospital[i].split(' ').join('-') %>" onclick="this.form.submit()" id="New Delhi" name="hospital[]" value="<%= filters.hospital[i] %>"><%= filters.hospital[i] %></label>
+							<% } %>
+						<% } %>
+					</div>
+					<% if(filters.specializations.length > 6) { %>
+						<div class="doctor_list__container__col-1__filter__show_more" id="show-more" onclick="showMore(this)"><span><i class="fa fa-plus"></i></span> Show More</div>
+					<% } %>
+					<div class="doctor_list__container__col-1__filter__show_more display_none" id="show-less" onclick="showLess(this)"><span><i class="fa fa-minus"></i></span> Show Less</div>
+				</div>
+				<div class="grid doctor_list__container__col-1__filter doctor_list__container__col-1__filter-4">
+					<p class="doctor_list__container__col-1__filter__title">Years Of Experience</p>
+					<span class="doctor_list__container__col-1__filter__search"><i class="fa fa-search"></i></span>
+					<span class="doctor_list__container__col-1__filter__collapse"><i class="fa fa-minus"></i></span>
+					<div class="doctor_list__container__col-1__filter__options">
+						<label class="checkbox_container" for="30+"><input id="30+" value="30" class="_30" type="checkbox" name="experience[]" onclick="this.form.submit()">30+</label>
+						<label class="checkbox_container" for="25+"><input id="25+" value="25" class="_25" type="checkbox" name="experience[]" onclick="this.form.submit()">25+</label>
+						<label class="checkbox_container" for="20+"><input id="20+" value="20" class="_20" type="checkbox" name="experience[]" onclick="this.form.submit()">20+</label>
+						<label class="checkbox_container" for="15+"><input id="15+" value="15" class="_15" type="checkbox" name="experience[]" onclick="this.form.submit()">15+</label>
+						<label class="checkbox_container" for="10+"><input id="10+" value="10" class="_10" type="checkbox" name="experience[]" onclick="this.form.submit()">10+</label>
+						<label class="checkbox_container" for="5+"><input id="5+" value="5" class="_5" type="checkbox" name="experience[]" onclick="this.form.submit()">5+</label>
+					</div>
+					<!-- <div class="doctor_list__container__col-1__filter__show_more"><span><i class="fa fa-plus"></i></span> Show More</div> -->
+				</div>
+			</div>
+			</form>
+			<div class="grid doctor_list__container__col-2">
+				<% if(doctors.length === 0) { %>
+					<h4 class="heading-4 no-result">No results where found for this query</h4>
+				<% } else { %>
+					<% for(let i = 0; i < doctors.length; i++){ %>
+					
+					<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-1">
+						<div height="min-content">
+							<div class="doctor_list__container__col-2__card__name">
+								<a href="http://localhost:8000/doctor/<%= doctors[i].id %>"><h3><%= doctors[i].name %></h3></a>
+							</div>
+							<div class="doctor_list__container__col-2__card__other_details">
+								<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-certificate"></i></span><%= doctors[i].doctor.achievements[0] %></li>
+								<% if(doctors[i].doctor.achievements.length > 1) { %>
+									<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span><%= doctors[i].doctor.achievements[1] %></li>
+								<% } %>
+								<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fas fa-clock"></i></span><%= doctors[i].doctor.experience %> Years Of Experience</li>
+								
+								<% for(let h = 0; h < doctors[i].doctor.hospitalList.length; h++) { %>
+									<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fas fa-building"></i></span><%= doctors[i].doctor.hospitalList[h] %></li>
+								<% } %>
+								<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fas fa-map-marker-alt"></i></span><%= doctors[i].location %></li>
+							</div>
+							<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+						</div>
+						
+						<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+							<img src="<%= doctors[i].display_picture %>" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+						</div>
+						<div class="doctor_list__container__col-2__card__time_slot">
+							<h4 class="heading-4">Select a Time Slot</h4>
+								
+							<div class="time-slots-header carousel">
+								<div class="time-slots-header-controls time-slots-header-left right">
+									<i class="fas fa-chevron-left"></i>
+								</div>
+								<div class="carousel-dates slides">
+									<div class="date-heading date-heading--active current slide">
+										<% var k = currentDay; %>
+										
+										<% var rightNowCount = new Date(dateFromServer);
+											
+
+											rightNowCount.setHours(rightNowCount.getHours() + 5);
+
+											rightNowCount.setMinutes(rightNowCount.getMinutes() + 30);
+											
+
+											var dateForSlotsCount = new Date(dateFromServer);
+											
+
+											dateForSlotsCount.setHours(dateForSlotsCount.getHours() + 5);
+											
+											
+											dateForSlotsCount.setMinutes(dateForSlotsCount.getMinutes() + 30); 
+											
+
+											
+
+											%>
+										<% const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']; %>
+										<% function slotsAvailable(day, k) {
+											let slotCount = 0;
+											for(let j = 0; j < doctors[i].slots.length; j++){
+
+												if((doctors[i].slots[j].isDisabled) || (doctors[i].slots[j].holiday)) {
+												
+												} else {
+
+	 												if(doctors[i].slots[j].days.indexOf(day) !== -1){	
+														for(let c = 0; c < doctors[i].slots[j].subSlots.length; c++){
+												
+															if(doctors[i].slots[j].subSlots[c].isBooked || doctors[i].slots[j].subSlots[c].isDisabled){
+															
+															} else {
+
+															var hoursCount;
+
+															if(doctors[i].slots[j].subSlots[c].startTime.split(':')[1].split(' ')[1] == 'pm'){
+																if(doctors[i].slots[j].subSlots[c].startTime.split(':')[0] == '12'){
+																	hoursCount = parseInt(doctors[i].slots[j].subSlots[c].startTime.split(':')[0]);
+																} else {
+																	hoursCount = parseInt(doctors[i].slots[j].subSlots[c].startTime.split(':')[0]) + 12;
+																}
+															} else {
+																hoursCount = parseInt(doctors[i].slots[j].subSlots[c].startTime.split(':')[0]);
+															} 
+																
+															var minutesCount = parseInt(doctors[i].slots[j].subSlots[c].startTime.split(':')[1].split(' ')[0]);
+																
+															
+															dateForSlotsCount = new Date(dateFromServer);
+															
+
+
+															while(days.indexOf(day) !== dateForSlotsCount.getDay()){
+																dateForSlotsCount.setDate(dateForSlotsCount.getDate() + 1);
+															}
+
+
+																					
+															dateForSlotsCount.setHours(hoursCount);
+
+															
+															dateForSlotsCount.setHours(dateForSlotsCount.getHours() + 5);
+
+															
+															dateForSlotsCount.setMinutes(minutesCount);
+															
+															dateForSlotsCount.setMinutes(dateForSlotsCount.getMinutes() + 30);
+															
+															
+																if(rightNowCount < dateForSlotsCount) {
+																	slotCount++;
+																}
+															}
+														}
+													}
+												}
+											}
+											return slotCount;
+										} %>
+										<div class="day-date">
+											<span>Today</span>
+										</div>
+										<div class="day-slots-available">
+											<% let AvailableSlots = slotsAvailable(days[k]) %>
+											<%= AvailableSlots === 0 ? 'No' : AvailableSlots %> Slots Available
+										</div>
+									</div>
+									<div class="date-heading slide">
+										<div class="day-date">
+											<span>Tommorow</span>
+										</div>
+										<div class="day-slots-available">
+											<% AvailableSlots = slotsAvailable(days[k+1])  %>
+											<%= AvailableSlots === 0 ? 'No' : AvailableSlots %> Slots Available
+										</div>
+									</div>
+									<% let dateForCarousel = dateFromServer;
+									let carouselDate = new Date(dateForCarousel);
+									carouselDate.setDate(carouselDate.getDate() + 1);
+									k = k + 2; 
+									for(let r = 1; r < 6 ; r++) { %>
+									<% k = k == 7 ? k % 7 : k; %>
+										<div class="date-heading slide">
+											<div class="day-date">
+												<% carouselDate.setDate(carouselDate.getDate() + 1) %>
+												<span><%= new Date(carouselDate).toDateString() %></span>
+											</div>
+											<div class="day-slots-available">
+												<% AvailableSlots = slotsAvailable(days[k]) %>
+												<%= AvailableSlots === 0 ? 'No' : AvailableSlots %> Slots Available
+											</div>
+										</div>
+										<% k++ %>
+									<% } %>
+								</div>
+								<div class="time-slots-header-controls time-slots-header-right left">
+									<i class="fas fa-chevron-right"></i>
+								</div>
+							</div>
+							<div class="time-slots-container time-slots-carousel">
+								<% let current = currentDay;
+								
+								var subslots = [];	
+								var dateForSlots = new Date(dateFromServer);
+								var dateForTime = new Date(dateFromServer);
+								
+								
+
+								var rightNow = new Date(dateFromServer);
+								rightNow.setHours(dateFromServer.getHours() + 5);
+								rightNow.setMinutes(dateFromServer.getMinutes() + 30);
+								dateForSlots.setHours(dateFromServer.getHours() + 5);
+								dateForSlots.setMinutes(dateFromServer.getMinutes() + 30);
+								
+
+
+								%>
+								<% for(let j = 0; j < 7; j++) { %>
+
+										
+									<% 
+									let subslots = [];
+									let morningSlots = [];
+									let morningDoctor = [];
+									let afternoonSlots = [];
+									let afternoonDoctor = [];
+									let eveningSlots = [];
+									let eveningDoctor = [];
+									let morningColor = [];
+									let afternoonColor = [];
+									let eveningColor = [];
+									let morningDates = [];
+									let afternoonDates = [];
+									let eveningDates = [];
+
+									noSlots = 0;
+									if(current >= 7) current = current % 7;
+									
+									for(let q = 0; q < doctors[i].slots.length; q++){
+										if((doctors[i].slots[q].isDisabled) || (doctors[i].slots[q].isHoliday)){
+												
+										} else {	
+											if(doctors[i].slots[q].days.indexOf(days[current]) !== -1){
+												for(let m = 0; m < doctors[i].slots[q].subSlots.length; m++){
+													if(doctors[i].slots[q].subSlots[m].isBooked || doctors[i].slots[q].subSlots[m].isDisabled){
+
+													} else {
+
+
+														var hours;
+
+														if(doctors[i].slots[q].subSlots[m].startTime.split(':')[1].split(' ')[1] == 'pm'){
+
+															if(doctors[i].slots[q].subSlots[m].startTime.split(':')[0] == '12'){
+																
+																hours = parseInt(doctors[i].slots[q].subSlots[m].startTime.split(':')[0]);
+
+															} else {
+																
+																hours = parseInt(doctors[i].slots[q].subSlots[m].startTime.split(':')[0]) + 12;
+
+															}
+														} else {
+
+															hours = parseInt(doctors[i].slots[q].subSlots[m].startTime.split(':')[0]);
+
+														}
+
+														var minutes = parseInt(doctors[i].slots[q].subSlots[m].startTime.split(':')[1].split(' ')[0]);
+
+														dateForSlots = new Date(dateFromServer);
+														dateForSlots.setDate(dateForSlots.getDate() + j);
+
+														dateForSlots.setHours(hours);
+
+														dateForSlots.setHours(dateForSlots.getHours() + 5);
+														
+
+
+														dateForSlots.setMinutes(minutes);
+														dateForSlots.setMinutes(dateForSlots.getMinutes() + 30);
+
+
+														if(rightNow < dateForSlots){
+															
+															if(dateForSlots.getUTCHours() >= 8 && dateForSlots.getUTCHours() < 12){
+																
+																morningSlots.push(doctors[i].slots[q].subSlots[m]);
+																morningColor.push(q);
+																morningDoctor.push(doctors[i]._id);
+
+															} else if(dateForSlots.getUTCHours() >= 12 && dateForSlots.getUTCHours() < 17) {
+
+																afternoonSlots.push(doctors[i].slots[q].subSlots[m]);
+																afternoonColor.push(q);
+																afternoonDoctor.push(doctors[i]._id);
+
+															} else if(dateForSlots.getUTCHours() >= 17 && dateForSlots.getUTCHours() < 23) {
+																eveningSlots.push(doctors[i].slots[q].subSlots[m]);
+																eveningColor.push(q);
+																eveningDoctor.push(doctors[i]._id);
+															}	
+
+														}	
+
+													}
+												}
+											}
+										}	
+											
+									}
+												
+									%>	
+									<div class="time-slots time-slot-slide">
+										<div class="time-slot-day-wise">
+											<div class="time-slot-morning">
+												<div class="time-slot-day-wise-heading">
+													<i class="far fa-sun"></i>
+													<h4 class="para-1">Morning</h4>
+												</div>
+												<div class="time-slot-day-wise-slots">
+													<% for(let d = 0; d < morningSlots.length; d++){ %>
+														<% if(morningColor[d] == 0){ %>
+															<div class="slot" onclick="goToAppointment(this)" data-subslotid="<%= morningSlots[d]._id %>" data-doctorid="<%= morningDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= morningSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(morningColor[d] == 1){ %>
+															<div class="slot slot-red" onclick="goToAppointment(this)" data-subslotid="<%= morningSlots[d]._id %>" data-doctorid="<%= morningDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= morningSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(morningColor[d] == 2){ %>
+															<div class="slot slot-purple" onclick="goToAppointment(this)" data-subslotid="<%= morningSlots[d]._id %>" data-doctorid="<%= morningDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= morningSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(morningColor[d] == 3){ %>
+															<div class="slot slot-green" onclick="goToAppointment(this)" data-subslotid="<%= morningSlots[d]._id %>" data-doctorid="<%= morningDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= morningSlots[d].startTime %>
+															</div>
+														<% } %>
+														
+													<% } %>
+													
+												</div>
+											</div>
+											<div class="time-slot-morning">
+												<div class="time-slot-day-wise-heading">
+													<i class="far fa-sun"></i>
+													<h4 class="para-1">Afternoon</h4>
+												</div>
+												<div class="time-slot-day-wise-slots">
+													<% for(let d = 0; d < afternoonSlots.length; d++){ %>
+														<% if(afternoonColor[d] == 0){ %>
+															<div class="slot" onclick="goToAppointment(this)" data-subslotid="<%= afternoonSlots[d]._id %>" data-doctorid="<%= afternoonDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= afternoonSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(afternoonColor[d] == 1){ %>
+															<div class="slot slot-red" onclick="goToAppointment(this)" data-subslotid="<%= afternoonSlots[d]._id %>" data-doctorid="<%= afternoonDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= afternoonSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(afternoonColor[d] == 2){ %>
+															<div class="slot slot-purple" onclick="goToAppointment(this)" data-subslotid="<%= afternoonSlots[d]._id %>" data-doctorid="<%= afternoonDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= afternoonSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(afternoonColor[d] == 3){ %>
+															<div class="slot slot-green" onclick="goToAppointment(this)"data-subslotid="<%= afternoonSlots[d]._id %>" data-doctorid="<%= afternoonDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= afternoonSlots[d].startTime %>
+															</div>
+														<% } %>
+													<% } %>
+												</div>
+											</div>
+											<div class="time-slot-morning">
+												<div class="time-slot-day-wise-heading">
+													<i class="far fa-sun"></i>
+													<h4 class="para-1">Evening</h4>
+												</div>
+												<div class="time-slot-day-wise-slots">
+													<% for(let d = 0; d < eveningSlots.length; d++){ %>
+														<% if(eveningColor[d] == 0){ %>
+															<div class="slot" onclick="goToAppointment(this)" data-subslotid="<%= eveningSlots[d]._id %>" data-doctorid="<%= eveningDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= eveningSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(eveningColor[d] == 1){ %>
+															<div class="slot slot-red" onclick="goToAppointment(this)" data-subslotid="<%= eveningSlots[d]._id %>" data-doctorid="<%= eveningDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= eveningSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(eveningColor[d] == 2){ %>
+															<div class="slot slot-purple" onclick="goToAppointment(this)" data-subslotid="<%= eveningSlots[d]._id %>" data-doctorid="<%= eveningDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= eveningSlots[d].startTime %>
+															</div>
+														<% } %>
+														<% if(eveningColor[d] == 3){ %>
+															<div class="slot slot-green" onclick="goToAppointment(this)"data-subslotid="<%= eveningSlots[d]._id %>" data-doctorid="<%= eveningDoctor[d] %>" data-date="<%= dateForSlots.toDateString() %>">
+																<%= eveningSlots[d].startTime %>
+															</div>
+														<% } %>
+														
+													<% } %>
+												</div>
+											</div>
+										</div>
+									
+									</div>
+									
+									<% current++ %>
+									<% %>
+								<% } %>
+							</div>
+							<div class="legend">
+							<% for(let n = 0; n < doctors[i].slots.length; n++) { %>
+								<% if((doctors[i].slots[n].isDisabled) || (doctors[i].slots[n].holiday)) { %>
+									<% } else { %>
+										<% if(n == 0) { %>
+											<div class="legend-item legend-item-blue">
+												<%= doctors[i].slots[n].hospital %>
+											</div>
+										<% } %>
+										<% if(n == 1) { %>
+											<div class="legend-item legend-item-red">
+												<%= doctors[i].slots[n].hospital %>
+											</div>
+										<% } %>
+										<% if(n == 2) { %>
+											<div class="legend-item legend-item-purple">
+												<%= doctors[i].slots[n].hospital %>
+											</div>
+										<% } %>
+										<% if(n == 3) { %>
+											<div class="legend-item legend-item-green">
+												<%= doctors[i].slots[n].hospital %>
+											</div>
+										<% } %>
+								<% } %>
+							<% } %>
+							</div>
+						</div>
+					</div>
+					<% } %>
+				<% } %>
+				<!-- <div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-1">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Deep Chandra Verma</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fas fa-clock"></i></span>9 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fas fa-building"></i></span>Rockland Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fas fa-map-marker-alt"></i></span>Delhi</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--002.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-2">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Dilip Chandra Dalgade</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>13 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Kokilaben Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fa fa-map-marker-alt"></i></span>Mumbai</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--005.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-3">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Pooja Bindra Verma</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>23 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Primus Super Speciality Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fa fa-map-marker-alt"></i></span>Delhi</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--003.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-4">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Meena Vijay Sharma</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>6 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Kokilaben Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__locatioli"><span><i class="fa fa-map-marker-alt"></i></span>Mumbai</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--004.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-5">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Abhishek Nitin Joshi</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>7 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Apollo Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fa fa-map-marker-alt"></i></span>Bangalore</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--002.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-6">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Sangeeta Vikram Dev</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>15 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Fortis Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fa fa-map-marker-alt"></i></span>Punjab</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--003.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>	 -->
+			</div>	
+		</div>
+	</div>
+
+	<div class="help">
+		<%- include('partials/help.ejs') %>
+	</div>
+	<footer class="footer">
+		<%- include('partials/footer.ejs') %> 
+	</footer>
+	<div class="border">
+	</div>
+	<script>
+		function goToAppointment(slot) {
+			window.location.href = `http://localhost:8000/appointment/${slot.dataset.doctorid}?slot=${slot.dataset.subslotid}&date=${slot.dataset.date}`;
+		}
+	</script>
+	<script>
+		let form_submit = (doc)=>{
+
+	        let filter_finder =  doc.parentElement.querySelector(".text");
+
+	        
+
+	        if(document.querySelector("._" + filter_finder.innerText.split(' ').join('-'))) {
+	        	document.querySelector("._" + filter_finder.innerText.split(' ').join('-')).removeAttribute("checked",false);	
+	        }
+	        
+
+	        document.querySelector("#filter_form").submit();
+	        
+	        }
+
+
+		let filter = '<%- JSON.stringify(filter) %>';
+		let sort_by = '<%- JSON.stringify(sort) %>';
+		// console.log(filter);
+		filter = JSON.parse(filter);
+		sort_by = JSON.parse(sort_by);
+		if(filter){
+			let key = Object.keys(filter)
+            key.forEach(element=>{ 
+                for(let i = 0;i<filter[element].length;i++) {
+                    
+                    document.querySelector("._" + filter[element][i].split(' ').join('-')).setAttribute("checked",true);
+
+                }
+            });
+		}
+		if(sort_by && sort_by != 'none'){
+			document.querySelector(`option[value="${sort_by}"]`).setAttribute('selected', true);
+		} else {
+			document.querySelector('.not-specfied').setAttribute('selected', true);
+		}
+	</script>
+	<script>
+
+		const appointment = async (el, id) => {
+			const currentDate = document.querySelector('.date-heading--active');
+			const hour = el.innerText.split(':')[0];
+			
+			// console.log(id);
+			const min = el.innerText.split(':')[1].split(' ')[0];
+			const mode = el.innerText.split(':')[1].split(' ')[1];
+			const date = currentDate.children[0].children[0].innerText;
+			const query = `/appointment/${id}?hour=${hour}&min=${min}&mode=${mode}&date=${date}`;
+			window.location.href = query;
+		}
+
+		const carousels = document.querySelectorAll('.carousel');
+		carousels.forEach(carousel => {
+			const timeSlotCarousel = carousel.parentElement.querySelector(".time-slots-carousel");
+			const slides = Array.from(carousel.querySelectorAll(".slide"));
+			const timeSlotSlides = Array.from(timeSlotCarousel.querySelectorAll(".time-slot-slide"));
+			const leftButton = carousel.querySelector(".left");
+			const rightButton = carousel.querySelector(".right");
+			let current = slides[0];
+			let timeSlotCurrent = timeSlotSlides[0];
+
+			const getOrder = elem => {
+			  const styles = getComputedStyle(elem);
+			  const orderValue = styles.order;
+			  const order = parseInt(orderValue);
+			  return order;
+			}
+
+			for(i = 1; i <= slides.length; i++){
+				slides[i-1].style.order = i;
+				timeSlotSlides[i-1].style.order = i;
+			}
+
+			const moveRight = _ => {
+				for(let i = 0; i < slides.length; i++){
+					order = getOrder(slides[i]);
+					timeSlideOrder = getOrder(timeSlotSlides[i]);
+
+					if (order < slides.length) {
+				      slides[i].style.order = order += 1;
+				      timeSlotSlides[i].style.order = order += 1;
+				    } else {
+				      slides[i].style.order = 1;
+				      timeSlotSlides[i].style.order = 1;
+				    }
+						
+				}
+			  current.classList.remove('date-heading--active');
+			  for(let i = 0; i < slides.length; i++){
+			  	if(slides[i].style.order === '1'){
+			  		current = slides[i];
+			  	}
+			  	if(timeSlotSlides[i].style.order === '1'){
+			  		timeSlotCurrent = timeSlotSlides[i];
+			  	}
+			  }
+			  current.classList.add('date-heading--active');
+			}
+
+			const moveLeft = _ => {
+				for(let i = 0; i < slides.length; i++){
+					order = getOrder(slides[i]);
+					timeSlideOrder = getOrder(timeSlotSlides[i]);
+					if (order > 1) {
+				      slides[i].style.order = order -= 1;
+				      timeSlotSlides[i].style.order = order -= 1;
+				    } else {
+				      slides[i].style.order = slides.length;
+				      timeSlotSlides[i].style.order = timeSlotSlides.length;
+				    }		
+				}
+			  current.classList.remove('date-heading--active');
+			  for(let i = 0; i < slides.length; i++){
+			  	if(slides[i].style.order === '1') current = slides[i];
+			  	if(timeSlotSlides[i].style.order === '1') timeSlotCurrent = timeSlotSlides[i];
+			  }
+			  current.classList.add('date-heading--active');
+			}
+
+
+			rightButton.addEventListener('click', _ => {
+			  moveRight();
+			});
+
+			leftButton.addEventListener('click', _ => {
+			  moveLeft();
+			});
+		})
+
+		const carousel = document.querySelector(".carousel");
+		// const timeSlotCarousel = document.querySelector(".time-slots-carousel");
+		// const slides = Array.from(carousel.querySelectorAll(".slide"));
+		// const timeSlotSlides = Array.from(timeSlotCarousel.querySelectorAll(".time-slot-slide"));
+		// const leftButton = document.querySelector(".left");
+		// const rightButton = document.querySelector(".right");
+		// let current = slides[0];
+		// let timeSlotCurrent = timeSlotSlides[0];
+
+		// const getOrder = elem => {
+		//   const styles = getComputedStyle(elem);
+		//   const orderValue = styles.order;
+		//   const order = parseInt(orderValue);
+		//   return order;
+		// }
+
+		// for(i = 1; i <= slides.length; i++){
+		// 	slides[i-1].style.order = i;
+		// 	timeSlotSlides[i-1].style.order = i;
+		// }
+
+		// const moveRight = _ => {
+		// 	for(let i = 0; i < slides.length; i++){
+		// 		order = getOrder(slides[i]);
+		// 		timeSlideOrder = getOrder(timeSlotSlides[i]);
+
+		// 		if (order < slides.length) {
+		// 	      slides[i].style.order = order += 1;
+		// 	      timeSlotSlides[i].style.order = order += 1;
+		// 	    } else {
+		// 	      slides[i].style.order = 1;
+		// 	      timeSlotSlides[i].style.order = 1;
+		// 	    }
+					
+		// 	}
+		//   current.classList.remove('date-heading--active');
+		//   for(let i = 0; i < slides.length; i++){
+		//   	if(slides[i].style.order === '1'){
+		//   		current = slides[i];
+		//   	}
+		//   	if(timeSlotSlides[i].style.order === '1'){
+		//   		timeSlotCurrent = timeSlotSlides[i];
+		//   	}
+		//   }
+		//   current.classList.add('date-heading--active');
+		// }
+
+		// const moveLeft = _ => {
+		// 	for(let i = 0; i < slides.length; i++){
+		// 		order = getOrder(slides[i]);
+		// 		timeSlideOrder = getOrder(timeSlotSlides[i]);
+		// 		if (order > 1) {
+		// 	      slides[i].style.order = order -= 1;
+		// 	      timeSlotSlides[i].style.order = order -= 1;
+		// 	    } else {
+		// 	      slides[i].style.order = slides.length;
+		// 	      timeSlotSlides[i].style.order = timeSlotSlides.length;
+		// 	    }		
+		// 	}
+		//   current.classList.remove('date-heading--active');
+		//   for(let i = 0; i < slides.length; i++){
+		//   	if(slides[i].style.order === '1') current = slides[i];
+		//   	if(timeSlotSlides[i].style.order === '1') timeSlotCurrent = timeSlotSlides[i];
+		//   }
+		//   current.classList.add('date-heading--active');
+		// }
+
+
+		// rightButton.addEventListener('click', _ => {
+		//   moveRight();
+		// });
+
+		// leftButton.addEventListener('click', _ => {
+		//   moveLeft();
+		// });
+	</script>
+	<!-- <script src="./../doctors.js"></script> -->
+	<script>
+		 let url = window.location.search;
+		  url = url.split('%20').join(' ');
+		  const checkboxes = document.getElementsByClassName('checkbox_container');
+		  // console.log(checkboxes);
+
+		  [...checkboxes].forEach(checkbox => {
+		    if (url.indexOf(checkbox.firstChild.getAttribute('value')) > -1) {
+		      checkbox.firstChild.checked = true;
+		      document.getElementById("doctor_list__container__col-1__filter-by__tags").innerHTML +=
+		        `<div class='filter_button'>
+		        <p>${checkbox.firstChild.getAttribute('value')}</p>
+		        <button 
+		          name='${checkbox.firstChild.getAttribute('name')}'
+		          value='${checkbox.firstChild.getAttribute('value')}' 
+		          onclick='remove(this)'
+		        >
+		          <i class='fa fa-times'></i>
+		        </button>
+		      </div>`;
+		    }
+		  });
+
+
+		function add(some) {
+		    let newUrl = window.location.href;
+		    if (some.checked) {
+		      //add query
+		      if (newUrl.indexOf('?') == -1) {
+		        newUrl += `?${some.getAttribute('name')}=${some.getAttribute('value')}`;
+		      }
+		      else {
+		        newUrl += `&${some.getAttribute('name')}=${some.getAttribute('value')}`
+		      }
+		    }
+		    else {
+		      //remove query
+		      newUrl = newUrl.split('%20').join(' ');
+		      const query = `${some.getAttribute('name')}=${some.getAttribute('value')}`;
+		      const inx = newUrl.indexOf(query);
+		      if (newUrl.indexOf(`${some.getAttribute('name')}=${some.getAttribute('value')}`) > -1) {
+		        if (newUrl[inx - 1] === '&') {
+		          newUrl = newUrl.replace('&' + query, '');
+		        }
+		        else {
+		          newUrl = newUrl.replace(query, '');
+		        }
+		      }
+		    }
+		    window.location.href = newUrl; //this line will redirect to new location
+		}
+		function remove(ele) {
+		    let newUrl = window.location.href;
+		    newUrl = newUrl.split('%20').join(' ');
+		    const query = `${ele.getAttribute('name')}=${ele.getAttribute('value')}`;
+		    const inx = newUrl.indexOf(query);
+		    if (newUrl.indexOf(`${ele.getAttribute('name')}=${ele.getAttribute('value')}`) > -1) {
+		      if (newUrl[inx - 1] === '&') {
+		        newUrl = newUrl.replace('&' + query, '');
+		      }
+		      else {
+		        newUrl = newUrl.replace(query, '');
+		      }
+		      window.location.href = newUrl; //this line will redirect to new location
+		    }
+		}
+
+		const bookBtn = document.querySelectorAll('.doctor_list__container__col-2__card__book');
+		bookBtn.forEach(el => {
+			el.addEventListener('click', () => {
+				const timeSlots = el.parentElement.parentElement.children[2];
+				if(timeSlots.style.display == 'flex'){
+					timeSlots.style.display = 'none';
+				} else {
+					timeSlots.style.display = 'flex';
+				}
+			});
+		});	
+	</script>
+	<script type="text/javascript" src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+@mixin button-styling-desktop{
+	padding: 1rem 1.8rem;
+	color: $dark-blue;
+	border: 1px solid $dark-blue;
+	border-radius: .5rem;
+	font-family: $nexa-light;
+	letter-spacing: 0.05rem;
+	font-weight: 600;
+}
+
+@mixin help-button{
+	padding: 1.5rem 2rem;
+	border: none;
+	color: $background-color;
+	background-color: $bright-blue;
+	font-size: 1.6rem;
+	border-radius: .5rem;
+	font-family: $nexa-bold;
+}

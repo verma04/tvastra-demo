@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<%- include('partials/head.ejs') %>
+	<title>OTP</title>
+</head>
+<body class="login-body">
+	<div class="login-body-flex"> 
+		<header>
+		<%- include('partials/header.ejs') %>
+	</header>
+	<% if(error) {%>
+		<% if(errorType === 'Success') { %>
+			<div class="error_container error_container--success">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-check-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Success
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Failure') { %>
+			<div class="error_container">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-times-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Failure
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Info') { %>
+			<div class="error_container error_container--info">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-info-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Info
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+	<% } %>
+		<section class="form_container form_container--otp">
+			<h1 class="form_container__heading">OTP</h1>
+			<form method="POST" action="/otp" class="form_container__form">
+				<h3 class="para-1 otp-message">We have sent One Time Password (OTP) to your registered Phone Number.</h3>
+				<div class="form_container__form__input_field">
+					<!-- <input name="otp" id="otp" type="text" class="form_container__form__otp" required onKeyPress="if(this.value.length==4) return false;" maxlength="4"> -->
+					<!-- <i class="fas fa-question-circle"></i> -->
+
+					<input class="otpField" name="otp_1" id="codeBox1" type="number" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1)" required>
+					<input class="otpField" name="otp_2" id="codeBox2" type="number" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2)" required>
+					<input class="otpField" name="otp_3" id="codeBox3" type="number" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3)" required>
+					<input class="otpField" name="otp_4" id="codeBox4" type="number" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4)" required>
+
+				</div>
+				<div class="try_another_method timer resend-otp"><a href="#"><span class="para-1">Resend in 35</span></a></div>
+				<button type="submit" id="otpSubmit" class="form_container__form__submit">
+					<span class="form_container__form__submit__text">Submit</span>
+					<span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+				</button>
+			</form>
+		</section>
+		<section class="copyright">
+			<span>All Rights Reserved &copy; Tvastra 2020</span>
+		</section>	
+	</div>
+	<script type="text/javascript" src="otp.js"></script>
+	<script src="error.js"></script>
+</body>
+</html>

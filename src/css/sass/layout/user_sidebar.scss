@@ -1,0 +1,108 @@
+.profile_detail{
+	display: none;
+}
+.profile_dashboard__sidebar_menu_container{
+	display: none;
+}
+
+.page-title{
+	padding: 2rem;
+	span{
+		font-size: 1.5rem;
+		font-family: $nexa-bold;
+	}
+}
+
+@media(min-width: $bp-tablet){
+	.page-title{
+		display: none;
+	}
+	
+	.user-dashboard{
+		// background-color: #eee;
+	}
+	
+	.profile_detail{
+		display: block;
+		background-color: $background-color;
+		height: 7rem;
+		padding: 1rem;
+		margin: 3rem 3rem 0rem 3rem;
+		border-bottom: 1px solid #ddd;
+		.profile_small_details{
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			width: 20rem;
+			.profile_picture__container{
+				width: 5rem;
+				height: 5rem;
+				align-self: center;
+				justify-self: start;
+				border-radius: .5rem;
+				overflow: hidden;
+				img{
+					width: 100%;
+					height: 100%;
+				}
+			}
+			.name_and_phone{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: flex-start;
+				a{
+					text-decoration: none;
+					font-family: $nexa-bold;
+					color: $grey-1;	
+				}
+				.name{	
+					margin-bottom: 1rem;
+				}
+				.phoneNumber{
+					font-family: $nexa-light;
+				}
+			}
+		}
+	}
+
+	.profile_dashboard__sidebar_menu_container{
+		background-color: $background-color;
+		display: block;
+		width: 20rem;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		margin: 0rem 0rem 0rem 3rem;
+		.profile_dashboard__sidebar_menu{
+			display: flex;
+			flex-direction: column;
+			a{
+				text-decoration: none;
+
+			}
+			&__item{
+				&:hover{
+					background-color: rgba(black,.01);
+					border-left: 2px solid $bright-blue;
+				}
+				font-family: $nexa-bold;
+				color: $grey-1;
+				font-size: 1.4rem;
+				padding: 2rem 2rem;
+			}
+			.active{
+				background-color: $bright-blue;
+				color: $background-color;
+			}
+		}
+	}
+}
+
+@media(min-width: $bp-desktop){
+	.profile_detail{
+		margin: 3rem 10rem 0rem 10rem;
+	}
+	.profile_dashboard__sidebar_menu_container{
+		margin: 0rem 0rem 0rem 10rem;
+	}
+}

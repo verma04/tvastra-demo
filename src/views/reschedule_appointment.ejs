@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Doctor</title>
+	<%- include('partials/head.ejs') %>
+</head>
+<body>
+	<header>
+		<%- include('partials/header.ejs') %>
+	</header>
+	<div class="doctors_list">
+		<div class="grid doctor_list__container reschedule_container">
+			<div class="grid doctor_list__container__col-2">
+				<% for(let i = 0; i < doctors.length; i++){ %>
+				
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-1 reschedule_container_card">
+					<!-- <div>
+						<div class="doctor_list__container__col-2__card__name">
+							<a href="http://localhost:8000/doctor/<%= doctors[i].id %>"><h3><%= doctors[i].name %></h3></a>
+						</div>
+						<div class="doctor_list__container__col-2__card__other_details">
+							<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-certificate"></i></span><%= doctors[i].doctor.achievements[0] %></li>
+							<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span><%= doctors[i].doctor.achievements[1] %></li>
+							<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fas fa-clock"></i></span><%= doctors[i].doctor.experience %> Years Of Experience</li>
+							<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fas fa-building"></i></span><%= doctors[i].doctor.hospital %></li>
+							<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fas fa-map-marker-alt"></i></span><%= doctors[i].city %></li>
+						</div>
+						<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					</div> -->
+					
+					<!-- <div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="<%= doctors[i].display_picture %>" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div> -->
+					<div class="reschedule_appointment_wrapper">
+						<div class="reschedule_appointment_heading">
+						<h3 class="heading-3">Reschedule Appointment</h3>
+					</div>
+					<div class="reschedule_appointment_details_container">
+						<div class="reschedule_appointment_details">
+								<div class="reschedule_appointment_detail">
+									<div class="reschedule_appointment_detail_title">
+										Doctor
+									</div>
+									<div class="reschedule_appointment_detail_description">
+										Dr. <%= doctors[i].name %>
+									</div>
+								</div>
+								<div class="reschedule_appointment_detail">
+									<div class="reschedule_appointment_detail_title">
+										Date
+									</div>
+									<div class="reschedule_appointment_detail_description">
+										<%= appointment.appointmentDate.toDateString() %>
+									</div>
+								</div>
+								<div class="reschedule_appointment_detail">
+									<div class="reschedule_appointment_detail_title">
+										Time
+									</div>
+									<div class="reschedule_appointment_detail_description">
+										<%= subslot.subSlots.startTime %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="doctor_list__container__col-2__card__time_slot time_slot--reschedule">
+						<h4 class="heading-4">Select a Time Slot</h4>
+							
+						<div class="time-slots-header carousel">
+							<div class="time-slots-header-controls time-slots-header-left right">
+								<i class="fas fa-chevron-left"></i>
+							</div>
+							<div class="carousel-dates slides">
+								<div class="date-heading date-heading--active current slide">
+									<% var k = currentDay; %>
+									<% var rightNowCount = new Date(dateFromServer);
+										
+										rightNowCount.setHours(rightNowCount.getHours() + 5);
+										
+										rightNowCount.setMinutes(rightNowCount.getMinutes() + 30);
+										
+										var dateForSlotsCount = new Date(dateFromServer);
+
+										dateForSlotsCount.setHours(dateForSlotsCount.getHours() + 5);
+										
+										dateForSlotsCount.setMinutes(dateForSlotsCount.getMinutes() + 30); 
+
+										  %>
+									<% const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']; %>
+									<% function slotsAvailable(day) {
+										let slotCount = 0;
+										for(let j = 0; j < doctors[i].slots.length; j++){
+											if((doctors[i].slots[j].isDisabled) || (doctors[i].slots[j].holiday)) {
+											} else {
+ 												if(doctors[i].slots[j].days.indexOf(day) !== -1){
+													for(let c = 0; c < doctors[i].slots[j].subSlots.length; c++){
+														if(doctors[i].slots[j].subSlots[c].isBooked || doctors[i].slots[j].subSlots[c].isDisabled){
+															
+
+														
+														} else {
+															
+
+															var hoursCount;
+
+														if(doctors[i].slots[j].subSlots[c].startTime.split(':')[1].split(' ')[1] == 'pm'){
+															if(doctors[i].slots[j].subSlots[c].startTime.split(':')[0] == '12'){
+																hoursCount = parseInt(doctors[i].slots[j].subSlots[c].startTime.split(':')[0]);
+															} else {
+																hoursCount = parseInt(doctors[i].slots[j].subSlots[c].startTime.split(':')[0]) + 12;
+															}
+														} else {
+															hoursCount = parseInt(doctors[i].slots[j].subSlots[c].startTime.split(':')[0]);
+														} 
+															
+														var minutesCount = parseInt(doctors[i].slots[j].subSlots[c].startTime.split(':')[1].split(' ')[0]);
+															
+															
+														dateForSlotsCount.setHours(hoursCount);
+														dateForSlotsCount.setMinutes(minutesCount);
+
+														dateForSlotsCount.setHours(dateForSlotsCount.getHours() + 5);
+														dateForSlotsCount.setMinutes(dateForSlotsCount.getMinutes() + 30);
+														
+														
+
+															if(rightNowCount < dateForSlotsCount) {
+																slotCount++;
+															}
+
+
+
+														
+
+
+
+
+
+														}
+													}
+												}
+											}
+										}
+										return slotCount;
+									} %>
+									<div class="day-date">
+										<span>Today</span>
+									</div>
+									<div class="day-slots-available">
+										<%= slotsAvailable(days[k]) === 0 ? 'No' : slotsAvailable(days[k]) %> Slots Available
+									</div>
+								</div>
+								<div class="date-heading slide">
+									<div class="day-date">
+										<span>Tommorow</span>
+									</div>
+									<div class="day-slots-available">
+										<%= slotsAvailable(days[k+1]) === 0 ? 'No' : slotsAvailable(days[k+1]) %> Slots Available
+									</div>
+								</div>
+								<% let dateForCarousel = dateFromServer;
+								let carouselDate = new Date(dateForCarousel);
+								carouselDate.setDate(carouselDate.getDate() + 1);
+								k = k + 2; 
+								for(let j = 1; j < 6 ; j++) { %>
+								<% k = k == 7 ? k % 7 : k; %>
+									<div class="date-heading slide">
+										<div class="day-date">
+											<% carouselDate.setDate(carouselDate.getDate() + 1) %>
+											<span><%= new Date(carouselDate).toDateString() %></span>
+										</div>
+										<div class="day-slots-available">
+											<%= slotsAvailable(days[k]) === 0 ? 'No' : slotsAvailable(days[k]) %> Slots Available
+										</div>
+									</div>
+									<% k++ %>
+								<% } %>
+							</div>
+							<div class="time-slots-header-controls time-slots-header-right left">
+								<i class="fas fa-chevron-right"></i>
+							</div>
+						</div>
+						<div class="time-slots-container time-slots-carousel">
+							<% let current = currentDay;
+							
+							var subslots = [];	
+							var dateForSlots = new Date(dateFromServer);
+							var dateForTime = new Date(dateFromServer);
+							
+							
+
+							var rightNow = new Date(dateFromServer);
+							rightNow.setHours(dateFromServer.getHours() + 5);
+							rightNow.setMinutes(dateFromServer.getMinutes() + 30);
+							dateForSlots.setHours(dateFromServer.getHours() + 5);
+							dateForSlots.setMinutes(dateFromServer.getMinutes() + 30);
+
+							%>
+							<% for(let j = 0; j < 7; j++) { %>
+
+								<div class="time-slots time-slot-slide">
+									<% 
+										subslots = [];
+										var noSlots = 0;
+										if(current >= 7) current = current % 7; %>
+										<% for(let q = 0; q < doctors[i].slots.length; q++) {
+										%> 
+											<% if((doctors[i].slots[q].isDisabled) || (doctors[i].slots[q].holiday)) { %>
+											<% } else { %>
+												<% if(doctors[i].slots[q].days.indexOf(days[current]) !== -1) {
+												noSlots = 1;
+													%>
+													
+													<% if(doctors[i].slots[q].subSlots.length) { %>
+														<% for(let m = 0; m < doctors[i].slots[q].subSlots.length; m++) {%>
+															<% if ((doctors[i].slots[q].subSlots[m].isBooked) || (doctors[i].slots[q].subSlots[m].isDisabled)) { %>
+															<% } else { %>
+															<% 
+															
+															var hours;
+
+															if(doctors[i].slots[q].subSlots[m].startTime.split(':')[1].split(' ')[1] == 'pm'){
+																if(doctors[i].slots[q].subSlots[m].startTime.split(':')[0] == '12'){
+																	hours = parseInt(doctors[i].slots[q].subSlots[m].startTime.split(':')[0]);
+																} else {
+																	hours = parseInt(doctors[i].slots[q].subSlots[m].startTime.split(':')[0]) + 12;
+																}
+															} else {
+																hours = parseInt(doctors[i].slots[q].subSlots[m].startTime.split(':')[0]);
+															} 
+															
+															var minutes = parseInt(doctors[i].slots[q].subSlots[m].startTime.split(':')[1].split(' ')[0]);
+																
+																
+															dateForSlots.setHours(hours);
+															dateForSlots.setMinutes(minutes);
+
+															dateForSlots.setHours(dateForSlots.getHours() + 5);
+															dateForSlots.setMinutes(dateForSlots.getMinutes() + 30);
+															
+
+															if(!(rightNow < dateForSlots)) {
+
+															} else {
+															 %>
+																<% if(q == 0) { %>
+																<div class="slot" onclick="rescheduleAppointment(this)" data-subslotid='<%= doctors[i].slots[q].subSlots[m].id %>'>
+																	<%= doctors[i].slots[q].subSlots[m].startTime  %>
+																</div>
+																<% } %>
+																<% if(q == 1) { %>
+																	<div class="slot slot-red" onclick="rescheduleAppointment(this)" data-subslotid='<%= doctors[i].slots[q].subSlots[m].id %>'>
+																		<%= doctors[i].slots[q].subSlots[m].startTime  %>		
+																	</div>
+																<% } %>	
+																<% if(q == 2) { %>
+																	<div class="slot slot-purple" onclick="rescheduleAppointment(this)" data-subslotid='<%= doctors[i].slots[q].subSlots[m].id %>'>
+																		<%= doctors[i].slots[q].subSlots[m].startTime  %>
+																	</div>
+																<% } %>	
+																<% if(q == 3) { %>
+																	<div class="slot slot-green" onclick="rescheduleAppointment(this)" data-subslotid='<%= doctors[i].slots[q].subSlots[m].id %>'>
+																		<%= doctors[i].slots[q].subSlots[m].startTime  %>
+																	</div>
+																<% } %>
+																<% } %>
+															<% } %>	
+														<% } %>
+													<% } %>
+												<% } %>
+												
+											<% } %>
+										<% } 
+										current++; %>
+										<% if(!noSlots) { %>
+											<h4 class="heading-4">No Slot Available</h4>
+										<% } %>
+								</div>
+								<% dateForSlots.setDate(dateForSlots.getDate() + 1) %>
+								<% dateForTime.setDate(dateForTime.getDate() + 1) %>
+							<% } %>
+
+						</div>
+						<div class="legend">
+						<% for(let n = 0; n < doctors[i].slots.length; n++) { %>
+							<% if((doctors[i].slots[n].isDisabled) || (doctors[i].slots[n].holiday)) { %>
+								<% } else { %>
+									<% if(n == 0) { %>
+										<div class="legend-item legend-item-blue">
+											<%= doctors[i].slots[n].hospital %>
+										</div>
+									<% } %>
+									<% if(n == 1) { %>
+										<div class="legend-item legend-item-red">
+											<%= doctors[i].slots[n].hospital %>
+										</div>
+									<% } %>
+									<% if(n == 2) { %>
+										<div class="legend-item legend-item-purple">
+											<%= doctors[i].slots[n].hospital %>
+										</div>
+									<% } %>
+									<% if(n == 3) { %>
+										<div class="legend-item legend-item-green">
+											<%= doctors[i].slots[n].hospital %>
+										</div>
+									<% } %>
+							<% } %>
+						<% } %>
+						</div>
+					</div>
+				</div>
+				<% } %>
+				<!-- <div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-1">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Deep Chandra Verma</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fas fa-clock"></i></span>9 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fas fa-building"></i></span>Rockland Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fas fa-map-marker-alt"></i></span>Delhi</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--002.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-2">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Dilip Chandra Dalgade</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>13 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Kokilaben Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fa fa-map-marker-alt"></i></span>Mumbai</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--005.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-3">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Pooja Bindra Verma</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>23 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Primus Super Speciality Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fa fa-map-marker-alt"></i></span>Delhi</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--003.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-4">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Meena Vijay Sharma</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>6 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Kokilaben Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__locatioli"><span><i class="fa fa-map-marker-alt"></i></span>Mumbai</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--004.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-5">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Abhishek Nitin Joshi</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>7 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Apollo Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fa fa-map-marker-alt"></i></span>Bangalore</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--002.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="doctor_list__container__col-2__card doctor_list__container__col-2__card-6">
+					<div class="doctor_list__container__col-2__card__name">
+						<h3>Sangeeta Vikram Dev</h3>
+					</div>
+					<div class="doctor_list__container__col-2__card__other_details">
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-1"><span><i class="fa fa-certificate"></i></span>10th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__achievement-2"><span><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/certificate.png" alt=""></span>12th</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__experience"><span><i class="fa fa-clock"></i></span>15 Years Of Experience</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__hospital"><span><i class="fa fa-building"></i></span>Fortis Hospital</li>
+						<li class="doctor_list__container__col-2__card__other_details__para doctor_list__container__col-2__card__other_details__location"><span><i class="fa fa-map-marker-alt"></i></span>Punjab</li>
+					</div>
+					<button class="doctor_list__container__col-2__card__book">Book an appointment</button>
+					<div class="doctor_list__container__col-2__card__doctor_img_wrapper">
+						<img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/image--003.jpg" alt="" class="doctor_list__container__col-2__card__doctor_img_wrapper__img">	
+					</div>
+				</div>	 -->
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="help">
+		<%- include('partials/help.ejs') %>
+	</div>
+	<footer class="footer">
+		<%- include('partials/footer.ejs') %> 
+	</footer> -->
+	<div class="border">
+	</div>
+	<script>
+		async function rescheduleAppointment(slot){
+			console.log(window.location.href.split('/'));
+			const res = await fetch(`/reschedule-appointment/${window.location.href.split('/')[4]}?subslot=${slot.dataset.subslotid}`, {
+				method: 'POST'
+			});
+			console.log(`/reschedule-appointment/${window.location.href.split('/')[4]}?subslot=${slot.dataset.subslotid}`)
+			window.location.href = res.url;
+		}
+	</script>
+	<script>
+
+		const appointment = async (el, id) => {
+			const currentDate = document.querySelector('.date-heading--active');
+			console.log(currentDate.children[0].children[0].innerText);
+			console.log(el.innerText);
+			const hour = el.innerText.split(':')[0];
+			
+			// console.log(id);
+			const min = el.innerText.split(':')[1].split(' ')[0];
+			const mode = el.innerText.split(':')[1].split(' ')[1];
+			const date = currentDate.children[0].children[0].innerText;
+			const query = `/appointment/${id}?hour=${hour}&min=${min}&mode=${mode}&date=${date}`;
+			window.location.href = query;
+		}
+
+		const carousels = document.querySelectorAll('.carousel');
+		carousels.forEach(carousel => {
+			const timeSlotCarousel = carousel.parentElement.querySelector(".time-slots-carousel");
+			const slides = Array.from(carousel.querySelectorAll(".slide"));
+			const timeSlotSlides = Array.from(timeSlotCarousel.querySelectorAll(".time-slot-slide"));
+			const leftButton = carousel.querySelector(".left");
+			const rightButton = carousel.querySelector(".right");
+			let current = slides[0];
+			let timeSlotCurrent = timeSlotSlides[0];
+
+			const getOrder = elem => {
+			  const styles = getComputedStyle(elem);
+			  const orderValue = styles.order;
+			  const order = parseInt(orderValue);
+			  return order;
+			}
+
+			for(i = 1; i <= slides.length; i++){
+				slides[i-1].style.order = i;
+				timeSlotSlides[i-1].style.order = i;
+			}
+
+			const moveRight = _ => {
+				for(let i = 0; i < slides.length; i++){
+					order = getOrder(slides[i]);
+					timeSlideOrder = getOrder(timeSlotSlides[i]);
+
+					if (order < slides.length) {
+				      slides[i].style.order = order += 1;
+				      timeSlotSlides[i].style.order = order += 1;
+				    } else {
+				      slides[i].style.order = 1;
+				      timeSlotSlides[i].style.order = 1;
+				    }
+						
+				}
+			  current.classList.remove('date-heading--active');
+			  for(let i = 0; i < slides.length; i++){
+			  	if(slides[i].style.order === '1'){
+			  		current = slides[i];
+			  	}
+			  	if(timeSlotSlides[i].style.order === '1'){
+			  		timeSlotCurrent = timeSlotSlides[i];
+			  	}
+			  }
+			  current.classList.add('date-heading--active');
+			}
+
+			const moveLeft = _ => {
+				for(let i = 0; i < slides.length; i++){
+					order = getOrder(slides[i]);
+					timeSlideOrder = getOrder(timeSlotSlides[i]);
+					if (order > 1) {
+				      slides[i].style.order = order -= 1;
+				      timeSlotSlides[i].style.order = order -= 1;
+				    } else {
+				      slides[i].style.order = slides.length;
+				      timeSlotSlides[i].style.order = timeSlotSlides.length;
+				    }		
+				}
+			  current.classList.remove('date-heading--active');
+			  for(let i = 0; i < slides.length; i++){
+			  	if(slides[i].style.order === '1') current = slides[i];
+			  	if(timeSlotSlides[i].style.order === '1') timeSlotCurrent = timeSlotSlides[i];
+			  }
+			  current.classList.add('date-heading--active');
+			}
+
+
+			rightButton.addEventListener('click', _ => {
+			  moveRight();
+			});
+
+			leftButton.addEventListener('click', _ => {
+			  moveLeft();
+			});
+		})
+
+		const carousel = document.querySelector(".carousel");
+		// const timeSlotCarousel = document.querySelector(".time-slots-carousel");
+		// const slides = Array.from(carousel.querySelectorAll(".slide"));
+		// const timeSlotSlides = Array.from(timeSlotCarousel.querySelectorAll(".time-slot-slide"));
+		// const leftButton = document.querySelector(".left");
+		// const rightButton = document.querySelector(".right");
+		// let current = slides[0];
+		// let timeSlotCurrent = timeSlotSlides[0];
+
+		// const getOrder = elem => {
+		//   const styles = getComputedStyle(elem);
+		//   const orderValue = styles.order;
+		//   const order = parseInt(orderValue);
+		//   return order;
+		// }
+
+		// for(i = 1; i <= slides.length; i++){
+		// 	slides[i-1].style.order = i;
+		// 	timeSlotSlides[i-1].style.order = i;
+		// }
+
+		// const moveRight = _ => {
+		// 	for(let i = 0; i < slides.length; i++){
+		// 		order = getOrder(slides[i]);
+		// 		timeSlideOrder = getOrder(timeSlotSlides[i]);
+
+		// 		if (order < slides.length) {
+		// 	      slides[i].style.order = order += 1;
+		// 	      timeSlotSlides[i].style.order = order += 1;
+		// 	    } else {
+		// 	      slides[i].style.order = 1;
+		// 	      timeSlotSlides[i].style.order = 1;
+		// 	    }
+					
+		// 	}
+		//   current.classList.remove('date-heading--active');
+		//   for(let i = 0; i < slides.length; i++){
+		//   	if(slides[i].style.order === '1'){
+		//   		current = slides[i];
+		//   	}
+		//   	if(timeSlotSlides[i].style.order === '1'){
+		//   		timeSlotCurrent = timeSlotSlides[i];
+		//   	}
+		//   }
+		//   current.classList.add('date-heading--active');
+		// }
+
+		// const moveLeft = _ => {
+		// 	for(let i = 0; i < slides.length; i++){
+		// 		order = getOrder(slides[i]);
+		// 		timeSlideOrder = getOrder(timeSlotSlides[i]);
+		// 		if (order > 1) {
+		// 	      slides[i].style.order = order -= 1;
+		// 	      timeSlotSlides[i].style.order = order -= 1;
+		// 	    } else {
+		// 	      slides[i].style.order = slides.length;
+		// 	      timeSlotSlides[i].style.order = timeSlotSlides.length;
+		// 	    }		
+		// 	}
+		//   current.classList.remove('date-heading--active');
+		//   for(let i = 0; i < slides.length; i++){
+		//   	if(slides[i].style.order === '1') current = slides[i];
+		//   	if(timeSlotSlides[i].style.order === '1') timeSlotCurrent = timeSlotSlides[i];
+		//   }
+		//   current.classList.add('date-heading--active');
+		// }
+
+
+		// rightButton.addEventListener('click', _ => {
+		//   moveRight();
+		// });
+
+		// leftButton.addEventListener('click', _ => {
+		//   moveLeft();
+		// });
+	</script>
+	<!-- <script src="./../doctors.js"></script> -->
+	
+	<!-- <script type="text/javascript" src="index.js"></script> -->
+</body>
+</html>

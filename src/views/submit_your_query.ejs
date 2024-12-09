@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<%- include('partials/head.ejs') %>
+	<title>Submit Your Query</title>
+</head>
+<body class="login-body">
+	<header>
+		<%- include('partials/header.ejs') %>
+	</header>
+	<section class="form_container form_container--signup">
+		<h1 class="form_container__heading">Submit your query</h1>
+		<form action="" class="form_container__form">
+			<div class="form_container__form__input_field">
+				<input type="text" placeholder="Enter Name" class="form_container__form__name" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<input type="text" placeholder="Enter Phone Number" class="form_container__form__phone" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<input type="email" placeholder="Enter Email" class="form_container__form__email" required>
+			</div>
+			<div class="form_container__form__input_field">
+				<textarea name="query" id="" cols="30" rows="10" placeholder="Write your query here">
+				</textarea>
+			</div>
+			
+			<button type="submit" class="form_container__form__submit">
+				<span class="form_container__form__submit__text">Submit</span>
+				<span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+			</button>
+		</form>
+	</section>
+	<section class="copyright">
+		<span>All Rights Reserved &copy; Tvastra 2020</span>
+	</section>
+	<script type="text/javascript" src="index.js"></script>
+</body>
+</html>

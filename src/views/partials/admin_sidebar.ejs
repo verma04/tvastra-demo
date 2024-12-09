@@ -1,0 +1,76 @@
+<sidebar class="admin_sidebar">
+	
+	<div class="menu_container">
+	<% if(session.user.role === 'admin') { %>
+		<ul class="menu">
+			<li class="menu-title para">
+				Dashboard
+			</li>
+			<li class="menu-item">
+				<i class="item-icon fas fa-stethoscope"></i>
+				<p class="para"><a href="/admin">Appointments</a></p>
+			</li>
+			<li class="menu-item">
+				<i class="item-icon fas fa-user-md"></i>
+				<p class="para"><a href="/admin-doctors">Doctors</a></p>
+			</li>
+			<li class="menu-item">
+				<i class="item-icon fas fa-user-md"></i>
+				<p class="para"><a href="/admin-hospitals">Hospitals</a></p>
+			</li>
+			<li class="menu-item">
+				<i class="item-icon fas fa-user-injured"></i>
+				<p class="para"><a href="/admin-patients">Patients</a></p>
+			</li>	
+			<li class="menu-item">
+				<i class="item-icon fas fa-user-injured"></i>
+				<p class="para"><a href="/settings">Settings</a></p>
+			</li>	
+		</ul>
+		<% } else if(session.user.role === 'doctor') { %>
+			<ul class="menu">
+				<li class="menu-title para">
+					Dashboard
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-thermometer"></i>
+					<p class="para"><a href="/edit-profile-doctor">Profile</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-stethoscope"></i>
+					<p class="para"><a href="/doctor-dashboard">Appointments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-money-check-alt"></i>
+					<p class="para"><a href="/schedule-appointment">Schedule Appointments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-money-check-alt"></i>
+					<p class="para"><a href="/settings">Settings</a></p>
+				</li>
+			</ul>
+		<% } else if(session.user.role === 'user') { %>
+			<ul class="menu">
+				<li class="menu-title para">
+					Dashboard
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-thermometer"></i>
+					<p class="para"><a href="/edit-profile">Profile</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-stethoscope"></i>
+					<p class="para"><a href="/user-dashboard-appointments">My Appointments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-money-check-alt"></i>
+					<p class="para"><a href="/user-dashboard-medical-records">Medical Records</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-money-check-alt"></i>
+					<p class="para"><a href="/settings">Settings</a></p>
+				</li>
+			</ul>
+		<% } %>
+	</div>
+</sidebar>

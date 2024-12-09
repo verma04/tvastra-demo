@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Dashboard</title>
+	<%- include('partials/head.ejs') %>
+</head>
+<body>
+	<% if(error) {%>
+		<% if(errorType === 'Success') { %>
+			<div class="error_container error_container--success">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-check-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Success
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Failure') { %>
+			<div class="error_container">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-times-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Failure
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+		<% if(errorType === 'Info') { %>
+			<div class="error_container error_container--info">
+				<div class="col--1">
+					<div class="error_container__icon">
+						<i class="fas fa-info-circle"></i>
+					</div>	
+				</div>
+				<div class="col--2">
+					<div class="error_container__title heading-3">
+						Info
+					</div>
+					<span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span>	
+				</div>
+				<div class="col--3">
+					<div class="error_container__icon" id="cross">
+						<i class="fas fa-times"></i>
+					</div>		
+				</div>
+			</div>
+		<% } %>
+	<% } %>
+	<!-- <sidebar class="admin_sidebar">
+		<div class="cross-sidebar">
+			<i class="fas fa-times"></i>
+		</div>
+		<div class="logo_container">
+			<a href="/admin"><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Logo.jpg" alt="" class="logo"></a>
+		</div>
+		<div class="menu_container">
+			<ul class="menu">
+				<li class="menu-title para">
+					Medicine
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-thermometer"></i>
+					<p class="para"><a href="/admin-dashboard">Dashboard</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-stethoscope"></i>
+					<p class="para"><a href="/admin-dashboard">Appointments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-md"></i>
+					<p class="para"><a href="/admin/doctors">Doctors</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-nurse"></i>
+					<p class="para"><a href="/admin-dashboard">Departments</a></p>
+				</li>
+				<li class="menu-item">
+					<i class="item-icon fas fa-user-injured"></i>
+					<p class="para"><a href="/admin-dashboard">Patients</a></p>
+				</li>	
+				<li class="menu-item">
+					<i class="item-icon fas fa-money-check-alt"></i>
+					<p class="para"><a href="/admin-dashboard">Payments</a></p>
+				</li>	
+
+			</ul>
+		</div>
+	</sidebar> -->
+	<!-- <header class="admin_header">
+		<div class="menu-burger">
+			<i class="fas fa-bars navbar__burger"></i>
+		</div>
+		<div class="bell-icon">
+			<i class="fas fa-bell"></i>
+		</div>
+		<div class="display-picture">
+			<img src="./../assets/femaleDoc.png" alt="">
+			<i class="fas fa-chevron-down"></i>
+		</div>
+	</header> -->
+	
+	<%- include('partials/header.ejs') %>
+	<div class="background-dashboard">
+	<%- include('partials/admin_sidebar.ejs') %>
+	<div class="dashboard_content">
+		<!-- <section class="earnings_chart_container">
+			<svg class="earnings_chart">
+				
+			</svg>
+		</section> -->
+		<section class="recent_appointments">
+			<div class="recent_appointments__container">
+				<h3 class="recent_appointments__heading heading-3">Patients</h3>
+				<div class="recent_appointments__table_container">
+					<table class="recent_appointments__table">
+						<thead>
+							<tr>
+								<th>Photo</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Number</th>
+								<!-- <th>Action</th> -->
+							</tr>	
+						</thead>
+						<tbody>
+							<% for(let i = 0; i < patients.length; i++) { %>
+								<tr>
+									<td class="display_picture_container">
+										<img src="<%= patients[i].display_picture === undefined	? '/public/uploads/users/default-user.png' : patients[i].display_picture   %>" alt="">
+									</td>
+									<td>
+										<%= patients[i].name %>
+									</td>
+									<td>
+										<%= patients[i].email %>
+									</td>
+									<td>
+										<%= patients[i].phoneNumber %>
+									</td>
+									<!-- <td>
+										<div class="actions">
+											<div class="appointment_edit_button">
+												<i class="fas fa-pencil-alt"></i>
+											</div>
+											<div class="appointment_edit_button">
+												<i class="fas fa-trash-alt"></i>
+											</div>	
+										</div>
+									</td> -->
+								</tr>
+							<% } %>	
+						</tbody>
+						
+					</table>
+				</div>	
+			</div>
+			
+
+		</section>
+		<section class="">
+			
+		</section>
+		
+	</div>
+	</div>
+	<script>
+		const menuItemActive = document.querySelectorAll(`a[href='/${window.location.href.split('/')[3]}']`);
+		menuItemActive[1].parentElement.parentElement.classList.add('menu-item--active');
+		console.log(menuItemActive);
+	</script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="./../charts_in_admin.js"></script>
+	<script src="./../index.js">
+	</script>
+	<script src="./../dashboard.js"></script>
+	<script src="./../error.js"></script>
+</body>
+</html>

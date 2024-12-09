@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= session.user.name %></title>
+    <%- include('partials/head.ejs') %>     
+</head>
+<body class="user-dashboard">
+    
+    <% if(error) {%>
+        <% if(errorType === 'Success') { %>
+            <div class="error_container error_container--success">
+                <div class="col--1">
+                    <div class="error_container__icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>  
+                </div>
+                <div class="col--2">
+                    <div class="error_container__title heading-3">
+                        Success
+                    </div>
+                    <span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span> 
+                </div>
+                <div class="col--3">
+                    <div class="error_container__icon" id="cross">
+                        <i class="fas fa-times"></i>
+                    </div>      
+                </div>
+            </div>
+        <% } %>
+        <% if(errorType === 'Failure') { %>
+            <div class="error_container">
+                <div class="col--1">
+                    <div class="error_container__icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>  
+                </div>
+                <div class="col--2">
+                    <div class="error_container__title heading-3">
+                        Failure
+                    </div>
+                    <span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span> 
+                </div>
+                <div class="col--3">
+                    <div class="error_container__icon" id="cross">
+                        <i class="fas fa-times"></i>
+                    </div>      
+                </div>
+            </div>
+        <% } %>
+        <% if(errorType === 'Info') { %>
+            <div class="error_container error_container--info">
+                <div class="col--1">
+                    <div class="error_container__icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>  
+                </div>
+                <div class="col--2">
+                    <div class="error_container__title heading-3">
+                        Info
+                    </div>
+                    <span class="para-1 error" id="cancelLogin"><%= error %> <!-- Valid Only for 60 Seconds. --></span> 
+                </div>
+                <div class="col--3">
+                    <div class="error_container__icon" id="cross">
+                        <i class="fas fa-times"></i>
+                    </div>      
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+
+    
+    
+    <%- include('partials/header.ejs') %>
+    <!-- <section class="edit_profile">
+        <form action="/save-changes" id="edit-profile" method="POST" enctype="multipart/form-data">
+        <div class="edit_profile_container">
+            <div class="save_button">
+                <button type="submit" form="edit-profile">
+                    <span>
+                        Save Changes
+                    </span>
+                </button>
+            </div>
+            <div class="photo_and_name">
+                <div class="edit_profile_photo">
+                    <div class="upload_photo_image_container">
+                        <img src="<%= session.user.display_picture ? session.user.display_picture : 'public/uploads/users/user.jpeg'  %>" alt="">
+                    </div>
+                    <div class="upload_image_container">
+                        <label for="display_picture">Upload Your Profile Photo</label>
+                        <input type="file" name="display_picture" accept="image/*" id="display_picture">    
+                    </div>
+                </div>
+                <div class="edit_name">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" value="<%= session.user.name %>" placeholder="Enter your name" required>
+                </div>
+            </div>
+            <div class="edit_other_details">
+                <div class="edit_field">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" name="phoneNumber" value="<%= session.user.phoneNumber %>" placeholder="Enter your phone number" required>   
+                </div>
+                <div class="edit_field">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" value="<%= session.user.email %>" placeholder="Enter your email" required>         
+                </div>
+                <div class="edit_field">
+                    <label for="gender">Gender</label>
+                    <select data-selected="" required name="gender" id="gender" type="text" class="form_container__form__gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="edit_field">
+                    <label for="dob">DOB</label>
+                    <input type="date" name="dob" value="<%= session.user.dob.split('T')[0] %>" placeholder="DOB">          
+                </div>
+                <div class="edit_field">
+                    <label for="bloodGroup">Blood Group</label>
+                    <select name="bloodGroup" id="bloodGroup" type="text" class="form_container__form__gender">
+                        <option value=undefined>Select your Blood Group</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+                <div class="edit_field">
+                    <label for="timeZone">Time Zone</label>
+                    <select name="timeZone" id="timezone" type="text" class="form_container__form__gender">
+                        <option value=undefined>Select your Time Zone</option>
+                        <option value="Kolkata">Asia/Kolkata</option>
+                        <option value="Karachi">Asia/Karachi</option>
+                        <option value="Bogota">America/Bogota</option>
+                        <option value="Los Angles">America/Los Angles</option>
+                    </select>
+                </div> -->
+                <!-- <label for="dob">DOB</label>
+                <input type="date" name="dob" placeholder="Enter DOB" class="form_container__form__dob"> -->
+            
+
+
+            <!-- </div>
+            <div class="edit_address">
+                <div class="edit_field">
+                    <label for="location">Location</label>
+                    <input type="text" name="location" value="<%= session.user.location %>">    
+                </div>
+                <div class="edit_field">
+                    <label for="state">State</label>
+                    <input type="text" name="state" value="<%= session.user.state %>">  
+                </div>
+                <div class="edit_field">
+                    <label for="country">Country</label>
+                    <select name="country" id="country" type="text" class="form_container__form__gender">
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="Other">Sri Lanka</option>
+                    </select>   
+                </div>
+            </div>
+        </div>
+    </form>
+    </section> -->
+
+    <div class="background-dashboard">
+    
+    <%- include('partials/admin_sidebar.ejs') %>
+    <div class="dashboard_content">
+        <section class="edit_profile edit_profile--doctor">
+            <div  id="edit-profile">
+            <div class="edit_profile_container">
+                <div class="edit_profile_heading edit_profile_heading--edit_profile">
+                    <h4 class="heading-4"></h4>
+                    <div class="save_button">
+                        <button onclick="toggleForm('<%= report.reports[0]._id %>')" type="submit" form="edit-profile">
+                            <span>
+                                Upload Record
+                            </span>
+                        </button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div class="record_container record_container_view">
+            <% for(let i = 0; i < report.reports[0].report_image_url.length; i++) { %>
+                <div class="record_view">
+                    <div class="record_title">
+                        <h4><%= report.reports[0].title  %></h4>
+                        <i class="fas fa-ellipsis-v" onclick="dotsOption(this)"></i>
+                        <ul style="display:none">
+                            <li onclick="delReport('<%= report.reports[0]._id %>', '<%= report.reports[0].report_image_url[i]._id %>')">Delete</li>
+                        </ul>
+                    </div>
+                    <div class="record_image">
+                        <img src="<%= report.reports[0].report_image_url[i].image_url[0].slice(1,) %>" onclick="modal_display(this)" alt="">
+
+                        <div id="myModal" class="modal doctor_details_modal display_none">
+                            <span class="close" id="close_show_report" onclick="modal_deactivate(this)">&times;</span>
+                            <%= report.reports[0].report_image_url[i].length %>
+                            
+                            <% for(let k=0;k< report.reports[0].report_image_url[i].image_url.length;k++) {%>
+                                <img class="modal-content" src="<%= report.reports[0].report_image_url[i].image_url[k].slice(1,)%>" style="padding: 1rem">
+                            <% } %>
+
+                        </div> 
+
+                    </div>
+                </div>
+
+            <% } %>
+        </div>
+
+        <form method= "POST" action="/delReport" id="delReport" style="display: none;">
+            <input type="text" name="report_id" class="report_id">
+            <input type="text" name="report_image" class="report_image">
+            
+        </form>
+        
+        <!-- <div class="popup-medical" style= "display: none;">
+            <form class="medicalForm" method="POST" action="/update_record" enctype="multipart/form-data">
+                <div class="photo_top">
+                    <div class="input_image_container">
+                        <input type="file" name="medicalphoto[]" id="_1" onchange = "addAnother(this,event)" multiple>
+                        <label for="_1">
+                            <p>+</p>
+                            <p class="small">Add Photo</p>
+                        </label>
+                    </div>
+                </div>
+                <input class="report_id" name="report_id" style="display: none;">
+
+                <div class="button-config">
+                    <button type="reset" onclick="toggleForm(this)">Cancel</button>
+                    <button class="primary" type="submit">Done</button>
+                </div>
+            </form>
+        </div> -->
+
+        <!-- <div class="upload_record_form">
+            <div class="upload_record_form_container">
+                <form action="/user-dashboard-medical-records" method="POST" enctype="multipart/form-data">
+                    
+                </form>
+            </div>  
+
+        </div> -->
+        <div class="doctor_details_modal doctor_details_modal--upload-records popup-medical display_none">
+            <form class="form_container form_container--first-login medicalForm" action="/update_record" method="POST" enctype="multipart/form-data">
+                <div class="photos">
+                    <div class="upload_display_picture_container">
+                        <label for="display_picture">Upload Your Record</label>
+                        <input type="file" name="medicalphoto[]" accept="image/*" id="_1" onchange="addAnother(this,event)"  class="display_picture_input" required multiple>   
+                    </div>  
+                </div>
+                <input class="report_id" name="report_id" style="display: none;">
+                <button type="submit" class="form_container__form__submit">
+                    <span class="form_container__form__submit__text">Submit</span>
+                    <span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+                </button>
+                <span class="close-form"><i class="fas fa-times"></i></span>
+            </form>
+        </div>
+        </section>
+    </div>
+    </div>
+    <!-- <div class="change_phone_number_form_container display_none">
+        <div class="form_container__form change_phone_number">
+            <h1 class="form_container__heading">Change Phone Number</h1>
+            <div class="form_container__form__input_field">
+                <input name="phoneNumber" type="text" placeholder="Enter Mobile Number" maxlength="10" id="phoneNumber" class="form_container__form__phone_number" required>
+            </div>
+            <button onclick="sendOTP()" type="submit" class="form_container__form__submit">
+                <span class="form_container__form__submit__text">Verify</span>
+                <span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+            </button>
+            <span class="close-form"><i class="fas fa-times"></i></span>
+        </div>
+    </div> -->
+     <script src="/index.js"></script>
+    <script>
+        const uploadRecords = () => {
+            console.log('upload records');
+            document.querySelector('.doctor_details_modal--upload-records').classList.remove('display_none');
+        }
+        const menuItemActive = document.querySelectorAll(`a[href='/${window.location.href.split('/')[3]}']`);
+        menuItemActive[1].parentElement.parentElement.classList.add('menu-item--active');
+    </script>
+    <script>
+    
+        var editNumber = document.getElementById('edit_phone_number');
+        let formContainer = document.querySelector('.doctor_details_modal--upload-records');
+        let closeForm = document.querySelector('.close-form');
+        closeForm.addEventListener('click', function(){
+            console.log(formContainer);
+            formContainer.classList.add('display_none');
+        });
+
+        var phoneNumber = document.querySelector('#phoneNumber');
+
+        var otpForm = `<h1 class="form_container__heading">OTP</h1>
+            <div class="form_container__form">
+                <h3 class="para-1 otp-message">We have sent One Time Password (OTP) to your registered Phone Number.</h3>
+                <div class="form_container__form__input_field">
+                    <!-- <input name="otp" id="otp" type="text" class="form_container__form__otp" required onKeyPress="if(this.value.length==4) return false;" maxlength="4"> -->
+                    <!-- <i class="fas fa-question-circle"></i> -->
+
+                    <input class="otpField" name="otp_1" id="codeBox1" type="number" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1)" required>
+                    <input class="otpField" name="otp_2" id="codeBox2" type="number" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2)" required>
+                    <input class="otpField" name="otp_3" id="codeBox3" type="number" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3)" required>
+                    <input class="otpField" name="otp_4" id="codeBox4" type="number" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4)" required>
+
+                </div>
+                <button onclick="verifyOTP()" type="submit" id="otpSubmit" class="form_container__form__submit">
+                    <span class="form_container__form__submit__text">Submit</span>
+                    <span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+                </button>
+                <span class="close-form"><i class="fas fa-times"></i></span>
+                </div>`
+        async function sendOTP() {
+            console.log(phoneNumber.value);
+            console.log(JSON.stringify(phoneNumber.value));
+            const res = await fetch('/change-phone-number', {
+                method: 'POST',
+                body: JSON.stringify({
+                    phoneNumber: phoneNumber.value
+                }),
+                headers: { 
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            console.log(res);
+            console.log(res.response);
+            const result = await res.json();
+            if(result.status === 'success'){
+                formContainer.innerHTML = '';
+                formContainer.innerHTML = otpForm;
+                formContainer.style.height = '30rem'; 
+            } 
+        }
+
+        async function verifyOTP(){
+            const otp_1 = document.querySelector(input[name="otp_1"]);
+            const otp_2 = document.querySelector(input[name="otp_2"]);
+            const otp_3 = document.querySelector(input[name="otp_3"]);
+            const otp_4 = document.querySelector(input[name="otp_4"]);
+            const res = await fetch('/change-phone-number-verify', {
+                method: 'POST',
+                body: JSON.stringify({
+                    otp_1: otp_1.value,
+                    otp_2: otp_2.value,
+                    otp_3: otp_3.value,
+                    otp_4: otp_4.value,
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            const result = await res.json();
+            console.log(result);
+        }
+
+        
+
+    </script>
+    <!-- <script>
+        const gender = document.querySelector('select[name="gender"]');
+        const country = document.querySelector('select[name="country"]');
+        const bloodGroup = document.querySelector('select[name="bloodGroup"]');
+        const timeZone = document.querySelector('select[name="timeZone"]');
+
+        function selectOptionFromBackend (optionsList, value){
+            for(var i=0; i < optionsList.options.length; i++){
+                option = optionsList.options[i];
+                if(option.value == value){
+                    console.log(value);
+                    option.selected = 'selected';
+                }
+            }   
+        }
+
+        selectOptionFromBackend(gender, '<%= session.user.gender %>');
+        selectOptionFromBackend(country, '<%= session.user.country %>');
+        selectOptionFromBackend(bloodGroup, '<%= session.user.bloodGroup %>');
+        selectOptionFromBackend(timeZone, '<%= session.user.timeZone %>');
+    </script> -->
+
+    <script src="/dashboard.js"></script>
+    
+    <script src="/error.js"></script>
+
+</body>
+</html>

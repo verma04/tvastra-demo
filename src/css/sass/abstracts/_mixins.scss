@@ -1,0 +1,62 @@
+@mixin flex-center{
+	justify-self: center;
+	align-self: center;
+}
+
+@mixin flex($direction){
+	display: flex;
+	flex-direction: $direction;
+} 
+
+@mixin maintain-aspect-ratio($width) {
+	width: $width;
+	height: auto;
+}
+
+// Desktop
+
+@mixin container-styling-desktop{
+	padding: $desktop-padding;
+	width: 100%;
+	height: 100%;
+}
+
+
+@mixin para-styling-desktop{
+	font-family: $nexa-light;
+	font-size: $desktop-para-font-size;
+	line-height: $desktop-para-line-height;
+}
+
+
+// Tablet
+
+
+@mixin container-styling-tablet{
+	padding: $tablet-padding;
+	width: 100%;
+	height: 100%;
+}
+
+
+@mixin para-styling-tablet{
+	font-family: $nexa-light;
+	font-size: $tablet-para-font-size;
+	line-height: $tablet-para-line-height;
+}
+
+
+// Mobile
+
+@mixin container-styling-mobile{
+	padding: $mobile-padding;
+	width: 100%;
+	height: 100%;
+}
+
+@mixin para-styling-mobile{
+	font-family: $nexa-light;
+	font-size: $mobile-para-font-size;
+	line-height: $mobile-para-line-height;
+}
+

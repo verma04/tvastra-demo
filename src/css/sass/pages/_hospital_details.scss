@@ -1,0 +1,27 @@
+.hospital_features{
+	display: grid;
+	grid-template-columns: 100%;
+	grid-gap: 2rem;
+	&__feature{
+		display: grid;
+		grid-template-columns: 1fr 15fr;
+		grid-gap: 1rem;
+		i{
+			font-size: 1.5rem;
+			color: $dark-blue;
+			justify-self: center;
+			align-self: center;
+		}
+		span{
+			font-size: 1.2rem;
+			color: $dark-blue;
+			align-self: center;
+		}	
+	}
+}
+
+@media(min-width: $bp-tablet){
+	.hospital_features{
+		grid-template-columns: 1fr 1fr;
+	}
+}

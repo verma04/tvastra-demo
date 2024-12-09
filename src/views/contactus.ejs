@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Contact Us</title>
+	<%- include('partials/head.ejs') %>
+	<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJBel8D54gkYQEMff_sEQQwiBvrJpK7Yo&callback=initMap">
+</script>
+</head>
+<body>
+	<header>
+		<%- include('partials/header.ejs') %>
+	</header>
+	<section class="page_description page_description--contactus">
+		<div class="container page_description__container">
+			<h1 class="heading-1 page_description__container__heading">
+				Contact Us
+			</h1>
+			<span class="page_description__container__breadcrumb">
+				Home / Contact Us
+			</span>
+		</div>
+	</section>
+	<section class="location">
+		<div class="location__container">
+			<div id="map"></div>
+		</div>
+	</section>
+	<div class="contactus_grid">
+		<section class="address">
+			<div class="address__container">
+				<ul class="address__container__list">
+					<li class="address__container__list__item">
+						<i class="fas fa-home address__container__list__item__icon">
+						</i>
+						<div class="address__container__list__item__address">
+							<h3 class="address__container__list__item__address__title">
+								Noida, India
+							</h3>
+							<h4 class="address__container__list__item__address__address">
+								New Delhi
+							</h4>	
+						</div>
+					</li>
+					<li class="address__container__list__item">
+						<i class="fas fa-phone-alt address__container__list__item__icon">
+						</i>
+						<div class="address__container__list__item__address">
+							<h3 class="address__container__list__item__address__title">
+								00 (440) 9865 562
+							</h3>
+							<h4 class="address__container__list__item__address__address">
+								Mon to Fri 9am to 6pm
+							</h4>	
+						</div>
+					</li>
+					<li class="address__container__list__item">
+						<i class="fas fa-home address__container__list__item__icon">
+						</i>
+						<div class="address__container__list__item__address">
+							<h3 class="address__container__list__item__address__title">
+								support@colorlib.com
+							</h3>
+							<h4 class="address__container__list__item__address__address">
+								Send us your query anytime!
+							</h4>	
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section class="contact_us_form">
+			<div class="contact_us_form__container">
+				<div class="contact_us_form__container__form--1">
+					<form action="">
+						<div class="contact_us_form__container__form--1__fields">
+							<input type="text" placeholder="Enter your name">
+							<input type="text" placeholder="Enter email address">
+							<input type="text" placeholder="Enter subject">	
+						</div>		
+						<div class="contact_us_form__container__form--1__textarea">
+							<textarea name="message" placeholder="Enter your message" id="" cols="30" rows="10"></textarea>	
+						</div>
+					</form>
+				</div>
+				<div class="contact_us_form__container__form--2">
+					<input type="submit" value="Send Message">	
+				</div>
+			</div>
+		</section>
+	</div>
+	<footer class="footer">
+		<%- include('partials/footer.ejs') %> 
+	</footer>
+	<div class="border">
+	</div>
+</body>
+
+<script>
+	function initMap() {
+	var myLatLng = {lat: 28.5355, lng: 77.3910};
+
+	var map = new google.maps.Map(document.getElementById('map'), {
+	  zoom: 13,
+	  center: myLatLng,
+	  zoomControl: false
+	});
+
+	var marker = new google.maps.Marker({
+	  position: myLatLng,
+	  map: map,
+	  title: 'Hello World!'
+	});
+	}
+</script>
+</html>

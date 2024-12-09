@@ -1,0 +1,161 @@
+.schedule_appointment_container{
+	margin: 3rem;
+	.add_appointment_slot{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+			
+		.add_slot_and_holiday{
+			display: flex;
+			flex-direction: row;
+			align-items: flex-end;
+			grid-gap: 2rem;
+			justify-content: space-between;
+		}
+
+		.edit_field{
+			flex-basis: 30%;
+			min-width: 30%;
+			margin: 1rem;
+			height: 100%;
+			width: 100%;
+			.holiday{
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				grid-gap: 1rem;
+			}
+			.tagify{
+				margin-top: 1rem;
+				font-family: $nexa-bold;
+				font-size: 1.4rem;
+			}
+			.add_slot_button{
+				background-color: $bright-blue;
+				color: white;
+				border: none;
+				width: 100%;
+				flex-basis: 10rem;
+				min-width: 10rem;
+				padding: 1rem 2rem;
+				font-family: $nexa-bold;
+			}
+		}
+	}
+}
+
+.scheduled_slots{
+	&__container{
+		margin: 1.5rem 3rem 3rem 3rem;
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		grid-gap: 1rem;
+		h3{
+			margin-bottom: 1rem;
+			font-family: $nexa-bold;
+		}
+		h4{
+			font-family: $nexa-light;
+		}	
+	}
+	.slot_container{
+		border: 1px solid $bright-blue;
+		border-radius: .5rem;
+		padding: .5rem;
+		display: flex;
+		&--disabled{
+			border: 1px solid grey;
+			div.slot{
+				color: grey;
+			}
+		}
+		&--booked{
+			border: 1px solid green;
+			div.slot{
+				color: green;
+			}	
+		}
+	}
+	&__slot{
+		display: flex;
+		flex-direction: row;
+		padding: 1.5rem;
+		background-color: #ddd;
+		justify-content: space-between;
+		grid-gap: 1rem;
+
+		&--holiday{
+			background-color: #999;
+		}
+	}
+	&__day{
+		background-color: #eee;
+		padding: 1rem;
+		font-family: $nexa-bold;
+		font-size: 1.6rem;
+		border-radius: .5rem;
+	}
+	&__hospital_and_time{
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	&__hospital{
+		font-size: 1.5rem;
+		font-family: $nexa-bold;
+	}
+	&__time{
+		font-size: 1.1rem;
+		font-family: $nexa-light;
+
+	}
+	&__edit, &__detail{
+		background-color: $bright-blue;
+		color: white;
+		border: none;
+		padding: 1rem 2rem;
+		font-family: $nexa-bold;
+	}
+	&__edit_options{
+		background-color: #eee;
+		padding: 1rem;
+		.holiday{
+			display: flex;
+			align-items: center;
+			grid-gap: .5rem;
+			label{
+				font-family: $nexa-bold;
+				font-size: 1.3rem;
+			}
+		}
+	}
+	&__sub_slots{
+		background-color: #eee;
+		padding: 1.5rem;
+		#disableSlots{
+			background-color: $bright-blue;
+			color: white;
+			border: none;
+			padding: 1rem 2rem;
+			font-family: $nexa-bold;
+		}
+		.time-slots{
+			display: flex;
+			align-items: center;
+			grid-gap: .5rem;
+			flex-wrap: wrap;
+			grid-gap: 1rem;
+			margin: 1rem 0rem;
+			.slot{
+				display: block;
+				border-radius: .5rem;
+				
+				padding: .7rem;
+				font-family: $nexa-bold;
+				color: $bright-blue;
+			}	
+		}
+	}
+}

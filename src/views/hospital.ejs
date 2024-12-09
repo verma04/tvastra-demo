@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJBel8D54gkYQEMff_sEQQwiBvrJpK7Yo&libraries=places"></script>
+	<meta charset="UTF-8">
+	<title>Hospital</title>
+	<%- include('partials/head.ejs') %>
+	<!-- <link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ --></head>
+<body>
+	<header>
+		<%- include('partials/header.ejs') %>
+	</header>
+	<section class="page_desc page_desc--hospital">
+		<div class="container page_desc__container">
+			<h1 class="page_desc__container__heading">
+				Hospitals in <span>Delhi</span>
+			</h1>
+		</div>
+	</section>
+	<div class="breadcrumb">
+		<div class="breadcrumb__container">
+			<p class="breadcrumb__text">Home / Hospital List</p>
+			<select class="breadcrumb__sort">
+				<option value="" selected>Sort By</option>
+				<option value="name">Name</option>
+				<option value="name">No. Of Beds</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="hospital_list">
+		<div class="grid hospital_list__container">
+			<div class="grid hospital_list__container__col-1">
+				<div class="grid doctor_list__container__col-1__filter doctor_list__container__col-1__filter-by">
+					<div class="doctor_list__container__col-1__filter-by__title">
+						<p>Filter By</p>
+					</div>
+					<div class="doctor_list__container__col-1__filter-by__tags" id="doctor_list__container__col-1__filter-by__tags">
+						
+					</div>
+				</div>
+				<div class="grid hospital_list__container__col-1__filter hospital_list__container__col-1__filter-1">
+					<p class="hospital_list__container__col-1__filter__title">Location</p>
+					<span class="hospital_list__container__col-1__filter__search"><i class="fas fa-search"></i></span>
+					<span class="hospital_list__container__col-1__filter__collapse"><i class="fas fa-minus"></i></span>
+					<div class="hospital_list__container__col-1__filter__options">
+						<label class="checkbox_container" for="DLF Cyber City"><input onclick="add(this)" id="DLF Cyber City" value="DLF Cyber City" type="checkbox" name="location">DLF Cyber City</label>
+						<label class="checkbox_container" for="Dwarka"><input onclick="add(this)" id="Dwarka" value="Dwarka" type="checkbox" name="location">Dwarka</label>
+						<label class="checkbox_container" for="Lajpat Nagar"><input onclick="add(this)" id="Lajpat Nagar" value="Lajpat Nagar" type="checkbox" name="location">Lajpat Nagar</label>
+						<label class="checkbox_container" for="Palam Vihar"><input onclick="add(this)" id="Palam Vihar" value="Palam Vihar" type="checkbox" name="location">Palam Vihar</label>
+						<label class="checkbox_container" for="Punjabi Bhag"><input onclick="add(this)" id="Punjabi Bhag" value="Punjabi Bhag" type="checkbox" name="location">Punjabi Bhag</label>
+						<label class="checkbox_container" for="Pusa Road"><input onclick="add(this)" id="Pusa Road" value="Pusa Road" type="checkbox" name="location">Pusa Road</label>
+					</div>
+					<div class="hospital_list__container__col-1__filter__show_more"><span><i class="fas fa-plus"></i></span>Show More</div>
+				</div>
+				<div class="grid hospital_list__container__col-1__filter hospital_list__container__col-1__filter-2">
+					<p class="hospital_list__container__col-1__filter__title">Treatment</p>
+					<span class="hospital_list__container__col-1__filter__search"><i class="fas fa-search"></i></span>
+					<span class="hospital_list__container__col-1__filter__collapse"><i class="fas fa-minus"></i></span>
+					<div class="hospital_list__container__col-1__filter__options">
+						<label class="checkbox_container" for="Multi Organ Transplant"><input onclick="add(this)" id="Multi Organ Transplant" value="Multi Organ Transplant" type="checkbox" name="treatment">Multi Organ Transplant</label>
+						<label class="checkbox_container" for="Orthopedic Surgery"><input onclick="add(this)" id="Orthopedic Surgery" value="Orthopedic Surgery" type="checkbox" name="treatment">Orthopedic Surgery</label>
+						<label class="checkbox_container" for="Infertility Treatment"><input onclick="add(this)" id="Infertility Treatment" value="Infertility Treatment" type="checkbox" name="treatment">Infertility Treatment</label>
+						<label class="checkbox_container" for="Dentistry"><input onclick="add(this)" id="Dentistry" value="Dentistry" type="checkbox" name="treatment">Dentistry</label>
+						<label class="checkbox_container" for="Cardiology"><input onclick="add(this)" id="Cardiology" value="Cardiology" type="checkbox" name="treatment">Cardiology</label>
+						<label class="checkbox_container" for="Cancer"><input onclick="add(this)" id="Cancer" value="Cancer" type="checkbox" name="treatment">Cancer</label>
+					</div>
+					<div class="hospital_list__container__col-1__filter__show_more"><span><i class="fas fa-plus"></i></span> Show More</div>
+				</div>
+				<div class="grid hospital_list__container__col-1__filter hospital_list__container__col-1__filter-3">
+					<p class="hospital_list__container__col-1__filter__title">Hospitals</p>
+					<span class="hospital_list__container__col-1__filter__search"><i class="fas fa-search"></i></span>
+					<span class="hospital_list__container__col-1__filter__collapse"><i class="fas fa-minus"></i></span>
+					<div class="hospital_list__container__col-1__filter__options">
+						<label for="Apollo "><input id="" value="" type="checkbox" name="DLF">Apollo Hospital</label>
+						<label for="DLF"><input id="" value="" type="checkbox" name="DLF">Manipal North Side Hospital</label>
+						<label for="DLF"><input id="" value="" type="checkbox" name="DLF">Northstar</label>
+						<label for="DLF"><input id="" value="" type="checkbox" name="DLF">AIIMS</label>
+						<label for="DLF"><input id="" value="" type="checkbox" name="DLF">Fortis Hospital</label>
+						<label for="DLF"><input type="checkbox" name="DLF">Elbit Diagnostics</label>
+					</div>
+					<div class="hospital_list__container__col-1__filter__show_more"><span><i class="fas fa-plus"></i></span> Show More</div>
+				</div>
+				<div class="grid hospital_list__container__col-1__filter hospital_list__container__col-1__filter-4">
+					<p class="hospital_list__container__col-1__filter__title">No Of Beds</p>
+					<span class="hospital_list__container__col-1__filter__search"><i class="fas fa-search"></i></span>
+					<span class="hospital_list__container__col-1__filter__collapse"><i class="fas fa-minus"></i></span>
+					<div class="hospital_list__container__col-1__filter__options">
+						<label class="checkbox_container" for="30"><input onclick="add(this)" id="30" value="30" type="checkbox" name="beds">30+</label>
+						<label class="checkbox_container" for="25"><input onclick="add(this)" id="25" value="25" type="checkbox" name="beds">25+</label>
+						<label class="checkbox_container" for="20"><input onclick="add(this)" id="20" value="20" type="checkbox" name="beds">20+</label>
+						<label class="checkbox_container" for="15"><input onclick="add(this)" id="15" value="15" type="checkbox" name="beds">15+</label>
+						<label class="checkbox_container" for="10"><input onclick="add(this)" id="10" value="10" type="checkbox" name="beds">10+</label>
+						<label class="checkbox_container" for="5"><input onclick="add(this)" id="5" value="5" type="checkbox" name="beds">5+</label>
+					</div>
+					<div class="hospital_list__container__col-1__filter__show_more"><span><i class="fas fa-plus"></i></span> Show More</div>
+				</div>
+			</div>
+
+			<div class="grid hospital_list__container__col-2">
+				<% for(let i = 0; i < hospitals.length; i++) { %>
+				<div class="grid hospital_list__container__col-2__card">
+					<div class="grid hospital_list__container__col-2__card__name">
+						<h3><%= hospitals[i].name %></h3>
+					</div>
+					<div class="hospital_list__container__col-2__card__other_details">
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-map-marker-alt"></i></span><%= hospitals[i].address %></p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-2"><span><i class="fas fa-bed"></i></span><%= hospitals[i].noOfBeds %> beds</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__experience"><span><i class="fas fa-stethoscope"></i></span>Famous Treatments</p>
+						<div class="hospital_list__container__col-2__card__other_details__tags">
+							<% for(let j = 0; j < hospitals[i].specializations.length; j++){ %>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag"><%= hospitals[i].specializations[j] %></span>
+							<% } %>
+						</div>
+					</div>
+					<button class="hospital_list__container__col-2__card__book">Call Now</button>
+					<div class="hospital_list__container__col-2__card__hospital_img_wrapper">
+						<img src="<%= hospitals[i].display_picture %>" alt="" class="hospital_list__container__col-2__card__hospital_img_wrapper__img">	
+					</div>
+				</div>
+				<% } %>
+				<!-- <div class="grid hospital_list__container__col-2__card">
+					<div class="grid hospital_list__container__col-2__card__name">
+						<h3>Apollo Hospital</h3>
+					</div>
+					<div class="hospital_list__container__col-2__card__other_details">
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-map-marker-alt"></i></span>Delhi Mathura Road, Sarita Vihar, Delhi 110076</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-2"><span><i class="fas fa-bed"></i></span>100 beds</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__experience"><span><i class="fas fa-stethoscope"></i></span>Famous Treatments</p>
+						<div class="hospital_list__container__col-2__card__other_details__tags">
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Multi Organ Transplant</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Orthopedic Surgery</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Infertility Treatment</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Dentistry</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Cardiology</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Cancer</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">40+ more</span>
+						</div>
+					</div>
+					<button class="hospital_list__container__col-2__card__book">Call Now</button>
+					<div class="hospital_list__container__col-2__card__hospital_img_wrapper">
+						<img src="https://www.evaluate.com/sites/default/files/Belvoir%20Community%20Hospital.jpg" alt="" class="hospital_list__container__col-2__card__hospital_img_wrapper__img">	
+					</div>
+				</div>
+				<div class="grid hospital_list__container__col-2__card">
+					<div class="grid hospital_list__container__col-2__card__name">
+						<h3>Fortis Hospital</h3>
+					</div>
+					<div class="hospital_list__container__col-2__card__other_details">
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-map-marker-alt"></i></span>Delhi Mathura Road, Sarita Vihar, Delhi 110076</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-2"><span><i class="fas fa-bed"></i></span>100 beds</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__experience"><span><i class="fas fa-stethoscope"></i></span>Famous Treatments</p>
+						<div class="hospital_list__container__col-2__card__other_details__tags">
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Multi Organ Transplant</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Orthopedic Surgery</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Infertility Treatment</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Dentistry</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Cardiology</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Cancer</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">40+ more</span>
+						</div>
+					</div>
+					<button class="hospital_list__container__col-2__card__book">Call Now</button>
+					<div class="hospital_list__container__col-2__card__hospital_img_wrapper">
+						<img src="https://www.jems.com/wp-content/uploads/sites/12/2020/02/Baptist-Hospital-Google-Maps-850x567.jpg" alt="" class="hospital_list__container__col-2__card__hospital_img_wrapper__img">
+					</div>
+				</div>
+				<div class="grid hospital_list__container__col-2__card">
+					<div class="grid hospital_list__container__col-2__card__name">
+						<h3>Rockland Hospital</h3>
+					</div>
+					<div class="hospital_list__container__col-2__card__other_details">
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-map-marker-alt"></i></span>Delhi Mathura Road, Sarita Vihar, Delhi 110076</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-2"><span><i class="fas fa-bed"></i></span>20 beds</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__experience"><span><i class="fas fa-stethoscope"></i></span>Famous Treatments</p>
+						<div class="hospital_list__container__col-2__card__other_details__tags">
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Multi Organ Transplant</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Orthopedic Surgery</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Infertility Treatment</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Dentistry</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Cardiology</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Cancer</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">40+ more</span>
+						</div>
+					</div>
+					<button class="hospital_list__container__col-2__card__book">Call Now</button>
+					<div class="hospital_list__container__col-2__card__hospital_img_wrapper">
+						<img src="https://www.narayanahealth.org/sites/default/files/hospitals/narayana-multispeciality-hospital-ahmedabad.jpg" alt="" class="hospital_list__container__col-2__card__hospital_img_wrapper__img">
+					</div>
+				</div>
+				<div class="grid hospital_list__container__col-2__card">
+					<div class="grid hospital_list__container__col-2__card__name">
+						<h3>Prmius Super Speciality Hospital</h3>
+					</div>
+					<div class="hospital_list__container__col-2__card__other_details">
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-1"><span><i class="fas fa-map-marker-alt"></i></span>Delhi Mathura Road, Sarita Vihar, Delhi 110076</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__achievement-2"><span><i class="fas fa-bed"></i></span>60 beds</p>
+						<p class="hospital_list__container__col-2__card__other_details__para hospital_list__container__col-2__card__other_details__experience"><span><i class="fas fa-stethoscope"></i></span>Famous Treatments</p>
+						<div class="hospital_list__container__col-2__card__other_details__tags">
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Multi Organ Transplant</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Orthopedic Surgery</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Infertility Treatment</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Dentistry</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Cardiology</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">Cancer</span>
+							<span class="hospital_list__container__col-2__card__other_details__tags__tag">40+ more</span>
+						</div>
+					</div>
+					<button class="hospital_list__container__col-2__card__book">Call Now</button>
+					<div class="hospital_list__container__col-2__card__hospital_img_wrapper">
+						<img src="https://thumbs.dreamstime.com/b/ambulance-parked-outside-hospital-ford-truck-robert-wood-johnson-university-new-brunswick-nj-plum-street-122302435.jpg" alt="" class="hospital_list__container__col-2__card__hospital_img_wrapper__img">
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="help">
+		<%- include('partials/help.ejs') %>
+	</div>
+	<footer class="footer">
+		<%- include('partials/footer.ejs') %> 
+	</footer>
+	<div class="border">
+	</div>
+	<script>
+		 let url = window.location.search;
+		  console.log(url);
+		  url = url.split('%20').join(' ');
+		  const checkboxes = document.getElementsByClassName('checkbox_container');
+		  // console.log(checkboxes);
+
+		  console.log(url);
+		  [...checkboxes].forEach(checkbox => {
+		    if (url.indexOf(checkbox.firstChild.getAttribute('value')) > -1) {
+		      checkbox.firstChild.checked = true;
+		      document.getElementById("doctor_list__container__col-1__filter-by__tags").innerHTML +=
+		        `<div class='filter_button'>
+		        <p>${checkbox.firstChild.getAttribute('value')}</p>
+		        <button 
+		          name='${checkbox.firstChild.getAttribute('name')}'
+		          value='${checkbox.firstChild.getAttribute('value')}' 
+		          onclick='remove(this)'
+		        >
+		          <i class='fa fa-times'></i>
+		        </button>
+		      </div>`;
+		    }
+		  });
+
+
+		function add(some) {
+		    let newUrl = window.location.href;
+		    console.log(some.checked);
+		    if (some.checked) {
+		      //add query
+		      if (newUrl.indexOf('?') == -1) {
+		        newUrl += `?${some.getAttribute('name')}=${some.getAttribute('value')}`;
+		      }
+		      else {
+		        newUrl += `&${some.getAttribute('name')}=${some.getAttribute('value')}`
+		      }
+		    }
+		    else {
+		      //remove query
+		      newUrl = newUrl.split('%20').join(' ');
+		      const query = `${some.getAttribute('name')}=${some.getAttribute('value')}`;
+		      const inx = newUrl.indexOf(query);
+		      if (newUrl.indexOf(`${some.getAttribute('name')}=${some.getAttribute('value')}`) > -1) {
+		        if (newUrl[inx - 1] === '&') {
+		          newUrl = newUrl.replace('&' + query, '');
+		        }
+		        else {
+		          newUrl = newUrl.replace(query, '');
+		        }
+		      }
+		    }
+		    window.location.href = newUrl; //this line will redirect to new location
+		}
+		function remove(ele) {
+		    let newUrl = window.location.href;
+		    newUrl = newUrl.split('%20').join(' ');
+		    const query = `${ele.getAttribute('name')}=${ele.getAttribute('value')}`;
+		    const inx = newUrl.indexOf(query);
+		    if (newUrl.indexOf(`${ele.getAttribute('name')}=${ele.getAttribute('value')}`) > -1) {
+		      if (newUrl[inx - 1] === '&') {
+		        newUrl = newUrl.replace('&' + query, '');
+		      }
+		      else {
+		        newUrl = newUrl.replace(query, '');
+		      }
+		      window.location.href = newUrl; //this line will redirect to new location
+		    }
+		}
+
+	</script>
+	<script type="text/javascript" src="index.js"></script>
+</body>
+</html>

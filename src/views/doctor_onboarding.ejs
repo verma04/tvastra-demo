@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Doctor Onboarding</title>
+		<%- include('partials/head.ejs') %>
+		<link rel="stylesheet" href="./../css/tagify.css">
+	</head>
+	<body class="onboarding-body">
+		<%- include('partials/header.ejs') %>	
+		<div class="doctor_onboarding_container">
+			<div class="doctor_onboarding_heading_container">
+				<div class="doctor_onboarding_title">
+					<h3 class="heading-3">Congratulations Dr. <%= session.user.name  %></h3>
+				</div>
+				<div class="doctor_onboarding_para">
+					<p class="para-1">You're are just one step away from choosing the world's No.1 Practice Management Software</p>
+				</div>	
+				<div class="doctor_onboarding_image">
+					<!-- <img src="" alt=""> -->
+					<i class="fas fa-user-md"></i>
+				</div>
+			</div>
+			<div class="doctor_onboarding_form_container">
+				<form class="form_container__form doctor_onboarding_form" action="/" method="POST" enctype="multipart/form-data">
+					<div class="form_container__form__input_field form_container__form__input_field--onboarding">
+						<label for="description">Describe Yourself</label>
+						<textarea name="description" id="doctor_description" cols="30" rows="7" placeholder="Describe yourself" required></textarea>
+					</div>
+					<div class="upload_display_picture_container form_container__form__input_field--onboarding">
+						<label for="display_picture">Upload Your Profile Photo</label>
+						<input type="file" name="display_picture" accept="image/*" id="display_picture" class="display_picture_input" required>	
+					</div>
+					<div class="form_container__form__input_field form_container__form__input_field--onboarding">
+						<label for="achievements">Achievements</label>
+						<input type="text" name="achievements" class="achievements_input" placeholder="Enter your achievements" value="" required>
+					</div>
+					<div class="form_container__form__input_field form_container__form__input_field--onboarding">
+						<label for="experience">Years Of Experience</label>
+						<input type="number" name="experience" class="form_container__form__phone_number" placeholder="Enter your years of experience" value="" required>
+					</div>
+					<div class="form_container__form__input_field form_container__form__input_field--onboarding">
+						<label for="qualifications">Qualifications</label>
+						<input type="text" name="qualifications" class="qualifications_input" placeholder="Enter your qualifications" value="" required>
+					</div>
+					<div class="form_container__form__input_field form_container__form__input_field--onboarding">
+						<label for="awards">Awards (if any)</label>
+						<input type="text" name="awards" class="awards_input" placeholder="Enter Awards (if any)" value="">
+					</div>
+					<div class="form_container__form__input_field form_container__form__input_field--onboarding">
+						<label for="specializations">Specializations</label>
+						<input type="text" name="specializations" class="specializations_input" placeholder="Enter Specializaion" value="" required>
+					</div>
+					<div class="form_container__form__input_field form_container__form__input_field--onboarding">
+						<label for="averageFees">Average Fees</label>
+						<input type="number" name="averageFees" class="form_container__form__phone_number" placeholder="Enter your average fees" value="" required>
+					</div>
+					<div class="form_container__form__input_field form_container__form__input_field--add-doctors">
+						<label for="hospitalList">Hospitals</label>
+						<input type="text" name="hospitalList" class="hospital_list_input" placeholder="Enter Hospitals" value="">
+					</div>
+					<button type="submit" class="form_container__form__submit">
+						<span class="form_container__form__submit__text">Submit</span>
+						<span class="form_container__form__submit__icon"><i class="fas fa-arrow-right"></i></span>
+					</button>
+				</form>
+			</div>
+		</div>
+
+
+		<script src="./../tagify.js"></script>
+		<script>
+			const hospitalWhitelist = [];
+			const fetchHospitals = async () => {
+				const hospitals = await fetch('/autoCompleteHospital', {
+					method: 'GET'
+				});
+				const hospitalData = await hospitals.json();
+				console.log(hospitalData);
+				hospitalData.data.forEach(el => {
+					hospitalWhitelist.push(el.name);
+				})
+			}
+			fetchHospitals();
+			console.log(hospitalWhitelist);
+			const specializationsInput = document.querySelector('.specializations_input');
+			const specializationsTagify = new Tagify(specializationsInput, {
+				enforceWhitelist: true,
+				whitelist: ['Family Physician', 'Internal Medicine Physician', 'Pediatrician', 'Obstetrician', 'Gynecologist', 'Surgeon', 'Psychiatrist', 'Cardiologist', 'Dermatologist', 'Endocrinologist', 'Gastroenterologist', 'Infectious Disease Physician', 'Nephrologist', 'Ophthalmologist', 'Otolaryngologist', 'Pulmonologist', 'Neurologist', 'Physician Executive', 'Radiologist', 'Anesthesiologist', 'Oncologist']
+			});
+			const achievements = document.querySelector('.achievements_input');
+			const achievmentsTagify = new Tagify(achievements);
+			const qualifications = document.querySelector('.qualifications_input');
+			const qualificationsTagify = new Tagify(qualifications);
+			const awards = document.querySelector('.awards_input');
+			const awardsTagify = new Tagify(awards);
+			const hospitalInput = document.querySelector('.hospital_list_input');
+			const hospitalInputTagify = new Tagify(hospitalInput, {
+				whitelist: hospitalWhitelist,
+				enforceWhitelist: false
+			});
+
+			const slot_duration = document.querySelector('input[name="slotDuration"]');
+			const slotTagify = new Tagify(slot_duration, {
+				whitelist: ['60 Mins', '45 Mins', '30 Mins', '15 Mins'],
+				mode: 'select',
+				dropdown: {
+					className: 'color-blue',
+					enabled: 1,
+					maxItems: 4,
+					position: 'text',
+					closeOnSelect: true,
+					highlightFirst: true 
+				}
+			});
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,649 @@
+.page_desc{
+		display: block;
+		height: 25rem;
+		background-size: cover;
+		&--doctor{
+			background-image: linear-gradient(to bottom, rgba($light-blue,.9), rgba($light-blue,.9)), url('https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Doctors.png');
+		}
+		&--hospital{
+			background-image: linear-gradient(to bottom, rgba($light-blue,.9), rgba($light-blue,.9)), url('https://www.itl.cat/pngfile/big/143-1437950_hallway-of-a-hospital.jpg');
+		}
+		&__container{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center; 
+			&__heading{
+				font-family: $nexa-light;
+				font-size: 3rem;
+				color: $dark-blue;
+				text-align: center;
+				line-height: 4rem;
+				span{
+					text-decoration: underline;
+					font-family: $nexa-bold;
+				}
+			}
+		}
+
+	}
+
+.breadcrumb{
+	&__container{
+		@include container-styling-mobile;
+		@include flex(row);
+		justify-content: space-between;
+	}
+	&__text{
+			font-family: $nexa-bold;
+			font-size: 1.5rem;
+			padding: 1.5rem 0rem;
+	}
+	&__sort{
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			font-size: 1.2rem;
+			padding: 1.5rem;
+			padding-right: 3rem;
+			border: none;
+			background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') no-repeat, #ddd;
+			background-size: 1rem;
+			background-position-x: 83%;
+			background-position-y: 50%;
+			font-family: $nexa-bold;
+	}
+}
+
+.doctor_list, .hospital_list{
+	&__container{
+		@include container-styling-mobile;
+		&__col-1{
+			display: none;
+		}
+		&__col-2{
+			grid-template-columns: 100%;
+			grid-row-gap: 1rem; 
+			height: min-content;
+			.no-result{
+				font-family: $nexa-bold;
+				color: $bright-blue;
+				text-align: center;
+			}
+			&__card{
+				display: grid;
+				border: .1rem solid #bbb;
+				overflow: hidden;
+				height: min-content;
+				&__name{
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+					position: relative;
+					font-family: $nexa-bold;
+					i{
+						font-size: 1.5rem;
+						color: #777;
+						margin-right: 1rem;
+					}
+					h3{
+						color: $bright-blue;
+						font-size: 2rem;
+						line-height: 3rem;
+						margin: 1rem 0rem;
+						padding-left: 5rem; 	
+					}
+					.doctor_menu_container{
+						position: absolute;
+						background-color: $background-color;
+						right: 1rem;
+						top: 4rem;
+						.doctor_menu{
+							display: flex;
+							border: 1px solid $bright-blue;
+							padding: 1rem;
+							flex-direction: column;
+							grid-gap: 1rem;
+							justify-content: flex-end;
+							a{
+								text-decoration: none;
+								color: $dark-blue;
+							}
+							&_item{
+								text-align: right;
+								font-size: 1.2rem;
+							}
+						}
+					}
+					&:before{
+						content: '';
+						display: inline;
+						position: absolute;
+						width: 4rem;
+						background-color: $bright-blue;
+						left: 0%;
+						bottom: 50%;
+						height: .2rem; 
+					}
+				}
+				&__other_details{
+					padding: 1rem;
+					&__para{
+						list-style-type: none;
+						font-family: $nexa-light;
+						font-size: 1.3rem;
+						span{
+							margin-right: 1rem;
+							img{
+								@include maintain-aspect-ratio(2rem);
+							}
+							i{
+								color: $bright-blue;
+								font-size: 2rem;
+								line-height: 3rem;
+							}
+						}
+					}
+				}
+				&__book{
+					font-family: $nexa-bold;
+					align-self: center;
+					margin-bottom: 1rem;
+					border: none;
+					background-color: $dark-blue;
+					color: white;
+					font-size: 1.5rem;
+					padding: 1rem 3rem;
+					margin-top: 1rem;
+					margin: 1rem calc(25%);
+				}
+				&__doctor_img_wrapper{
+					width: 100%;
+					height: 40rem;
+					&__img{
+						width: 100%;
+						height: 100%;
+					}
+				}
+				.time_slot--reschedule{
+					display: block;
+				}
+				&__time_slot{
+					display: none;
+					flex-direction: column;
+					grid-gap: 1rem;
+					padding: 1rem 4rem;
+					border-top: 1px solid #ccc;
+					grid-column: 1/-1;
+					h4{
+						font-family: $nexa-bold;
+						color: $bright-blue;
+					}
+					.legend{
+						display: flex;
+						flex-wrap: wrap;
+						grid-gap: 2.5rem;
+						&-item{
+							font-family: $nexa-bold;
+							position: relative;
+							color: $bright-blue;
+							&::before{
+								content: '';
+								display: block;
+								position: relative;
+								left: -1.5rem;
+								top: 50%;
+								width: 1rem;
+								height: 1rem;
+								background-color: $bright-blue;
+							}
+							&-red{
+								color: red;
+								&::before{
+									content: '';
+									background-color: red;
+								}
+							}
+							&-purple{
+								color: purple;
+								&::before{
+									content: '';
+									background-color: purple;
+								}
+							}
+							&-green{
+								color: green;
+								&::before{
+									content: '';
+									background-color: green;
+								}
+							}
+						}
+					}
+					.time-slots-header{
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						grid-gap: 2rem;
+						margin-bottom: 1rem;
+						justify-content: space-between;
+						align-items: center;
+						&-controls{
+							width: 3rem;
+							height: 3rem;
+							border: 1px solid #777;
+							border-radius: 50%;
+							position: relative;
+							i{
+								position: relative;
+								left: 50%;
+								top: 50%;
+								transform: translate(-50%, -50%);
+								font-size: 1.5rem;
+								color: $bright-blue;
+							}
+						}
+						.carousel-dates{
+							display: flex;
+							flex-direction: row;
+							justify-content: space-between;
+							width: 100%;
+							overflow: hidden;
+							.date-heading{
+								display: flex;
+								flex-direction: column;
+								justify-content: center;
+								grid-gap: 1rem;
+								padding: 1rem 0rem;
+								border-bottom: 2px solid #ccc;
+								flex-basis: 33%;
+								min-width: 33%;
+								.day-date{
+									text-align: center;
+									color: #777;
+									font-family: $nexa-bold;
+								}
+								.day-slots-available{
+									text-align: center;
+									color: green;
+									font-family: $nexa-bold;
+								}
+								&--active{
+									border-bottom: 2px solid $bright-blue;
+									.day-date{
+										color: $bright-blue;
+									}
+								}
+							}
+						}
+					}
+					.time-slots-container{
+						display: flex;
+						justify-content: flex-start;
+						overflow: hidden;
+					}
+					.time-slots{
+						flex-basis: 100%;
+						min-width: 100%;
+						display: flex;
+						flex-wrap: wrap;
+						grid-gap: .5rem;
+						
+						.time-slot-day-wise{
+							min-width: 100%;
+							flex-basis: 100%;
+							display: flex;
+							flex-wrap: wrap;
+							grid-row-gap: 1rem;
+						}
+
+						.time-slot{
+							&-morning{
+								display: flex;
+								flex-direction: row;
+								// grid-gap: 2rem;
+								min-width: 100%;
+								flex-basis: 100%;
+								.time-slot-day-wise-heading{
+									display: flex;
+									grid-gap: .5rem;
+									align-items: center;
+									i{
+										font-size: 1.3rem;
+										color: $bright-blue;
+									}
+								}
+
+								.time-slot-day-wise-slots{
+									height: 100%;
+									display: flex;
+									align-items: center;
+									flex-wrap: wrap;
+									.slot{
+										display: inline;
+										line-height: 2rem;
+										border-radius: .5rem;
+										border: 1px solid $bright-blue;
+										padding: .7rem;
+										font-family: $nexa-bold;
+										color: $bright-blue;
+										max-height: 3.5rem;
+										&-red{
+											border: 1px solid red;
+											color: red;
+										}
+										&-purple{
+											border: 1px solid purple;
+											color: purple;
+										}
+										&-green{
+											border: 1px solid green;
+											color: green;
+										}
+									}	
+								}
+							}
+						}
+
+
+						
+					}
+				}
+			}
+		}
+	}
+}
+ 
+
+@media (min-width: $bp-tablet){
+	.page_desc{
+		&__container{
+			padding: 2rem 3rem;
+		}
+	}
+	.breadcrumb{
+		&__container{
+			@include container-styling-tablet;
+		}
+	}
+	
+	.doctor_list, .hospital_list{
+		height: 195rem;
+		&__container{
+			@include container-styling-tablet;
+			padding: 2rem 3rem;
+			grid-template-columns: 3fr 7fr;
+			grid-column-gap: 1rem;
+			&__col-1{
+				display: block;
+				grid-template-columns: 100%;
+				&__filter{
+					grid-template-columns: repeat(5,2fr);
+					grid-template-rows: 1fr 2fr 1fr;
+					align-items: center;
+					border-bottom: .1rem solid #bbb;
+					// height: 25rem;
+					height: auto;
+					font-family: $nexa-light;
+					&:last-child{
+						border-bottom: none;
+						margin-top: 1.5rem;
+					}
+					&-by{
+						display: none;
+					}
+					&__title{
+						grid-column: 1/4;
+						grid-row: 1/2; 
+						font-size: 1.7rem;
+						line-height: 2rem;
+					}
+					&__search{
+						grid-column: 4/5;
+						grid-row: 1/2;
+						justify-self: end;
+						align-self: center;
+						font-size: 1.2rem;
+						color: $bright-blue;
+					}
+					&__collapse{
+						grid-column: 5/6;
+						grid-row: 1/2;
+						justify-self: end;
+						align-self: center;
+						font-size: 1rem;
+					}
+					&__options{
+						grid-column: 1/6;
+						grid-row: 2/3;
+						display: grid;
+						align-self: start;
+						grid-gap: .5rem;
+						grid-template-columns: 100%;
+						label{
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							align-self: center;
+							input{
+								margin-right: 1rem;
+							}
+						}
+					}
+					&__show_more{
+						color: $bright-blue;
+						grid-column: 1/6;
+						grid-row: 3/4;
+						font-size: 1.3rem;
+						margin-bottom: 0rem;
+						align-self: center;
+						font-family: $nexa-bold;
+						.fa-plus{
+							margin-right: 1rem;
+						}
+					}
+				}
+			}
+			&__col-2{
+				&__card{
+					grid-template-columns: 6fr 4fr;
+					&__name{
+						display: flex;
+						/* padding: 0rem 1rem; */
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-between;
+						grid-column: 1/2;
+						grid-row: 1/2;
+						i{
+							font-size: 1.5rem;
+							color: #777;
+							margin-right: 2rem;
+						}
+						h3{
+							font-size: 1.7rem;
+							span{
+								i{
+									color: green;
+								}
+							}
+						}
+						&:before{
+							top:47%;
+						}
+						.doctor_menu_container{
+							right: 2rem;
+						}
+					}
+					&__other_details{
+						&__para{
+							display: grid;
+							grid-template-columns: 1fr 4fr;
+							align-items: center;
+							font-size: 1.2rem;
+							line-height: 1.5rem;
+						}
+						grid-column: 1/2;
+						grid-row: 2/3;
+						display: grid;
+						grid-template-columns: 1fr 1fr;
+					}
+					&__book{
+						grid-column: 1/2;
+						grid-row: 3/4;
+						align-self: start;
+						justify-self: start;
+						margin: 1rem;
+					}
+					&__doctor_img_wrapper{
+					width: 100%;
+					height: 26rem;
+					grid-row: 1/-1;
+					grid-column: 2/3;
+					&__img{
+						width: 100%;
+						height: 100%;
+					}
+					
+					}
+				}
+			}
+		}
+	}
+
+}
+
+@media (min-width: $bp-desktop){
+	.page_desc{
+		display: block;
+		height: 25rem;
+		background-size: cover;
+		&__container{
+			justify-content: start;
+			padding: 3rem 10rem;
+		}
+
+	}
+
+	.breadcrumb{
+		&__container{
+			padding: 3rem 10rem 0rem;
+		}
+	}
+
+	.doctor_list, .hospital_list{
+		&__container{
+			@include container-styling-desktop;
+			grid-template-columns: 3fr 10fr;
+			grid-column-gap: 4rem;
+			&__col-1{
+				&__filter{
+					& > span{
+						padding-left: 0;
+					}
+					& > *{
+						padding-left: 1.5rem;
+					}
+					&-by{
+						height: auto;
+						display: block;
+						border-bottom: none;
+						&__title{
+							background-color: #ddd;
+							padding-left: 1.5rem;
+							p{
+								font-family: $nexa-bold;
+								font-size: 1.5rem;
+								line-height: 3.4rem;
+								color: $dark-blue; 
+							}
+						}
+						&__tags{
+							margin-top: 1rem;
+							padding-left: 1.5rem;
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							grid-gap: .5rem;
+							.filter_button{
+								border: 1px solid $bright-blue;
+								border-radius: 1rem;
+								padding: .5rem;
+								display: inline;
+								// line-height: 3rem;
+								white-space: nowrap;
+								p{
+									font-size: 1rem;
+									font-family: $nexa-bold;
+									color: $bright-blue;
+									display: inline-block;
+								}
+								button{
+									background-color: $bright-blue;
+									border: none;
+									border-radius: 50%;
+									width: 1.5rem;
+									position: relative;
+									// top: .2rem;
+									i{
+										position: relative;
+										transform: translateX(-50%);
+										color: $background-color;
+										font-size: 1.25rem;
+									}
+								}
+							}
+							&__tag{
+								position: relative;
+								font-size: 1rem;
+								line-height: 3rem;
+								padding: .5rem 3rem .5rem 1rem;
+								border: 1px solid #aaa;
+								border-radius: 1rem;
+								font-family: $nexa-light;
+								white-space: nowrap; 
+								i{
+									position: absolute;
+									right: 10%;
+									top: 23%;
+									font-size: 1rem;
+									color: $bright-blue;
+									 
+								}
+							}
+						}
+					}
+				}
+			}
+			&__col-2{
+				&__card{
+					&__name{
+						a{
+							text-decoration: none;
+						}
+						h3{
+							font-size: 2rem;
+							padding-left: 4rem;
+						}
+						&:before{
+							top: 47%;
+							width: 3rem;
+						}
+					}
+					&__other_details{
+						padding: 1rem 4rem;
+						&__para{
+							display: inline;
+							font-size: 1.5rem;
+							line-height: 1.7rem;
+						}
+					}
+					&__book{
+						margin: 3rem 4rem 4rem;
+					}
+					grid-template-columns: 10fr 4fr;
+				}
+			}
+		}
+	}
+}
